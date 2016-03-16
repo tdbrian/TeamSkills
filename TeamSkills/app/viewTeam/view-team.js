@@ -11,27 +11,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var ManageSkills;
+    var ViewTeam;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            ManageSkills = (function () {
-                function ManageSkills() {
+            ViewTeam = (function () {
+                function ViewTeam() {
                 }
-                ManageSkills = __decorate([
+                ViewTeam = __decorate([
                     core_1.Component({
-                        selector: 'manageSkills',
-                        templateUrl: 'app/manageSkills/manageSkills.html'
+                        selector: 'view-team',
+                        templateUrl: 'app/viewTeam/view-team.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], ManageSkills);
-                return ManageSkills;
+                ], ViewTeam);
+                return ViewTeam;
             }());
-            exports_1("ManageSkills", ManageSkills);
+            exports_1("ViewTeam", ViewTeam);
         }
     }
 });
-//# sourceMappingURL=manageSkills.js.map
+//# sourceMappingURL=view-team.js.map

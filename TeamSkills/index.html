@@ -1,31 +1,37 @@
 ﻿<html>
 <head>
-    <title>Angular 2 Visual Studio Seed</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="Content/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Content/css/bootstrap-theme.min.css">
+	<!-- base tag is for angular 2 routing-->
+	<base href="/">
+	<title>Angular 2 Visual Studio Seed</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="Content/css/bootstrap.min.css">
+	<link rel="stylesheet" href="Content/css/bootstrap-theme.min.css">
 
-    <!-- 1. Load Scripts -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="Scripts/es6-shim.min.js"></script>
-    <script src="Scripts/system-polyfills.js"></script>
-    <script src="Scripts/shims_for_IE.js"></script>
+	<!-- 1. Load Scripts -->
+	<!-- IE required polyfills, in this exact order -->
+	<script src="Scripts/es6-shim.min.js"></script>
+	<script src="Scripts/system-polyfills.js"></script>
+	<script src="Scripts/shims_for_IE.js"></script>
 
-    <script src="Scripts/angular2-polyfills.js"></script>
-    <script src="Scripts/system.src.js"></script>
-    <script src="Scripts/Rx.js"></script>
-    <script src="Scripts/angular2.dev.js"></script>
+	<script src="Scripts/angular2-polyfills.js"></script>
+	<script src="Scripts/system.src.js"></script>
+	<script src="Scripts/Rx.js"></script>
+	<script src="Scripts/angular2.dev.js"></script>
 	<script src="Scripts/router.dev.js"></script>
 
-    <!-- 2. Configure SystemJS -->
-    <script>
-        System.config({ packages: { app: { defaultExtension: 'js' } } });
-        System.import('app/main').then(null, console.error.bind(console));
-    </script>
+	<!-- 2. Configure SystemJS -->
+	<script>
+		System.config({ packages: { app: { defaultExtension: 'js' } } });
+		System.import('app/main').then(null, console.error.bind(console));
+	</script>
 </head>
 
 <!-- 3. Display the application -->
 <body>
-    <my-app>Loading...</my-app>
+
+<div class="container">
+		<my-app>Loading...</my-app>
+	</div>
+
 </body>
 </html>

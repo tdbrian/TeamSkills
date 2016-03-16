@@ -233,9 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.html" />
-    <Content Include="app\manageSkills\manageSkills.html" />
+    <Content Include="app\manageSkills\manage-skills.html" />
     <Content Include="app\shell\nav.html" />
-    <Content Include="app\viewTeam\viewTeam.html" />
+    <Content Include="app\viewTeam\view-team.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\css\bootstrap-theme.min.css" />
@@ -345,11 +345,10 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\app.ts" />
     <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\manageSkills\manageSkills.ts" />
+    <TypeScriptCompile Include="app\manageSkills\manage-skills.ts" />
     <TypeScriptCompile Include="app\shell\nav.ts" />
-    <TypeScriptCompile Include="app\viewTeam\viewTeam.ts" />
+    <TypeScriptCompile Include="app\viewTeam\view-team.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
