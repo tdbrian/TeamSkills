@@ -14,6 +14,7 @@ System.register(['angular2/platform/browser', 'angular2/router', './app.componen
                 app_component_1 = app_component_1_1;
             }],
         execute: function() {
+            debugger;
             browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS]);
         }
     }

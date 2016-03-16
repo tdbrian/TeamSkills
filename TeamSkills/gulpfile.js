@@ -1,4 +1,5 @@
 ﻿/// <binding AfterBuild='moveNpmToCss, moveNpmToLibs' Clean='clean' />
+/// <reference path="~/Scripts/system.src.js" />
 "use strict";
 
 var gulp = require("gulp"),
