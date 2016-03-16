@@ -11,27 +11,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AppComponent;
+    var ViewTeam;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            ViewTeam = (function () {
+                function ViewTeam() {
                 }
-                AppComponent = __decorate([
+                ViewTeam = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        template: 'app/app.html'
+                        selector: 'viewTeam',
+                        templateUrl: 'app/viewTeam/viewTeam.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], ViewTeam);
+                return ViewTeam;
             }());
-            exports_1("AppComponent", AppComponent);
+            exports_1("ViewTeam", ViewTeam);
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=viewTeam.js.map

@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './manageSkills/manageSkills', './viewTeam/viewTeam', './shell/nav'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,24 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, router_1, manageSkills_1, viewTeam_1, nav_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (manageSkills_1_1) {
+                manageSkills_1 = manageSkills_1_1;
+            },
+            function (viewTeam_1_1) {
+                viewTeam_1 = viewTeam_1_1;
+            },
+            function (nav_1_1) {
+                nav_1 = nav_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -24,8 +36,13 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: 'app/app.html'
-                    }), 
+                        templateUrl: 'app/app.html',
+                        directives: [nav_1.AppNav, router_1.ROUTER_DIRECTIVES]
+                    }),
+                    router_1.RouteConfig([
+                        { path: '/viewTeam', name: 'ViewTeam', component: viewTeam_1.ViewTeam, useAsDefault: true },
+                        { path: '/manageSkills', name: 'ManageSkills', component: manageSkills_1.ManageSkills }
+                    ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
@@ -34,4 +51,4 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=app.js.map
