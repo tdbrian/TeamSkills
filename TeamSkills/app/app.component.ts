@@ -2,8 +2,6 @@
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Home} from './home/home';
-import {ManageSkills} from './manageSkills/manage-skills';
-import {ViewTeam} from './viewTeam/view-team';
 import {AppNav} from './shell/nav';
 
 @Component({
@@ -12,8 +10,6 @@ import {AppNav} from './shell/nav';
     directives: [AppNav, ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-    { path: '/home', name: 'Home', component: Home, useAsDefault: true },
-    { path: '/view-team', name: 'ViewTeam', component: ViewTeam },
-    { path: '/manage-skills', name: 'ManageSkills', component: ManageSkills }
+    { path: '/home', name: 'Home', component: Home, useAsDefault: true }
 ])
 export class AppComponent { }
