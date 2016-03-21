@@ -1,7 +1,7 @@
 # TeamSkills <br/>
 Angular2 Learning / Workshop Project <br/><br/>
 
-To get this project up and running, the following steps may be required: <br/><br/>
+To get this project up and running, the following steps may be required: <br/>
 
 1)  download and install Visual Studio 2015 (needs update 1) <br/>
 2)  clone this repo <br/>
