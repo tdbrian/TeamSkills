@@ -68,12 +68,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.component.js" />
     <Content Include="app\app.html" />
-    <Content Include="app\main.js" />
+    <Content Include="app\manageSkills\manage-skills.html" />
+    <Content Include="app\manageSkills\_components\manage-list.html" />
     <Content Include="app\shell\nav.html" />
-    <Content Include="app\shell\nav.js" />
     <Content Include="app\home\home.html" />
+    <Content Include="app\viewTeam\view-team.html" />
+    <Content Include="app\viewTeam\_components\view-list.html" />
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\site.css" />
@@ -81,9 +82,6 @@
     <Content Include="gulpfile.js" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
-    <Content Include="app\app.component.js.map" />
-    <Content Include="app\main.js.map" />
-    <Content Include="app\shell\nav.js.map" />
     <Content Include="Project_Readme.html" />
     <Content Include="Scripts\angular2-polyfills.js" />
     <Content Include="Scripts\angular2.dev.js" />
@@ -151,8 +149,12 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\manageSkills\manage-skills.ts" />
+    <TypeScriptCompile Include="app\manageSkills\_components\manage-list.ts" />
     <TypeScriptCompile Include="app\shell\nav.ts" />
     <TypeScriptCompile Include="app\home\home.ts" />
+    <TypeScriptCompile Include="app\viewTeam\view-team.ts" />
+    <TypeScriptCompile Include="app\viewTeam\_components\view-list.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

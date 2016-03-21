@@ -1,4 +1,4 @@
-System.register(['angular2/core', './_components/view-list'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,32 +10,28 @@ System.register(['angular2/core', './_components/view-list'], function(exports_1
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, view_list_1;
-    var ViewTeam;
+    var core_1;
+    var ManageList;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (view_list_1_1) {
-                view_list_1 = view_list_1_1;
             }],
         execute: function() {
-            ViewTeam = (function () {
-                function ViewTeam() {
+            ManageList = (function () {
+                function ManageList() {
                 }
-                ViewTeam = __decorate([
+                ManageList = __decorate([
                     core_1.Component({
-                        selector: 'view-team',
-                        templateUrl: 'app/viewTeam/view-team.html',
-                        directives: [view_list_1.ViewList]
+                        selector: 'manage-list',
+                        templateUrl: 'app/manageSkills/_components/manage-list.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], ViewTeam);
-                return ViewTeam;
+                ], ManageList);
+                return ManageList;
             }());
-            exports_1("ViewTeam", ViewTeam);
+            exports_1("ManageList", ManageList);
         }
     }
 });
-//# sourceMappingURL=view-team.js.map
+//# sourceMappingURL=manage-list.js.map
