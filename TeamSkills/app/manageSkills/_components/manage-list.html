@@ -1,23 +1,9 @@
-﻿<h2>Skills</h2>
+﻿<h2>{{list.title}}</h2>
 <div class="list-group">
-	<a href="javascript:{}" class="list-group-item">
+	<a *ngFor="#item of list.items" href="javascript:{}" class="list-group-item">
 		<div class="checkbox">
 			<label>
-				<input type="checkbox">  C#
-			</label>
-		</div>
-	</a>
-	<a href="javascript:{}" class="list-group-item">
-		<div class="checkbox">
-			<label>
-				<input type="checkbox"> Angular 2
-			</label>
-		</div>
-	</a>
-	<a href="javascript:{}" class="list-group-item">
-		<div class="checkbox">
-			<label>
-				<input type="checkbox">  Octopus Deploy
+				<input type="checkbox">  {{item}}
 			</label>
 		</div>
 	</a>

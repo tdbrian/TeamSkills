@@ -23,6 +23,14 @@ System.register(['angular2/core', './_components/manage-list'], function(exports
         execute: function() {
             ManageSkills = (function () {
                 function ManageSkills() {
+                    this.skills = {
+                        title: "Skills",
+                        items: ["Angular", "C#", "Octopus"]
+                    };
+                    this.projects = {
+                        title: "Projects",
+                        items: ["Supportal", "Monsoon", "SecureTide"]
+                    };
                 }
                 ManageSkills = __decorate([
                     core_1.Component({

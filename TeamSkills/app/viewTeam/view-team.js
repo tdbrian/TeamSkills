@@ -23,6 +23,18 @@ System.register(['angular2/core', './_components/view-list'], function(exports_1
         execute: function() {
             ViewTeam = (function () {
                 function ViewTeam() {
+                    this.team = {
+                        title: "Team",
+                        items: ["Thomas Brian", "Leif Thillet", "Shane Drye"]
+                    };
+                    this.skills = {
+                        title: "Skills",
+                        items: ["Angular", "C#", "Octopus"]
+                    };
+                    this.projects = {
+                        title: "Projects",
+                        items: ["Supportal", "Monsoon", "SecureTide"]
+                    };
                 }
                 ViewTeam = __decorate([
                     core_1.Component({

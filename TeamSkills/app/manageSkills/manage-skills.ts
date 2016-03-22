@@ -6,4 +6,18 @@ import {ManageList} from './_components/manage-list';
     templateUrl: 'app/manageSkills/manage-skills.html',
     directives: [ManageList]
 })
-export class ManageSkills { }
+export class ManageSkills {
+    skills: ManageListModel
+    = {
+        title: "Skills",
+        items: ["Angular", "C#", "Octopus"]
+    }
+    projects = {
+        title: "Projects",
+        items: ["Supportal", "Monsoon", "SecureTide"]
+    }
+}
+export type ManageListModel = {
+    title: string,
+    items: string[]
+}

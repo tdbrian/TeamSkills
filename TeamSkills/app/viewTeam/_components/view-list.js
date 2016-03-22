@@ -21,6 +21,10 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             ViewList = (function () {
                 function ViewList() {
                 }
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ViewList.prototype, "list", void 0);
                 ViewList = __decorate([
                     core_1.Component({
                         selector: 'view-list',

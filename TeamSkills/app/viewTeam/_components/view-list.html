@@ -1,6 +1,4 @@
-﻿<h2>Team</h2>
+﻿<h2>{{list.title}}</h2>
 <div class="list-group">
-	<a href="javascript:{}" class="list-group-item">Thomas Biran</a>
-	<a href="javascript:{}" class="list-group-item">Leif Thillet</a>
-	<a href="javascript:{}" class="list-group-item">Shane Drye</a>
+	<a *ngFor="#item of list.items" href="javascript:{}" class="list-group-item">{{item}}</a>
 </div>

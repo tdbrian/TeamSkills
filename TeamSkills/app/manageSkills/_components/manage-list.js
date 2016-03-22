@@ -21,6 +21,10 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             ManageList = (function () {
                 function ManageList() {
                 }
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ManageList.prototype, "list", void 0);
                 ManageList = __decorate([
                     core_1.Component({
                         selector: 'manage-list',
