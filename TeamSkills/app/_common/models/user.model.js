@@ -10,7 +10,7 @@ System.register([], function(exports_1, context_1) {
                     this.name = name;
                     this.email = email;
                     this.projects = [];
-                    this.skill = [];
+                    this.skills = [];
                 }
                 return User;
             }());

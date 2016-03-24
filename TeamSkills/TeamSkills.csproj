@@ -79,6 +79,7 @@
     <Content Include="app\viewTeam\_components\view-list.html" />
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="gulpfile.js" />
@@ -160,11 +161,12 @@
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\manageSkills\manage-skills.ts" />
     <TypeScriptCompile Include="app\manageSkills\_components\manage-list.ts" />
-    <TypeScriptCompile Include="app\manageSkills\_pipes\has-skills.ts" />
+    <TypeScriptCompile Include="app\manageSkills\_pipes\selected-values.ts" />
     <TypeScriptCompile Include="app\shell\nav.ts" />
     <TypeScriptCompile Include="app\home\home.ts" />
     <TypeScriptCompile Include="app\viewTeam\view-team.ts" />
     <TypeScriptCompile Include="app\viewTeam\_components\view-list.ts" />
+    <TypeScriptCompile Include="app\viewTeam\_pipes\corresponding-view-items.ts" />
     <TypeScriptCompile Include="app\_common\models\skill.model.ts" />
     <TypeScriptCompile Include="app\_common\models\user.model.ts" />
     <TypeScriptCompile Include="app\_common\models\project.model.ts" />
@@ -196,7 +198,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>26513</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

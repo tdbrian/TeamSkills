@@ -1,4 +1,4 @@
-System.register(['angular2/core', './_components/manage-list'], function(exports_1, context_1) {
+System.register(['angular2/core', './_components/manage-list', '../_common/models/user.model', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './_components/manage-list'], function(exports
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, manage_list_1;
+    var core_1, manage_list_1, user_model_1, skill_model_1, project_model_1;
     var ManageSkills;
     return {
         setters:[
@@ -19,37 +19,69 @@ System.register(['angular2/core', './_components/manage-list'], function(exports
             },
             function (manage_list_1_1) {
                 manage_list_1 = manage_list_1_1;
+            },
+            function (user_model_1_1) {
+                user_model_1 = user_model_1_1;
+            },
+            function (skill_model_1_1) {
+                skill_model_1 = skill_model_1_1;
+            },
+            function (project_model_1_1) {
+                project_model_1 = project_model_1_1;
             }],
         execute: function() {
             ManageSkills = (function () {
                 function ManageSkills() {
+                    //fake data
+                    var supportal = new project_model_1.Project("Supportal");
+                    var monsoon = new project_model_1.Project("Monsoon");
+                    var secureTide = new project_model_1.Project("SecureTide");
+                    var angular = new skill_model_1.Skill("Angular");
+                    var cSharp = new skill_model_1.Skill("C#");
+                    var octopus = new skill_model_1.Skill("Octopus");
+                    this.user = new user_model_1.User("Shane Drye", "sdrye@appriver.com");
+                    this.user.skills = [octopus];
+                    this.user.projects = [secureTide];
                     this.skills = {
                         title: "Skills",
-                        items: ["Angular", "C#", "Octopus"]
+                        items: [angular, cSharp, octopus]
                     };
                     this.projects = {
                         title: "Projects",
-                        items: ["Supportal", "Monsoon", "SecureTide"]
-                    };
-                    this.me = {
-                        name: "shane",
-                        email: "sdrye@appriver.com",
-                        skills: ["Angular", "C#"],
-                        projects: ["Supportal", "SecureTide"]
+                        items: [supportal, monsoon, secureTide]
                     };
                 }
-                ManageSkills.prototype.onAddOrRemove = function (event) {
-                    if (event.item.isSelected == true) {
-                        this.me.skills = this.me.skills.slice().filter(function (x) { return x != event.item.value; });
+                // needs to use skill service to add or remove 
+                ManageSkills.prototype.onAddOrRemoveSkill = function (item) {
+                    if (item.isSelected == true) {
+                        this.user.skills = this.user.skills.slice().filter(function (x) { return x.name != item.name; });
                     }
-                    if (event.item.isSelected == false) {
-                        this.me.skills = this.me.skills.concat([event.item]);
+                    if (item.isSelected == false) {
+                        var newSkill = new skill_model_1.Skill(item.name);
+                        this.user.skills = this.user.skills.concat([newSkill]);
+                    }
+                };
+                ManageSkills.prototype.onAddOrRemoveProject = function (item) {
+                    if (item.isSelected == true) {
+                        this.user.projects = this.user.projects.slice().filter(function (x) { return x.name != item.name; });
+                    }
+                    if (item.isSelected == false) {
+                        var newProject = new skill_model_1.Skill(item.name);
+                        this.user.projects = this.user.projects.concat([newProject]);
                     }
                 };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], ManageSkills.prototype, "user", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ManageSkills.prototype, "skills", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ManageSkills.prototype, "projects", void 0);
                 ManageSkills = __decorate([
                     core_1.Component({
                         selector: 'manage-skills',

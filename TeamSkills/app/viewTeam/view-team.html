@@ -1,13 +1,13 @@
-﻿<div class="container below-navbar">
+﻿<div class="container">
 	<div class="row">
 		<div class="col-md-4">
-			<view-list [list]="team"></view-list>
+			<view-list [list]="team" [filter]="filter" (itemSelected)="onUpdateTeam($event)"></view-list>
 		</div>
 		<div class="col-md-4">
-			<view-list [list]="skills"></view-list>
+			<view-list [list]="skills" [filter]="filter" (itemSelected)="onUpdateSkillOrProject($event)"></view-list>
 		</div>
 		<div class="col-md-4">
-			<view-list [list]="projects"></view-list>
+			<view-list [list]="projects" [filter]="filter" (itemSelected)="onUpdateSkillOrProject($event)"></view-list>
 		</div>
 	</div>
 </div>

@@ -14,7 +14,7 @@ import {UsersService} from './_common/services/users.service';
 import {ProjectsService} from './_common/services/projects.service';
 import {SkillsService} from './_common/services/skills.service';
 
-@Component({
+@Component({ 
     selector: 'my-app',
     templateUrl: 'app/app.html',
     directives: [
@@ -29,7 +29,7 @@ import {SkillsService} from './_common/services/skills.service';
 @RouteConfig([
     { path: '/home', name: 'Home', component: Home, useAsDefault: true },
     { path: '/register', name: 'Register', component: Register },
-    { path: '/login', name: 'Login', component: Login }
+    { path: '/login', name: 'Login', component: Login },
     { path: '/view-team', name: 'ViewTeam', component: ViewTeam },
     { path: '/manage-skills', name: 'ManageSkills', component: ManageSkills }
 ])

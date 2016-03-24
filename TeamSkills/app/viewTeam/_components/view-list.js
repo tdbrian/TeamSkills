@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', '../_pipes/corresponding-view-items'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,25 +10,41 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, corresponding_view_items_1;
     var ViewList;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (corresponding_view_items_1_1) {
+                corresponding_view_items_1 = corresponding_view_items_1_1;
             }],
         execute: function() {
             ViewList = (function () {
                 function ViewList() {
+                    this.itemSelected = new core_1.EventEmitter();
                 }
+                ViewList.prototype.updateCorrespondingItems = function (item) {
+                    this.itemSelected.emit(item);
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], ViewList.prototype, "list", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ViewList.prototype, "filter", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], ViewList.prototype, "itemSelected", void 0);
                 ViewList = __decorate([
                     core_1.Component({
                         selector: 'view-list',
-                        templateUrl: 'app/viewTeam/_components/view-list.html'
+                        templateUrl: 'app/viewTeam/_components/view-list.html',
+                        pipes: [corresponding_view_items_1.CorrespondingViewItems]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ViewList);

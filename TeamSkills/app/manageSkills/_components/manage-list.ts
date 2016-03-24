@@ -1,18 +1,22 @@
 ﻿import {Component, Input, Output, EventEmitter} from 'angular2/core';
-import {HasSkills} from '../_pipes/has-skills';
+import {SelectedValues} from '../_pipes/selected-values';
 
 @Component({
     selector: 'manage-list',
     templateUrl: 'app/manageSkills/_components/manage-list.html',
-    pipes: [HasSkills]
+    pipes: [SelectedValues]
 })
 export class ManageList {
     @Input() list;
     @Input() userItems;
     @Output() itemSelected = new EventEmitter();
     
-    addOrRemoveItem(item) {
-        this.itemSelected.emit(item);
+    addOrRemoveItem(name) {
+        var newItem = {
+            name: name,
+            isSelected: this.userItems.map(x => x.name).includes(name)
+        }
+        this.itemSelected.emit(newItem);
     }
 }
 

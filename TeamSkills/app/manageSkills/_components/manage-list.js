@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../_pipes/has-skills'], function(exports_1, context_1) {
+System.register(['angular2/core', '../_pipes/selected-values'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,27 @@ System.register(['angular2/core', '../_pipes/has-skills'], function(exports_1, c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, has_skills_1;
+    var core_1, selected_values_1;
     var ManageList;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (has_skills_1_1) {
-                has_skills_1 = has_skills_1_1;
+            function (selected_values_1_1) {
+                selected_values_1 = selected_values_1_1;
             }],
         execute: function() {
             ManageList = (function () {
                 function ManageList() {
                     this.itemSelected = new core_1.EventEmitter();
                 }
-                ManageList.prototype.addOrRemoveItem = function (item) {
-                    this.itemSelected.emit(item);
+                ManageList.prototype.addOrRemoveItem = function (name) {
+                    var newItem = {
+                        name: name,
+                        isSelected: this.userItems.map(function (x) { return x.name; }).includes(name)
+                    };
+                    this.itemSelected.emit(newItem);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -44,7 +48,7 @@ System.register(['angular2/core', '../_pipes/has-skills'], function(exports_1, c
                     core_1.Component({
                         selector: 'manage-list',
                         templateUrl: 'app/manageSkills/_components/manage-list.html',
-                        pipes: [has_skills_1.HasSkills]
+                        pipes: [selected_values_1.SelectedValues]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ManageList);

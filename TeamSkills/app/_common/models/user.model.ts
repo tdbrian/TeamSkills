@@ -6,12 +6,12 @@ export class User {
     name: string;
     email: string;
     projects: Project[];
-    skill: Skill[];
+    skills: Skill[];
 
     constructor(name: string, email: string) {
         this.name = name;
         this.email = email;
         this.projects = [];
-        this.skill = [];
+        this.skills = [];
     }
 }

@@ -9,7 +9,6 @@ export class SkillsService {
     }
 
     public addSkill = (name: string) => {
-        let skill = new Skill();
-        skill.name = name;
+        let skill = new Skill(name);
     }
 }

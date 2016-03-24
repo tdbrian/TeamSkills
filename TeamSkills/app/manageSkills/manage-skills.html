@@ -1,9 +1,10 @@
-﻿<div class="container below-navbar">
+﻿<div class="container">
 	<div class="row">
 		<div class="col-md-6">
-			<manage-list [list]="skills" [userItems]="me.skills" (addOrRemoveItem)="onAddOrRemove($event)"></manage-list>
+			<manage-list [list]="skills" [userItems]="user.skills" (itemSelected)="onAddOrRemoveSkill($event)"></manage-list>
 		</div>
 		<div class="col-md-6">
-			<manage-list [list]="projects" [userItems]="me.projects" (addOrRemoveItem)="onAddOrRemove($event)"></manage-list>
+			<manage-list [list]="projects" [userItems]="user.projects" (itemSelected)="onAddOrRemoveProject($event)"></manage-list>
 		</div>
+	</div>
 </div>

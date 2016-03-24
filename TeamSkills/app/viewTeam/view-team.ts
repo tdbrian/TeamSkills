@@ -1,5 +1,8 @@
-﻿import {Component} from 'angular2/core';
+﻿import {Component, Input} from 'angular2/core';
 import {ViewList} from './_components/view-list';
+import {User} from '../_common/models/user.model';
+import {Skill} from '../_common/models/skill.model';
+import {Project} from '../_common/models/project.model';
 
 @Component({
     selector: 'view-team',
@@ -7,16 +10,52 @@ import {ViewList} from './_components/view-list';
     directives: [ViewList]
 })
 export class ViewTeam {
-    team = {
-        title: "Team",
-        items: ["Thomas Brian", "Leif Thillet", "Shane Drye"]
+    @Input() team;
+    @Input() skills;
+    @Input() projects;
+
+    filter: string;
+    constructor() {
+        this.filter = "none";
+        //fake data
+        var supportal = new Project("Supportal");
+        var monsoon = new Project("Monsoon");
+        var secureTide = new Project("SecureTide");
+
+        var angular = new Skill("Angular");
+        var cSharp = new Skill("C#");
+        var octopus = new Skill("Octopus");
+         
+        var thomas = new User("Thomas Brian", "tbrian@appriver.com");
+        var leif = new User("Leif Thillet", "lthillet@appriver.com");
+        var shane = new User("Shane Drye", "sdrye@appriver.com");
+
+        thomas.skills = [angular];
+        thomas.projects = [supportal];
+        leif.skills = [cSharp];
+        leif.projects = [monsoon];
+        shane.skills = [octopus];
+        shane.projects = [secureTide];
+
+        this.team = {
+            title: "Team",
+            items: [thomas, leif, shane]
+        }
+        this.skills = {
+            title: "Skills",
+            items: [angular, cSharp, octopus]
+        }
+        this.projects = {
+            title: "Projects",
+            items: [supportal, monsoon, secureTide]
+        }
     }
-    skills = {
-        title: "Skills",
-        items: ["Angular", "C#", "Octopus"]
+
+    onUpdateTeam(item) {
+        this.filter = item.name;
     }
-    projects = {
-        title: "Projects",
-        items: ["Supportal", "Monsoon", "SecureTide"]
+
+    onUpdateSkillOrProject(item) {
+        this.filter = item.name;
     }
 }

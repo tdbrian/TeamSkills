@@ -6,7 +6,8 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             Project = (function () {
-                function Project() {
+                function Project(name) {
+                    this.name = name;
                 }
                 return Project;
             }());

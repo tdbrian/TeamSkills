@@ -28,8 +28,7 @@ System.register(['angular2/core', './firebase.service', '../models/skill.model']
                 function SkillsService(firebaseService) {
                     this.firebaseService = firebaseService;
                     this.addSkill = function (name) {
-                        var skill = new skill_model_1.Skill();
-                        skill.name = name;
+                        var skill = new skill_model_1.Skill(name);
                     };
                 }
                 SkillsService = __decorate([
