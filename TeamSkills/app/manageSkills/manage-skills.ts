@@ -8,6 +8,7 @@ import {ManageList} from './_components/manage-list';
 })
 export class ManageSkills {
     @Input() user;
+    //fake data
     skills = {
         title: "Skills",
         items: ["Angular", "C#", "Octopus"]
