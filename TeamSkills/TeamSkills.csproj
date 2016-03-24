@@ -68,22 +68,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.component.js" />
     <Content Include="app\app.html" />
-    <Content Include="app\main.js" />
+    <Content Include="app\register\register.html" />
+    <Content Include="app\login\login.html" />
     <Content Include="app\shell\nav.html" />
-    <Content Include="app\shell\nav.js" />
     <Content Include="app\home\home.html" />
-    <Content Include="Content\css\bootstrap-theme.min.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\site.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="gulpfile.js" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
-    <Content Include="app\app.component.js.map" />
-    <Content Include="app\main.js.map" />
-    <Content Include="app\shell\nav.js.map" />
     <Content Include="Project_Readme.html" />
     <Content Include="Scripts\angular2-polyfills.js" />
     <Content Include="Scripts\angular2.dev.js" />
@@ -91,11 +86,16 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\es6-shim.min.js" />
+    <Content Include="Scripts\firebase-web.js" />
     <Content Include="Scripts\http.dev.js" />
     <Content Include="Scripts\http.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -125,7 +125,6 @@
     <Content Include="Scripts\system.js" />
     <Content Include="Scripts\system.src.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="typings.json" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -133,6 +132,7 @@
     <Content Include="Scripts\system-polyfills.js.map" />
     <Content Include="Scripts\system-register-only.js.map" />
     <Content Include="Scripts\system.js.map" />
+    <Content Include="typings.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -150,9 +150,23 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\register\register.ts" />
+    <TypeScriptCompile Include="app\login\login.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\shell\nav.ts" />
     <TypeScriptCompile Include="app\home\home.ts" />
+    <TypeScriptCompile Include="app\_common\models\skill.model.ts" />
+    <TypeScriptCompile Include="app\_common\models\user.model.ts" />
+    <TypeScriptCompile Include="app\_common\models\project.model.ts" />
+    <TypeScriptCompile Include="app\_common\services\skills.service.ts" />
+    <TypeScriptCompile Include="app\_common\services\projects.service.ts" />
+    <TypeScriptCompile Include="app\_common\services\firebase.service.ts" />
+    <TypeScriptCompile Include="app\_common\services\current-user.service.ts" />
+    <TypeScriptCompile Include="app\_common\services\users.service.ts" />
+    <TypeScriptCompile Include="typings\browser.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\firebase\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\rx-lite\index.d.ts" />
+    <TypeScriptCompile Include="typings\browser\ambient\rx\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -42,17 +42,10 @@ gulp.task("moveNpmToLibs", function (done) {
         "node_modules/jquery/dist/jquery.*js",
         "node_modules/bootstrap/dist/js/bootstrap*.js",
         "node_modules/rxjs/bundles/Rx.js",
-		"node_modules/angular2/bundles/router.dev.js"
+		"node_modules/angular2/bundles/router.dev.js",
+		"node_modules/firebase/lib/firebase-web.js"
     ]).pipe(gulp.dest("./Scripts/"));
 });
-
-gulp.task("moveNpmToCss", function (done) {
-    gulp.src([
-        "node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
-    ]).pipe(gulp.dest("./Content/css/"));
-});
-
 
 gulp.task("min:js", function () {
     return gulp.src([paths.js, "!" + paths.minJs], { base: "." })

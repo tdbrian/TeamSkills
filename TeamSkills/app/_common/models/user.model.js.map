@@ -1,0 +1,1 @@
+{"version":3,"file":"user.model.js","sourceRoot":"","sources":["user.model.ts"],"names":[],"mappings":";;;;;;;YAGA;gBAOI,cAAY,IAAY,EAAE,KAAa;oBACnC,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;oBACjB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;oBACnB,IAAI,CAAC,QAAQ,GAAG,EAAE,CAAC;oBACnB,IAAI,CAAC,KAAK,GAAG,EAAE,CAAC;gBACpB,CAAC;gBACL,WAAC;YAAD,CAAC,AAbD,IAaC;YAbD,uBAaC,CAAA"}

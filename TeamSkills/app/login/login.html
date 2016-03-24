@@ -1,0 +1,31 @@
+﻿<div class="row">
+    <div class="text-center col-md-offset-3 col-md-6" style="margin-top: 100px;">
+        <h2>login</h2>
+        <div>
+            <form id="login-form" class="text-left">
+                <div>
+                    <div>
+                        <div class="form-group">
+                            <label for="lg_username">Email</label>
+                            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="lg_password">Password</label>
+                            <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="lg_remember" name="lg_remember">
+                            <label for="lg_remember">remember</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Login</button>
+                </div>
+                <hr />
+                <div>
+                    <p>forgot your password? <button class="btn btn-link" type="button">email reset link</button></p>
+                    <p>new user? <a [routerLink]="['Register']"> create new account</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
