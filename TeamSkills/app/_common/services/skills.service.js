@@ -25,13 +25,26 @@ System.register(['angular2/core', './firebase.service', '../models/skill.model']
             }],
         execute: function() {
             SkillsService = (function () {
-                function SkillsService(firebaseService) {
-                    this.firebaseService = firebaseService;
+                function SkillsService(backend) {
+                    var _this = this;
+                    this.backend = backend;
                     this.addSkill = function (name) {
-                        var skill = new skill_model_1.Skill();
-                        skill.name = name;
+                        var skill = new skill_model_1.Skill(name);
+                        _this.skillsRepo.push(skill);
                     };
+                    this.skillsRepo = backend.skills;
+                    this.setupObservables();
+                    this.listenForIncomingEvents();
                 }
+                SkillsService.prototype.setupObservables = function () {
+                    this.onSkills = new Rx.Subject();
+                };
+                SkillsService.prototype.listenForIncomingEvents = function () {
+                    this.skillsRepo.on(firebase_service_1.FireBaseService.VALUE, this.onSkillsChanged);
+                };
+                SkillsService.prototype.onSkillsChanged = function (skillsSnapshot) {
+                    this.onSkills.onNext(skillsSnapshot.val());
+                };
                 SkillsService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [firebase_service_1.FireBaseService])
