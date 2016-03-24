@@ -5,9 +5,11 @@ import {User} from '../models/user.model'
 @Injectable()
 export class UsersService {
 
+    private usersRepo: Firebase;
     public onUsers: Rx.Subject<User[]>;
 
-    constructor(private backend: FireBaseService) { 
+    constructor(private backend: FireBaseService) {
+        this.usersRepo = backend.users;
         this.setupObservables();
         this.listenForIncomingEvents()
     }
@@ -17,7 +19,7 @@ export class UsersService {
     }
 
     private listenForIncomingEvents() {
-        this.backend.users.on(FireBaseService.VALUE, this.onUsersChanged);
+        this.usersRepo.on(FireBaseService.VALUE, this.onUsersChanged);
     }
 
     private onUsersChanged(usersSnapshot: FirebaseDataSnapshot) {

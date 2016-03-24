@@ -14,7 +14,7 @@ export class FireBaseService {
     static PROJECTS = "projects";
     static SKILLS = "skills";
 
-    private  firebase: Firebase;
+    private firebase: Firebase;
     public users: Firebase;
     public projects: Firebase;
     public skills: Firebase;

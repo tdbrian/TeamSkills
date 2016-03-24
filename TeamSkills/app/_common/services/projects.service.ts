@@ -5,11 +5,29 @@ import {Project} from '../models/project.model';
 @Injectable()
 export class ProjectsService {
 
-    constructor(private firebaseService: FireBaseService) { 
+    private projectsRepo: Firebase;
+    public onProjects: Rx.Subject<Project[]>;
+
+    constructor(private backend: FireBaseService) { 
+        this.projectsRepo = backend.projects;
+        this.setupObservables();
+        this.listenForIncomingEvents();
+    }
+
+    private setupObservables() {
+        this.onProjects = new Rx.Subject<Project[]>();
+    }
+
+    private listenForIncomingEvents() {
+        this.projectsRepo.on(FireBaseService.VALUE, this.onProjectsChanged);
+    }
+
+    private onProjectsChanged(projectsSnapshot: FirebaseDataSnapshot) {
+        this.onProjects.onNext(projectsSnapshot.val());
     }
 
     public addProject = (name: string) => {
-        let project = new Project();
-        project.name = name;
+        let project = new Project(name);
+        this.projectsRepo.push(project);
     }
 }

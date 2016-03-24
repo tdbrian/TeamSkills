@@ -19,17 +19,6 @@ export class CurrentUserService {
         this.backend.users.on(FireBaseService.ADDED, this.onUserAdded);
     }
 
-    private onUserAdded(newUserSnapshot: FirebaseDataSnapshot) {
-        let newUser: User = newUserSnapshot.val();
-        if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
-            this.currentUser = newUser;
-            this.waitingOnNewUser = null;
-            console.log('new user:');
-            console.log(newUser);
-            this.onUserCreated.onNext(this.currentUser);
-        }
-    }
-
     private setupObservables() {
         this.onUserLoggedIn = new Rx.Subject<User>();
         this.onUserCreated = new Rx.Subject<User>();
@@ -60,4 +49,15 @@ export class CurrentUserService {
     public logout = () => {
         this.backend.logout();
     };
+
+    private onUserAdded(newUserSnapshot: FirebaseDataSnapshot) {
+        let newUser: User = newUserSnapshot.val();
+        if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
+            this.currentUser = newUser;
+            this.waitingOnNewUser = null;
+            console.log('new user:');
+            console.log(newUser);
+            this.onUserCreated.onNext(this.currentUser);
+        }
+    }
 }

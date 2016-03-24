@@ -24,6 +24,7 @@ System.register(['angular2/core', './firebase.service'], function(exports_1, con
             UsersService = (function () {
                 function UsersService(backend) {
                     this.backend = backend;
+                    this.usersRepo = backend.users;
                     this.setupObservables();
                     this.listenForIncomingEvents();
                 }
@@ -31,7 +32,7 @@ System.register(['angular2/core', './firebase.service'], function(exports_1, con
                     this.onUsers = new Rx.Subject();
                 };
                 UsersService.prototype.listenForIncomingEvents = function () {
-                    this.backend.users.on(firebase_service_1.FireBaseService.VALUE, this.onUsersChanged);
+                    this.usersRepo.on(firebase_service_1.FireBaseService.VALUE, this.onUsersChanged);
                 };
                 UsersService.prototype.onUsersChanged = function (usersSnapshot) {
                     this.onUsers.onNext(usersSnapshot.val());

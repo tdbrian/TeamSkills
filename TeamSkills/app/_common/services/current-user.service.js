@@ -58,6 +58,10 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
                 CurrentUserService.prototype.listenForIncomingEvents = function () {
                     this.backend.users.on(firebase_service_1.FireBaseService.ADDED, this.onUserAdded);
                 };
+                CurrentUserService.prototype.setupObservables = function () {
+                    this.onUserLoggedIn = new Rx.Subject();
+                    this.onUserCreated = new Rx.Subject();
+                };
                 CurrentUserService.prototype.onUserAdded = function (newUserSnapshot) {
                     var newUser = newUserSnapshot.val();
                     if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
@@ -67,10 +71,6 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
                         console.log(newUser);
                         this.onUserCreated.onNext(this.currentUser);
                     }
-                };
-                CurrentUserService.prototype.setupObservables = function () {
-                    this.onUserLoggedIn = new Rx.Subject();
-                    this.onUserCreated = new Rx.Subject();
                 };
                 CurrentUserService = __decorate([
                     core_1.Injectable(), 
