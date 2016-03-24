@@ -25,13 +25,26 @@ System.register(['angular2/core', './firebase.service', '../models/project.model
             }],
         execute: function() {
             ProjectsService = (function () {
-                function ProjectsService(firebaseService) {
-                    this.firebaseService = firebaseService;
+                function ProjectsService(backend) {
+                    var _this = this;
+                    this.backend = backend;
                     this.addProject = function (name) {
-                        var project = new project_model_1.Project();
-                        project.name = name;
+                        var project = new project_model_1.Project(name);
+                        _this.projectsRepo.push(project);
                     };
+                    this.projectsRepo = backend.projects;
+                    this.setupObservables();
+                    this.listenForIncomingEvents();
                 }
+                ProjectsService.prototype.setupObservables = function () {
+                    this.onProjects = new Rx.Subject();
+                };
+                ProjectsService.prototype.listenForIncomingEvents = function () {
+                    this.projectsRepo.on(firebase_service_1.FireBaseService.VALUE, this.onProjectsChanged);
+                };
+                ProjectsService.prototype.onProjectsChanged = function (projectsSnapshot) {
+                    this.onProjects.onNext(projectsSnapshot.val());
+                };
                 ProjectsService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [firebase_service_1.FireBaseService])
