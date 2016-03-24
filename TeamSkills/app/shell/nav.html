@@ -7,13 +7,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['Home']">Home</a>
+      <a class="navbar-brand" [routerLink]="['Home']">TeamSkills</a>
     </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav">
 		      <li><a [routerLink]="['ViewTeam']">View Team</a></li>
 		      <li><a [routerLink]="['ManageSkills']">Manage Skills</a></li>
-	      </ul>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a [routerLink]="['Register']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a [routerLink]="['Login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
       </div> 
   </div>
 </nav>

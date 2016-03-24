@@ -42,7 +42,8 @@ gulp.task("moveNpmToLibs", function (done) {
         "node_modules/jquery/dist/jquery.*js",
         "node_modules/bootstrap/dist/js/bootstrap*.js",
         "node_modules/rxjs/bundles/Rx.js",
-		"node_modules/angular2/bundles/router.dev.js"
+		"node_modules/angular2/bundles/router.dev.js",
+		"node_modules/firebase/lib/firebase-web.js"
     ]).pipe(gulp.dest("./Scripts/"));
 });
 
