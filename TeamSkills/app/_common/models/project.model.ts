@@ -6,7 +6,7 @@
     }
 }
 
-export class ProjectLevels {
+export class ProjectLevel {
     private project: Project;
     private level: number;
 
