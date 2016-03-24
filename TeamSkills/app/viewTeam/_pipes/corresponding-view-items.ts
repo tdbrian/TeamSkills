@@ -4,10 +4,8 @@
 export class CorrespondingViewItems {
     transform(value, args) {
         var filter = args[0];
-        if (filter === "none") {
-            return value;
-        } else {
-            return value;
+        switch (filter.type) {
+                return value;
         }
     }
 }

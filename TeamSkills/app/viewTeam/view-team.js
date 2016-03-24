@@ -32,7 +32,7 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
         execute: function() {
             ViewTeam = (function () {
                 function ViewTeam() {
-                    this.filter = "none";
+                    this.filter = { type: "none" };
                     //fake data
                     var supportal = new project_model_1.Project("Supportal");
                     var monsoon = new project_model_1.Project("Monsoon");
@@ -63,10 +63,19 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
                     };
                 }
                 ViewTeam.prototype.onUpdateTeam = function (item) {
-                    this.filter = item.name;
+                    this.team.items = [item];
+                    this.skills.items = this.skills.items.slice().filter(function (x) { return item.skills.includes(x); });
+                    this.projects.items = this.projects.items.slice().filter(function (x) { return item.projects.includes(x); });
                 };
-                ViewTeam.prototype.onUpdateSkillOrProject = function (item) {
-                    this.filter = item.name;
+                ViewTeam.prototype.onUpdateSkill = function (item) {
+                    this.team.items = this.team.items.slice().filter(function (x) { return x.skills.includes(item); });
+                    this.skills.items = [item];
+                    this.projects.items = [];
+                };
+                ViewTeam.prototype.onUpdateProject = function (item) {
+                    this.team.items = this.team.items.slice().filter(function (x) { return x.projects.includes(item); });
+                    this.skills.items = [];
+                    this.projects.items = [item];
                 };
                 __decorate([
                     core_1.Input(), 

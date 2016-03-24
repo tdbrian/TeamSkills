@@ -23,12 +23,9 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 }
                 CorrespondingViewItems.prototype.transform = function (value, args) {
                     var filter = args[0];
-                    if (filter === "none") {
-                        return value;
+                    switch (filter.type) {
                     }
-                    else {
-                        return value;
-                    }
+                    return value;
                 };
                 CorrespondingViewItems = __decorate([
                     core_1.Pipe({ name: 'correspondingViewItems' }), 

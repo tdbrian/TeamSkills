@@ -14,9 +14,9 @@ export class ViewTeam {
     @Input() skills;
     @Input() projects;
 
-    filter: string;
+    filter: {};
     constructor() {
-        this.filter = "none";
+        this.filter = {type: "none"}
         //fake data
         var supportal = new Project("Supportal");
         var monsoon = new Project("Monsoon");
@@ -52,10 +52,20 @@ export class ViewTeam {
     }
 
     onUpdateTeam(item) {
-        this.filter = item.name;
+        this.team.items = [item];
+        this.skills.items = [...this.skills.items].filter(x => item.skills.includes(x));
+        this.projects.items = [...this.projects.items].filter(x => item.projects.includes(x));
     }
 
-    onUpdateSkillOrProject(item) {
-        this.filter = item.name;
+    onUpdateSkill(item) {
+        this.team.items = [...this.team.items].filter(x => x.skills.includes(item));
+        this.skills.items = [item];
+        this.projects.items = [];
+    }
+
+    onUpdateProject(item) {
+        this.team.items = [...this.team.items].filter(x => x.projects.includes(item));
+        this.skills.items = [];
+        this.projects.items = [item];
     }
 }
