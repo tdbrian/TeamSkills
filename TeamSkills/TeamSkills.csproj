@@ -151,6 +151,7 @@
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\manageSkills\manage-skills.ts" />
     <TypeScriptCompile Include="app\manageSkills\_components\manage-list.ts" />
+    <TypeScriptCompile Include="app\manageSkills\_pipes\has-skills.ts" />
     <TypeScriptCompile Include="app\shell\nav.ts" />
     <TypeScriptCompile Include="app\home\home.ts" />
     <TypeScriptCompile Include="app\viewTeam\view-team.ts" />

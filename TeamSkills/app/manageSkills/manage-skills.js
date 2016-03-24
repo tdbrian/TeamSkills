@@ -31,7 +31,25 @@ System.register(['angular2/core', './_components/manage-list'], function(exports
                         title: "Projects",
                         items: ["Supportal", "Monsoon", "SecureTide"]
                     };
+                    this.me = {
+                        name: "shane",
+                        email: "sdrye@appriver.com",
+                        skills: ["Angular", "C#"],
+                        projects: ["Supportal", "SecureTide"]
+                    };
                 }
+                ManageSkills.prototype.onAddOrRemove = function (event) {
+                    if (event.item.isSelected == true) {
+                        this.me.skills = this.me.skills.slice().filter(function (x) { return x != event.item.value; });
+                    }
+                    if (event.item.isSelected == false) {
+                        this.me.skills = this.me.skills.concat([event.item]);
+                    }
+                };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], ManageSkills.prototype, "user", void 0);
                 ManageSkills = __decorate([
                     core_1.Component({
                         selector: 'manage-skills',

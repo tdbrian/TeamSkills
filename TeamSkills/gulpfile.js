@@ -48,8 +48,7 @@ gulp.task("moveNpmToLibs", function (done) {
 
 gulp.task("moveNpmToCss", function (done) {
     gulp.src([
-        "node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+        "node_modules/bootstrap/dist/css/bootstrap.min.css"
     ]).pipe(gulp.dest("./Content/css/"));
 });
 

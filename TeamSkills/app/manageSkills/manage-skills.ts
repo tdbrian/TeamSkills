@@ -1,4 +1,4 @@
-﻿import {Component} from 'angular2/core';
+﻿import {Component, Input} from 'angular2/core';
 import {ManageList} from './_components/manage-list';
 
 @Component({
@@ -7,8 +7,8 @@ import {ManageList} from './_components/manage-list';
     directives: [ManageList]
 })
 export class ManageSkills {
-    skills: ManageListModel
-    = {
+    @Input() user;
+    skills = {
         title: "Skills",
         items: ["Angular", "C#", "Octopus"]
     }
@@ -16,8 +16,20 @@ export class ManageSkills {
         title: "Projects",
         items: ["Supportal", "Monsoon", "SecureTide"]
     }
-}
-export type ManageListModel = {
-    title: string,
-    items: string[]
-}
+    me = {
+        name: "shane",
+        email: "sdrye@appriver.com",
+        skills: ["Angular", "C#"],
+        projects: ["Supportal", "SecureTide"]
+    }
+
+    onAddOrRemove(event) {
+        if (event.item.isSelected == true) {
+            this.me.skills = [...this.me.skills].filter(x => x != event.item.value);
+        }
+        if (event.item.isSelected == false) {
+            this.me.skills = [...this.me.skills, event.item];
+        }
+        
+    }
+} 
