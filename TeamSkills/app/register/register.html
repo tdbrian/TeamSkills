@@ -7,15 +7,15 @@
                     <div>
                         <div class="form-group">
                             <label for="lg_username">Email</label>
-                            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="email">
+                            <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="email" [(ngModel)]="email">
                         </div>
                         <div class="form-group">
                             <label for="lg_name">Full Name</label>
-                            <input type="text" class="form-control" id="lg_name" name="lg_name" placeholder="full name">
+                            <input type="text" class="form-control" id="lg_name" name="lg_name" placeholder="full name" [(ngModel)]="name">
                         </div>
                         <div class="form-group">
                             <label for="lg_password">Password</label>
-                            <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
+                            <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password" [(ngModel)]="password">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success">Sign Up!</button>

@@ -10,13 +10,16 @@
       <a class="navbar-brand" [routerLink]="['Home']">TeamSkills</a>
     </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" *ngIf="auth.isLoggedIn">
 		      <li><a [routerLink]="['ViewTeam']">View Team</a></li>
 		      <li><a [routerLink]="['ManageSkills']">Manage Skills</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" *ngIf="!auth.isLoggedIn">
               <li><a [routerLink]="['Register']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
               <li><a [routerLink]="['Login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" *ngIf="auth.isLoggedIn">
+              <li><a (click)="logout()" href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           </ul>
       </div> 
   </div>

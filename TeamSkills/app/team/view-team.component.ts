@@ -1,6 +1,8 @@
-﻿import {Component, Input} from 'angular2/core';
+﻿import {OnActivate, Router} from 'angular2/router';
+import {Component, Input} from 'angular2/core';
 import {ViewList} from './_components/view-list.component';
 import {User} from '../_common/models/user.model';
+import {AuthService} from '../_common/services/auth.service';
 import {Skill, SkillLevel} from '../_common/models/skill.model';
 import {Project, ProjectLevel} from '../_common/models/project.model';
 
@@ -9,14 +11,15 @@ import {Project, ProjectLevel} from '../_common/models/project.model';
     templateUrl: 'app/team/view-team.html',
     directives: [ViewList]
 })
-export class ViewTeam {
+export class ViewTeam implements OnActivate {
     @Input() team;
     @Input() skills;
     @Input() projects;
 
     filter: {};
-    constructor() {
-        this.filter = {type: "none"}
+    constructor(private router: Router, private authService: AuthService) {
+
+        this.filter = { type: "none" }
         //fake data
         var supportal = new Project("Supportal");
         var monsoon = new Project("Monsoon");
@@ -49,6 +52,11 @@ export class ViewTeam {
             title: "Projects",
             items: [supportal, monsoon, secureTide]
         }
+    }
+
+    routerOnActivate() {
+        let status = this.authService.isAuthenticated();
+        if(!status) this.router.navigate(['Login']);
     }
 
     onUpdateTeam(item) {

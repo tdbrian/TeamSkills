@@ -13,6 +13,7 @@ import {FireBaseService} from './_common/services/firebase.service';
 import {UsersService} from './_common/services/users.service';
 import {ProjectsService} from './_common/services/projects.service';
 import {SkillsService} from './_common/services/skills.service';
+import {AuthService} from './_common/services/auth.service';
 
 @Component({ 
     selector: 'my-app',
@@ -23,7 +24,8 @@ import {SkillsService} from './_common/services/skills.service';
     ],
     providers: [
         CurrentUserService,
-        FireBaseService
+        FireBaseService,
+        AuthService
     ]
 })
 @RouteConfig([

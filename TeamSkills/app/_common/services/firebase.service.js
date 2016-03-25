@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'rxjs/Subject'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,25 +10,33 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, Subject_1;
     var FireBaseService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (Subject_1_1) {
+                Subject_1 = Subject_1_1;
             }],
         execute: function() {
             FireBaseService = (function () {
                 function FireBaseService() {
-                    this.setupObservables();
+                    var _this = this;
+                    this.authObservable = new Subject_1.Subject();
+                    this.loggedInStatus = new Subject_1.Subject();
+                    this.onAuth = function (authData) {
+                        if (authData) {
+                            _this.authObservable.next(authData);
+                            _this.loggedInStatus.next(true);
+                        }
+                    };
                     this.setupFirebaseCollections();
                     this.listenForIncomingEvents();
                 }
                 FireBaseService.prototype.listenForIncomingEvents = function () {
                     this.firebase.onAuth(this.onAuth);
-                };
-                FireBaseService.prototype.setupObservables = function () {
-                    this.authObservable = new Rx.Subject();
                 };
                 FireBaseService.prototype.setupFirebaseCollections = function () {
                     this.firebase = new Firebase(FireBaseService.URI);
@@ -36,29 +44,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.projects = this.firebase.child(FireBaseService.PROJECTS);
                     this.skills = this.firebase.child(FireBaseService.SKILLS);
                 };
-                FireBaseService.prototype.onAuth = function (authData) {
-                    if (authData) {
-                        this.authObservable.onNext(authData);
-                    }
-                };
-                ;
-                FireBaseService.prototype.attemptAuth = function (email, password, onSuccess) {
+                FireBaseService.prototype.attemptAuth = function (email, password) {
                     this.firebase.authWithPassword({
                         email: email,
                         password: password
                     }, function (err, authData) {
                         if (err) {
-                            alert("Login Failed!");
-                            console.error(err);
-                        }
-                        else {
-                            onSuccess(authData);
+                            alert("Login Failed.. " + err.message);
+                            console.warn(err);
                         }
                     });
                 };
                 ;
+                FireBaseService.prototype.isLoggedIn = function () {
+                    var auth = this.firebase.getAuth();
+                    if (auth)
+                        return true;
+                    return false;
+                };
                 FireBaseService.prototype.logout = function () {
                     this.firebase.unauth();
+                    this.loggedInStatus.next(false);
                 };
                 FireBaseService.prototype.createUser = function (user, password, onSuccess) {
                     var _this = this;
@@ -76,6 +82,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 };
                 FireBaseService.prototype.handleCreateUserError = function (error) {
                     console.error(error);
+                    debugger;
                     switch (error.code) {
                         case "EMAIL_TAKEN":
                             alert("The new user account cannot be created because the email is already in use.");

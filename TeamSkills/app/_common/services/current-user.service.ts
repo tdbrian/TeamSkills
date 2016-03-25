@@ -3,18 +3,18 @@ import {FireBaseService} from './firebase.service';
 import {User} from '../models/user.model'
 import {Skill, SkillLevel} from '../models/skill.model'
 import {Project, ProjectLevel} from '../models/project.model'
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class CurrentUserService {
 
     public waitingOnNewUser: User;
     public currentUser: User;
-    public onUserLoggedIn: Rx.Subject<User>;
-    public onUserCreated: Rx.Subject<User>;
+    public onUserLoggedIn = new Subject<User>();
+    public onUserCreated = new Subject<User>();
     private usersRepo: Firebase;
 
     constructor(private backend: FireBaseService) { 
-        this.setupObservables();
         this.listenForIncomingEvents();
         this.usersRepo = backend.users;
     }
@@ -25,38 +25,23 @@ export class CurrentUserService {
 
     private onUserAdded(newUserSnapshot: FirebaseDataSnapshot) {
         let newUser: User = newUserSnapshot.val();
+        debugger;
         if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
             this.currentUser = newUser;
             this.waitingOnNewUser = null;
-            console.log('new user:');
-            console.log(newUser);
-            this.onUserCreated.onNext(this.currentUser);
+            this.onUserCreated.next(this.currentUser);
         }
     }
 
-    private setupObservables() {
-        this.onUserLoggedIn = new Rx.Subject<User>();
-        this.onUserCreated = new Rx.Subject<User>();
-    }
-
-    public attemptLogin (email: string, password: string) {
-        this.backend.attemptAuth(email, password, (authData: FirebaseAuthData) => {
-            this.backend.users.child(authData.uid).once('value', (user: FirebaseDataSnapshot): void => {
-                if (!user.exists()) {
-                    this.currentUser = null;
-                    this.onUserLoggedIn.onError('Unable to get user data');
-                } else {
-                    this.currentUser = user.val();
-                    this.onUserLoggedIn.onNext(this.currentUser);
-                }
-            });
-        });
+    public attemptLogin(email: string, password: string) {
+        this.backend.attemptAuth(email, password);
     }
 
     public createUser(name: string, email: string, password: string) {
         let user = new User(name, email);
         this.waitingOnNewUser = user;
         this.backend.createUser(user, password, (userData) => {
+            debugger;
             console.log('new user created!');
         });
     }

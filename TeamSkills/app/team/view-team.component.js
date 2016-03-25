@@ -1,4 +1,4 @@
-System.register(['angular2/core', './_components/view-list.component', '../_common/models/user.model', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
+System.register(['angular2/router', 'angular2/core', './_components/view-list.component', '../_common/models/user.model', '../_common/services/auth.service', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,10 +10,13 @@ System.register(['angular2/core', './_components/view-list.component', '../_comm
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, view_list_component_1, user_model_1, skill_model_1, project_model_1;
+    var router_1, core_1, view_list_component_1, user_model_1, auth_service_1, skill_model_1, project_model_1;
     var ViewTeam;
     return {
         setters:[
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (core_1_1) {
                 core_1 = core_1_1;
             },
@@ -23,6 +26,9 @@ System.register(['angular2/core', './_components/view-list.component', '../_comm
             function (user_model_1_1) {
                 user_model_1 = user_model_1_1;
             },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
+            },
             function (skill_model_1_1) {
                 skill_model_1 = skill_model_1_1;
             },
@@ -31,7 +37,9 @@ System.register(['angular2/core', './_components/view-list.component', '../_comm
             }],
         execute: function() {
             ViewTeam = (function () {
-                function ViewTeam() {
+                function ViewTeam(router, authService) {
+                    this.router = router;
+                    this.authService = authService;
                     this.filter = { type: "none" };
                     //fake data
                     var supportal = new project_model_1.Project("Supportal");
@@ -62,6 +70,11 @@ System.register(['angular2/core', './_components/view-list.component', '../_comm
                         items: [supportal, monsoon, secureTide]
                     };
                 }
+                ViewTeam.prototype.routerOnActivate = function () {
+                    var status = this.authService.isAuthenticated();
+                    if (!status)
+                        this.router.navigate(['Login']);
+                };
                 ViewTeam.prototype.onUpdateTeam = function (item) {
                     this.team.items = [item].concat(this.team.items.filter(function (x) { return x.name != item.name; }));
                     var skillsTop = this.skills.items.filter(function (x) { return item.skillLevels.map(function (x) { return x.skill; }).includes(x); }).slice();
@@ -103,7 +116,7 @@ System.register(['angular2/core', './_components/view-list.component', '../_comm
                         templateUrl: 'app/team/view-team.html',
                         directives: [view_list_component_1.ViewList]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
                 ], ViewTeam);
                 return ViewTeam;
             }());

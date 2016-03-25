@@ -1,21 +1,17 @@
 ﻿import {Injectable} from 'angular2/core';
 import {FireBaseService} from './firebase.service';
 import {Skill} from '../models/skill.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class SkillsService {
 
     private skillsRepo: Firebase;
-    public onSkills: Rx.Subject<Skill[]>;
+    public onSkills = new Subject<Skill[]>();
 
     constructor(private backend: FireBaseService) { 
         this.skillsRepo = backend.skills;
-        this.setupObservables();
         this.listenForIncomingEvents()
-    }
-
-    private setupObservables() {
-        this.onSkills = new Rx.Subject<Skill[]>();
     }
 
     private listenForIncomingEvents() {
@@ -23,7 +19,7 @@ export class SkillsService {
     }
 
     private onSkillsChanged(skillsSnapshot: FirebaseDataSnapshot) {
-        this.onSkills.onNext(skillsSnapshot.val());
+        this.onSkills.next(skillsSnapshot.val());
     }
 
     public addSkill = (name: string) => {

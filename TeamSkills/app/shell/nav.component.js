@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../_common/services/auth.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, auth_service_1;
     var AppNav;
     return {
         setters:[
@@ -19,18 +19,25 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
             }],
         execute: function() {
             AppNav = (function () {
-                function AppNav() {
+                function AppNav(auth) {
+                    this.auth = auth;
                 }
+                AppNav.prototype.logout = function () {
+                    this.auth.logout();
+                };
                 AppNav = __decorate([
                     core_1.Component({
                         selector: 'app-nav',
                         templateUrl: 'app/shell/nav.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [auth_service_1.AuthService])
                 ], AppNav);
                 return AppNav;
             }());

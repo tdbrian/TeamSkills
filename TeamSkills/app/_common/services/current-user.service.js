@@ -1,4 +1,4 @@
-System.register(['angular2/core', './firebase.service', '../models/user.model'], function(exports_1, context_1) {
+System.register(['angular2/core', './firebase.service', '../models/user.model', 'rxjs/Subject'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, firebase_service_1, user_model_1;
+    var core_1, firebase_service_1, user_model_1, Subject_1;
     var CurrentUserService;
     return {
         setters:[
@@ -22,12 +22,16 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
             },
             function (user_model_1_1) {
                 user_model_1 = user_model_1_1;
+            },
+            function (Subject_1_1) {
+                Subject_1 = Subject_1_1;
             }],
         execute: function() {
             CurrentUserService = (function () {
                 function CurrentUserService(backend) {
                     this.backend = backend;
-                    this.setupObservables();
+                    this.onUserLoggedIn = new Subject_1.Subject();
+                    this.onUserCreated = new Subject_1.Subject();
                     this.listenForIncomingEvents();
                     this.usersRepo = backend.users;
                 }
@@ -36,37 +40,21 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
                 };
                 CurrentUserService.prototype.onUserAdded = function (newUserSnapshot) {
                     var newUser = newUserSnapshot.val();
+                    debugger;
                     if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
                         this.currentUser = newUser;
                         this.waitingOnNewUser = null;
-                        console.log('new user:');
-                        console.log(newUser);
-                        this.onUserCreated.onNext(this.currentUser);
+                        this.onUserCreated.next(this.currentUser);
                     }
                 };
-                CurrentUserService.prototype.setupObservables = function () {
-                    this.onUserLoggedIn = new Rx.Subject();
-                    this.onUserCreated = new Rx.Subject();
-                };
                 CurrentUserService.prototype.attemptLogin = function (email, password) {
-                    var _this = this;
-                    this.backend.attemptAuth(email, password, function (authData) {
-                        _this.backend.users.child(authData.uid).once('value', function (user) {
-                            if (!user.exists()) {
-                                _this.currentUser = null;
-                                _this.onUserLoggedIn.onError('Unable to get user data');
-                            }
-                            else {
-                                _this.currentUser = user.val();
-                                _this.onUserLoggedIn.onNext(_this.currentUser);
-                            }
-                        });
-                    });
+                    this.backend.attemptAuth(email, password);
                 };
                 CurrentUserService.prototype.createUser = function (name, email, password) {
                     var user = new user_model_1.User(name, email);
                     this.waitingOnNewUser = user;
                     this.backend.createUser(user, password, function (userData) {
+                        debugger;
                         console.log('new user created!');
                     });
                 };

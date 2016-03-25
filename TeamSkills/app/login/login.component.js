@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../_common/services/auth.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, auth_service_1;
     var Login;
     return {
         setters:[
@@ -19,18 +19,28 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
             }],
         execute: function() {
             Login = (function () {
-                function Login() {
+                function Login(auth) {
+                    this.auth = auth;
                 }
+                Login.prototype.attemptLogin = function () {
+                    this.auth.attemptLogin(this.email, this.password);
+                };
+                Login.prototype.forgotPassword = function () {
+                    console.info("send email!");
+                };
                 Login = __decorate([
                     core_1.Component({
                         selector: 'login',
                         templateUrl: 'app/login/login.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [auth_service_1.AuthService])
                 ], Login);
                 return Login;
             }());

@@ -1,21 +1,17 @@
 ﻿import {Injectable} from 'angular2/core';
 import {FireBaseService} from './firebase.service';
 import {Project} from '../models/project.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class ProjectsService {
 
     private projectsRepo: Firebase;
-    public onProjects: Rx.Subject<Project[]>;
+    public onProjects = new Subject<Project[]>();
 
     constructor(private backend: FireBaseService) { 
         this.projectsRepo = backend.projects;
-        this.setupObservables();
         this.listenForIncomingEvents();
-    }
-
-    private setupObservables() {
-        this.onProjects = new Rx.Subject<Project[]>();
     }
 
     private listenForIncomingEvents() {
@@ -23,7 +19,7 @@ export class ProjectsService {
     }
 
     private onProjectsChanged(projectsSnapshot: FirebaseDataSnapshot) {
-        this.onProjects.onNext(projectsSnapshot.val());
+        this.onProjects.next(projectsSnapshot.val());
     }
 
     public addProject = (name: string) => {

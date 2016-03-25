@@ -1,5 +1,6 @@
 ﻿import {Injectable} from 'angular2/core';
 import {User} from '../models/user.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class FireBaseService {
@@ -19,20 +20,16 @@ export class FireBaseService {
     public projects: Firebase;
     public skills: Firebase;
 
-    public authObservable: Rx.Subject<FirebaseAuthData>;
+    public authObservable = new Subject<FirebaseAuthData>();
+    public loggedInStatus = new Subject<boolean>();
 
     constructor() {
-        this.setupObservables();
         this.setupFirebaseCollections();
         this.listenForIncomingEvents();
     }
 
     private listenForIncomingEvents() {
         this.firebase.onAuth(this.onAuth);
-    }
-
-    private setupObservables() {
-        this.authObservable = new Rx.Subject<FirebaseAuthData>();
     }
 
     private setupFirebaseCollections() {
@@ -42,28 +39,34 @@ export class FireBaseService {
         this.skills = this.firebase.child(FireBaseService.SKILLS);
     }
 
-    private onAuth(authData: FirebaseAuthData) {
+    private onAuth = (authData: FirebaseAuthData) => {
         if (authData) {
-            this.authObservable.onNext(authData);
+            this.authObservable.next(authData);
+            this.loggedInStatus.next(true);
         }
     };
 
-    public attemptAuth(email: string, password: string, onSuccess: (authData: FirebaseAuthData) => void) {
+    public attemptAuth(email: string, password: string) {
         this.firebase.authWithPassword({
             email: email,
             password: password
         }, (err, authData: FirebaseAuthData) => {
             if (err) {
-                alert(`Login Failed!`);
-                console.error(err);
-            } else {
-                onSuccess(authData);
+                alert(`Login Failed.. ${err.message}`);
+                console.warn(err);
             }
         });
     };
 
+    public isLoggedIn(): boolean {
+        let auth = this.firebase.getAuth();
+        if (auth) return true;
+        return false;
+    }
+
     public logout() {
         this.firebase.unauth();  
+        this.loggedInStatus.next(false);
     }
 
     public createUser(user: User, password: string, onSuccess: (userData: any) => void) {
@@ -81,6 +84,7 @@ export class FireBaseService {
 
     private handleCreateUserError(error) {
         console.error(error);
+        debugger;
         switch (error.code) {
             case "EMAIL_TAKEN":
                 alert("The new user account cannot be created because the email is already in use.");

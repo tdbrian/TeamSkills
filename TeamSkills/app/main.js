@@ -1,4 +1,5 @@
 ///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+///<reference path="../node_modules/rxjs/rx.d.ts"/>
 System.register(['angular2/platform/browser', 'angular2/core', 'angular2/router', './app.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;

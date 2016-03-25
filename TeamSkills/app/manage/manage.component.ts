@@ -1,5 +1,6 @@
 ﻿import {Component, Input} from 'angular2/core';
 import {ManageList} from './_components/manage-list.component';
+import {AuthService} from '../_common/services/auth.service';
 import {User} from '../_common/models/user.model';
 import {Skill} from '../_common/models/skill.model';
 import {Project} from '../_common/models/project.model';
@@ -14,7 +15,7 @@ export class ManageSkills {
     @Input() skills;
     @Input() projects;
 
-    constructor() {
+    constructor(private authService: AuthService) {
         //fake data
         var supportal = new Project("Supportal");
         var monsoon = new Project("Monsoon");

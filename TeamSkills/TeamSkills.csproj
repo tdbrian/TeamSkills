@@ -77,7 +77,10 @@
     <Content Include="app\home\home.html" />
     <Content Include="app\team\view-team.html" />
     <Content Include="app\team\_components\view-list.html" />
+    <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="gulpfile.js" />
@@ -168,6 +171,7 @@
     <TypeScriptCompile Include="app\_common\models\skill.model.ts" />
     <TypeScriptCompile Include="app\_common\models\user.model.ts" />
     <TypeScriptCompile Include="app\_common\models\project.model.ts" />
+    <TypeScriptCompile Include="app\_common\services\auth.service.ts" />
     <TypeScriptCompile Include="app\_common\services\skills.service.ts" />
     <TypeScriptCompile Include="app\_common\services\projects.service.ts" />
     <TypeScriptCompile Include="app\_common\services\firebase.service.ts" />
@@ -175,8 +179,6 @@
     <TypeScriptCompile Include="app\_common\services\users.service.ts" />
     <TypeScriptCompile Include="typings\browser.d.ts" />
     <TypeScriptCompile Include="typings\browser\ambient\firebase\index.d.ts" />
-    <TypeScriptCompile Include="typings\browser\ambient\rx-lite\index.d.ts" />
-    <TypeScriptCompile Include="typings\browser\ambient\rx\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -1,10 +1,14 @@
 ﻿<div class="container">
-	<div class="row">
-		<div class="col-md-6">
-			<manage-list [list]="skills" [userItems]="user.skills" (itemSelected)="onAddOrRemoveSkill($event)"></manage-list>
-		</div>
-		<div class="col-md-6">
-			<manage-list [list]="projects" [userItems]="user.projects" (itemSelected)="onAddOrRemoveProject($event)"></manage-list>
-		</div>
-	</div>
+    <div class="row">
+        <h1>Manage Your Skills & Projects</h1>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <manage-list [list]="skills" [userItems]="user.skills" (itemSelected)="onAddOrRemoveSkill($event)"></manage-list>
+        </div>
+        <div class="col-md-6">
+            <manage-list [list]="projects" [userItems]="user.projects" (itemSelected)="onAddOrRemoveProject($event)"></manage-list>
+        </div>
+    </div>
 </div>
