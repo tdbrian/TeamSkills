@@ -27,11 +27,9 @@ System.register(['angular2/core', 'angular2/common', "ng2-bootstrap/ng2-bootstra
             ViewList = (function () {
                 function ViewList() {
                     this.itemSelected = new core_1.EventEmitter();
-                    this.x = 5;
-                    this.y = 2;
-                    this.max = 10;
+                    this.max = 5;
                     this.rate = 7;
-                    this.isReadonly = false;
+                    this.isReadonly = true;
                     this.ratingStates = [
                         { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
                         { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },

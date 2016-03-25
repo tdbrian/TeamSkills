@@ -15,12 +15,10 @@ export class ViewList {
     updateCorrespondingItems(item) {
         this.itemSelected.emit(item);
     }
-
-    private x: number = 5;
-    private y: number = 2;
-    private max: number = 10;
+    
+    private max: number = 5;
     private rate: number = 7;
-    private isReadonly: boolean = false;
+    private isReadonly: boolean = true;
 
     private overStar: number;
     private percent: number;

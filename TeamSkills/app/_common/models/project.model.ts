@@ -8,10 +8,10 @@
 
 export class ProjectLevel {
     public project: Project;
-    public level: number;
+    public level: number; 
 
-    constructor(project: Project, level: number) {
+    constructor(project: Project, level: number) { 
         this.project = project;
-        this.level = this.level;
+        this.level = level;
     } 
 }

@@ -7,7 +7,7 @@ export class User {
     email: string;
     projectLevels: ProjectLevel[];
     skillLevels: SkillLevel[];
-
+     
     constructor(name: string, email: string) {
         this.name = name;
         this.email = email;
