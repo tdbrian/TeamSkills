@@ -1,4 +1,4 @@
-System.register(['angular2/core', './_components/manage-list.component', '../_common/services/auth.service', '../_common/models/user.model', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
+System.register(['angular2/core', './_components/manage-list.component', '../_common/models/user.model', '../_common/models/skill.model', '../_common/models/project.model', '../_common/services/auth.service', '../_common/services/projects.service', '../_common/services/skills.service', '../_common/services/current-user.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, manage_list_component_1, auth_service_1, user_model_1, skill_model_1, project_model_1;
+    var core_1, manage_list_component_1, user_model_1, skill_model_1, project_model_1, auth_service_1, projects_service_1, skills_service_1, current_user_service_1;
     var ManageSkills;
     return {
         setters:[
@@ -20,9 +20,6 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
             function (manage_list_component_1_1) {
                 manage_list_component_1 = manage_list_component_1_1;
             },
-            function (auth_service_1_1) {
-                auth_service_1 = auth_service_1_1;
-            },
             function (user_model_1_1) {
                 user_model_1 = user_model_1_1;
             },
@@ -31,60 +28,59 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
             },
             function (project_model_1_1) {
                 project_model_1 = project_model_1_1;
+            },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
+            },
+            function (projects_service_1_1) {
+                projects_service_1 = projects_service_1_1;
+            },
+            function (skills_service_1_1) {
+                skills_service_1 = skills_service_1_1;
+            },
+            function (current_user_service_1_1) {
+                current_user_service_1 = current_user_service_1_1;
             }],
         execute: function() {
             ManageSkills = (function () {
-                function ManageSkills(authService) {
+                function ManageSkills(authService, skillsService, projectsService, userService) {
                     this.authService = authService;
-                    //fake data
-                    var supportal = new project_model_1.Project("Supportal");
-                    var monsoon = new project_model_1.Project("Monsoon");
-                    var secureTide = new project_model_1.Project("SecureTide");
-                    var angular = new skill_model_1.Skill("Angular");
-                    var cSharp = new skill_model_1.Skill("C#");
-                    var octopus = new skill_model_1.Skill("Octopus");
-                    this.user = new user_model_1.User("Shane Drye", "sdrye@appriver.com");
-                    this.user.skills = [octopus];
-                    this.user.projects = [secureTide];
-                    this.skills = {
-                        title: "Skills",
-                        items: [angular, cSharp, octopus]
-                    };
-                    this.projects = {
-                        title: "Projects",
-                        items: [supportal, monsoon, secureTide]
-                    };
+                    this.skillsService = skillsService;
+                    this.projectsService = projectsService;
+                    this.userService = userService;
+                    this.user = userService.currentUser;
                 }
-                // needs to use skill service to add or remove 
                 ManageSkills.prototype.onAddOrRemoveSkill = function (item) {
                     if (item.isSelected == true) {
-                        this.user.skills = this.user.skills.slice().filter(function (x) { return x.name != item.name; });
+                        this.user.skillLevels = this.user.skillLevels.slice().filter(function (x) { return x.skill.name != item.name; });
                     }
                     if (item.isSelected == false) {
-                        var newSkill = new skill_model_1.Skill(item.name);
-                        this.user.skills = this.user.skills.concat([newSkill]);
+                        var newSkill = new skill_model_1.SkillLevel(item.name, item.level);
+                        this.userService.addSkill(newSkill);
+                        this.user.skillLevels = this.user.skillLevels.concat([newSkill]);
                     }
                 };
                 ManageSkills.prototype.onAddOrRemoveProject = function (item) {
                     if (item.isSelected == true) {
-                        this.user.projects = this.user.projects.slice().filter(function (x) { return x.name != item.name; });
+                        this.user.projectLevels = this.user.projectLevels.slice().filter(function (x) { return x.project.name != item.name; });
                     }
                     if (item.isSelected == false) {
-                        var newProject = new skill_model_1.Skill(item.name);
-                        this.user.projects = this.user.projects.concat([newProject]);
+                        var newProject = new project_model_1.ProjectLevel(item.name, item.level);
+                        this.userService.addProject(newProject);
+                        this.user.projectLevels = this.user.projectLevels.concat([newProject]);
                     }
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', user_model_1.User)
                 ], ManageSkills.prototype, "user", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', Array)
                 ], ManageSkills.prototype, "skills", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', Array)
                 ], ManageSkills.prototype, "projects", void 0);
                 ManageSkills = __decorate([
                     core_1.Component({
@@ -92,7 +88,7 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
                         templateUrl: 'app/manage/manage.html',
                         directives: [manage_list_component_1.ManageList]
                     }), 
-                    __metadata('design:paramtypes', [auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [auth_service_1.AuthService, skills_service_1.SkillsService, projects_service_1.ProjectsService, current_user_service_1.CurrentUserService])
                 ], ManageSkills);
                 return ManageSkills;
             }());

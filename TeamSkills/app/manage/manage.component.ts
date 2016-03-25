@@ -1,9 +1,18 @@
 ﻿import {Component, Input} from 'angular2/core';
+
+// Sub Components
 import {ManageList} from './_components/manage-list.component';
-import {AuthService} from '../_common/services/auth.service';
+
+// Models
 import {User} from '../_common/models/user.model';
-import {Skill} from '../_common/models/skill.model';
-import {Project} from '../_common/models/project.model';
+import {Skill, SkillLevel} from '../_common/models/skill.model';
+import {Project, ProjectLevel} from '../_common/models/project.model';
+
+// Services
+import {AuthService} from '../_common/services/auth.service';
+import {ProjectsService} from '../_common/services/projects.service';
+import {SkillsService} from '../_common/services/skills.service';
+import {CurrentUserService} from '../_common/services/current-user.service';
 
 @Component({
     selector: 'manage-skills',
@@ -11,51 +20,37 @@ import {Project} from '../_common/models/project.model';
     directives: [ManageList]
 })
 export class ManageSkills {
-    @Input() user;
-    @Input() skills;
-    @Input() projects;
+    @Input() user: User;
+    @Input() skills: Skill[];
+    @Input() projects: Project[];
 
-    constructor(private authService: AuthService) {
-        //fake data
-        var supportal = new Project("Supportal");
-        var monsoon = new Project("Monsoon");
-        var secureTide = new Project("SecureTide");
+    constructor(private authService: AuthService,
+        private skillsService: SkillsService,
+        private projectsService: ProjectsService,
+        private userService: CurrentUserService) {
 
-        var angular = new Skill("Angular");
-        var cSharp = new Skill("C#");
-        var octopus = new Skill("Octopus");
-
-        this.user = new User("Shane Drye", "sdrye@appriver.com");
-        this.user.skills = [octopus];
-        this.user.projects = [secureTide];
-        this.skills = {
-            title: "Skills",
-            items: [angular, cSharp, octopus]
-        }
-        this.projects = {
-            title: "Projects",
-            items: [supportal, monsoon, secureTide]
-        }
+        this.user = userService.currentUser;
     }
 
-    // needs to use skill service to add or remove 
     onAddOrRemoveSkill(item) {
         if (item.isSelected == true) {
-            this.user.skills = [...this.user.skills].filter(x => x.name != item.name);
+            this.user.skillLevels = [...this.user.skillLevels].filter(x => x.skill.name != item.name);
         }
         if (item.isSelected == false) {
-            var newSkill = new Skill(item.name);
-            this.user.skills = [...this.user.skills, newSkill];
+            var newSkill = new SkillLevel(item.name, item.level);
+            this.userService.addSkill(newSkill);
+            this.user.skillLevels = [...this.user.skillLevels, newSkill];
         }
     }
 
     onAddOrRemoveProject(item) {
         if (item.isSelected == true) {
-            this.user.projects = [...this.user.projects].filter(x => x.name != item.name);
+            this.user.projectLevels = [...this.user.projectLevels].filter(x => x.project.name != item.name);
         }
         if (item.isSelected == false) {
-            var newProject = new Skill(item.name);
-            this.user.projects = [...this.user.projects, newProject];
+            var newProject = new ProjectLevel(item.name, item.level);
+            this.userService.addProject(newProject);
+            this.user.projectLevels = [...this.user.projectLevels, newProject];
         }
     }
 } 

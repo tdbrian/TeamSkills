@@ -7,8 +7,8 @@
 }
 
 export class ProjectLevel {
-    private project: Project;
-    private level: number;
+    public project: Project;
+    public level: number;
 
     constructor(project: Project, level: number) {
         this.project = project;
