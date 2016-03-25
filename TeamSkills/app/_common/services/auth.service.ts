@@ -10,7 +10,6 @@ export class AuthService {
 
     constructor(private backend: FireBaseService, private router: Router) {
         this.backend.loggedInStatus.subscribe((status: boolean) => {
-            debugger;
             this.isLoggedIn = status
             this.router.navigate(['ViewTeam']);
         });

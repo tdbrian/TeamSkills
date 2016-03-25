@@ -30,7 +30,6 @@ System.register(['angular2/core', './firebase.service', 'angular2/router'], func
                     this.backend = backend;
                     this.router = router;
                     this.backend.loggedInStatus.subscribe(function (status) {
-                        debugger;
                         _this.isLoggedIn = status;
                         _this.router.navigate(['ViewTeam']);
                     });
