@@ -1,3 +1,13 @@
 ﻿.below-navbar {
 	margin-top: 15vh;
 }
+
+ .grayedOut {
+	 -ms-opacity: .25;
+	 opacity: .25;
+ }   
+
+ .grayedOut:hover {
+	 -ms-opacity: 1;
+	 opacity: 1;
+ }

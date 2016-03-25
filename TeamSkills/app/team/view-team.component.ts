@@ -28,7 +28,7 @@ export class ViewTeam implements OnActivate {
         var angular = new Skill("Angular");
         var cSharp = new Skill("C#");
         var octopus = new Skill("Octopus");
-         
+
         var thomas = new User("Thomas Brian", "tbrian@appriver.com");
         var leif = new User("Leif Thillet", "lthillet@appriver.com");
         var shane = new User("Shane Drye", "sdrye@appriver.com");
@@ -56,38 +56,56 @@ export class ViewTeam implements OnActivate {
 
     routerOnActivate() {
         let status = this.authService.isAuthenticated();
-        if(!status) this.router.navigate(['Login']);
+        if (!status) this.router.navigate(['Login']);
     }
 
     onUpdateTeam(item) {
-        this.team.items = [item, ...this.team.items.filter(x => x.name != item.name)];
+        var teamTop = item;
+        var teamBottom = this.team.items.filter(x => x.name != item.name);
+        this.team.items = this.grayedOut([teamTop], teamBottom);
 
-        var skillsTop = [...this.skills.items.filter(x => item.skillLevels.map(x => x.skill).includes(x))];
-        var skillsBottom = [...this.skills.items.filter(x => !item.skillLevels.map(x => x.skill).includes(x))];
-        this.skills.items = [...skillsTop, ...skillsBottom];
+        var skillsTop = this.skills.items.filter(x => item.skillLevels.map(x => x.skill).includes(x));
+        var skillsBottom = this.skills.items.filter(x => !item.skillLevels.map(x => x.skill).includes(x));
+        this.skills.items = this.grayedOut(skillsTop, skillsBottom);
 
-        var projectsTop = [...this.projects.items.filter(x => item.projectLevels.map(x => x.project).includes(x))];
-        var projectsBottom = [...this.projects.items.filter(x => !item.projectLevels.map(x => x.project).includes(x))];
-        this.projects.items = [...projectsTop, ...projectsBottom];
+        var projectsTop = this.projects.items.filter(x => item.projectLevels.map(x => x.project).includes(x));
+        var projectsBottom = this.projects.items.filter(x => !item.projectLevels.map(x => x.project).includes(x));
+        this.projects.items = this.grayedOut(projectsTop, projectsBottom);
     }
 
     onUpdateSkill(item) {
-        var teamTop = [...this.team.items.filter(x => x.skillLevels.map(x => x.skill).includes(item))];
-        var teamBottom = [...this.team.items.filter(x => !x.skillLevels.map(x => x.skill).includes(item))];
-        this.team.items = [...teamTop, ...teamBottom];
+        var teamTop = this.team.items.filter(x => x.skillLevels.map(x => x.skill).includes(item));
+        var teamBottom = this.team.items.filter(x => !x.skillLevels.map(x => x.skill).includes(item));
+        this.team.items = this.grayedOut(teamTop, teamBottom);
 
-        this.skills.items = [item, ...this.skills.items.filter(x => x.name != item.name)];
-        
-        //this.projects.items = [];
+        var skillsTop = item;
+        var skillsBottom = this.skills.items.filter(x => x.name != item.name)
+        this.skills.items = this.grayedOut([skillsTop], skillsBottom)
+
+        this.projects.items = this.grayedOut([], this.projects.items);
     }
 
     onUpdateProject(item) {
-        var teamTop = [...this.team.items.filter(x => x.projectLevels.map(x => x.project).includes(item))];
-        var teamBottom = [...this.team.items.filter(x => !x.projectLevels.map(x => x.project).includes(item))];
-        this.team.items = [...teamTop, ...teamBottom];
+        var teamTop = this.team.items.filter(x => x.projectLevels.map(x => x.project).includes(item));
+        var teamBottom = this.team.items.filter(x => !x.projectLevels.map(x => x.project).includes(item));
+        this.team.items = this.grayedOut(teamTop, teamBottom);
 
-        this.projects.items = [item, ...this.projects.items.filter(x => x.name != item.name)];
+        var projectsTop = item;
+        var projectsBottom = this.projects.items.filter(x => x.name != item.name)
+        this.projects.items = this.grayedOut([projectsTop], projectsBottom)
 
-        //this.skills.items = [];
+        this.skills.items = this.grayedOut([], this.skills.items);
+    }
+
+    private grayedOut(top, bottom) {
+        top = top.map(x => {
+            x['grayedOut'] = false;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['grayedOut'] = true;
+            return x;
+        });
+        return [...top, ...bottom]
     }
 }

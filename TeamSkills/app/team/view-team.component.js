@@ -76,27 +76,44 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                         this.router.navigate(['Login']);
                 };
                 ViewTeam.prototype.onUpdateTeam = function (item) {
-                    this.team.items = [item].concat(this.team.items.filter(function (x) { return x.name != item.name; }));
-                    var skillsTop = this.skills.items.filter(function (x) { return item.skillLevels.map(function (x) { return x.skill; }).includes(x); }).slice();
-                    var skillsBottom = this.skills.items.filter(function (x) { return !item.skillLevels.map(function (x) { return x.skill; }).includes(x); }).slice();
-                    this.skills.items = skillsTop.concat(skillsBottom);
-                    var projectsTop = this.projects.items.filter(function (x) { return item.projectLevels.map(function (x) { return x.project; }).includes(x); }).slice();
-                    var projectsBottom = this.projects.items.filter(function (x) { return !item.projectLevels.map(function (x) { return x.project; }).includes(x); }).slice();
-                    this.projects.items = projectsTop.concat(projectsBottom);
+                    var teamTop = item;
+                    var teamBottom = this.team.items.filter(function (x) { return x.name != item.name; });
+                    this.team.items = this.grayedOut([teamTop], teamBottom);
+                    var skillsTop = this.skills.items.filter(function (x) { return item.skillLevels.map(function (x) { return x.skill; }).includes(x); });
+                    var skillsBottom = this.skills.items.filter(function (x) { return !item.skillLevels.map(function (x) { return x.skill; }).includes(x); });
+                    this.skills.items = this.grayedOut(skillsTop, skillsBottom);
+                    var projectsTop = this.projects.items.filter(function (x) { return item.projectLevels.map(function (x) { return x.project; }).includes(x); });
+                    var projectsBottom = this.projects.items.filter(function (x) { return !item.projectLevels.map(function (x) { return x.project; }).includes(x); });
+                    this.projects.items = this.grayedOut(projectsTop, projectsBottom);
                 };
                 ViewTeam.prototype.onUpdateSkill = function (item) {
-                    var teamTop = this.team.items.filter(function (x) { return x.skillLevels.map(function (x) { return x.skill; }).includes(item); }).slice();
-                    var teamBottom = this.team.items.filter(function (x) { return !x.skillLevels.map(function (x) { return x.skill; }).includes(item); }).slice();
-                    this.team.items = teamTop.concat(teamBottom);
-                    this.skills.items = [item].concat(this.skills.items.filter(function (x) { return x.name != item.name; }));
-                    //this.projects.items = [];
+                    var teamTop = this.team.items.filter(function (x) { return x.skillLevels.map(function (x) { return x.skill; }).includes(item); });
+                    var teamBottom = this.team.items.filter(function (x) { return !x.skillLevels.map(function (x) { return x.skill; }).includes(item); });
+                    this.team.items = this.grayedOut(teamTop, teamBottom);
+                    var skillsTop = item;
+                    var skillsBottom = this.skills.items.filter(function (x) { return x.name != item.name; });
+                    this.skills.items = this.grayedOut([skillsTop], skillsBottom);
+                    this.projects.items = this.grayedOut([], this.projects.items);
                 };
                 ViewTeam.prototype.onUpdateProject = function (item) {
-                    var teamTop = this.team.items.filter(function (x) { return x.projectLevels.map(function (x) { return x.project; }).includes(item); }).slice();
-                    var teamBottom = this.team.items.filter(function (x) { return !x.projectLevels.map(function (x) { return x.project; }).includes(item); }).slice();
-                    this.team.items = teamTop.concat(teamBottom);
-                    this.projects.items = [item].concat(this.projects.items.filter(function (x) { return x.name != item.name; }));
-                    //this.skills.items = [];
+                    var teamTop = this.team.items.filter(function (x) { return x.projectLevels.map(function (x) { return x.project; }).includes(item); });
+                    var teamBottom = this.team.items.filter(function (x) { return !x.projectLevels.map(function (x) { return x.project; }).includes(item); });
+                    this.team.items = this.grayedOut(teamTop, teamBottom);
+                    var projectsTop = item;
+                    var projectsBottom = this.projects.items.filter(function (x) { return x.name != item.name; });
+                    this.projects.items = this.grayedOut([projectsTop], projectsBottom);
+                    this.skills.items = this.grayedOut([], this.skills.items);
+                };
+                ViewTeam.prototype.grayedOut = function (top, bottom) {
+                    top = top.map(function (x) {
+                        x['grayedOut'] = false;
+                        return x;
+                    });
+                    bottom = bottom.map(function (x) {
+                        x['grayedOut'] = true;
+                        return x;
+                    });
+                    return top.concat(bottom);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -116,9 +133,10 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                         templateUrl: 'app/team/view-team.html',
                         directives: [view_list_component_1.ViewList]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [(typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object, (typeof (_b = typeof auth_service_1.AuthService !== 'undefined' && auth_service_1.AuthService) === 'function' && _b) || Object])
                 ], ViewTeam);
                 return ViewTeam;
+                var _a, _b;
             }());
             exports_1("ViewTeam", ViewTeam);
         }
