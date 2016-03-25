@@ -30,7 +30,12 @@ System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(ex
                 };
                 ManageList.prototype.userHasItem = function (name) {
                     if (this.userItems) {
-                        return this.userItems.map(function (x) { return x.name; }).includes(name);
+                        return this.userItems.map(function (x) {
+                            if (x.skill)
+                                return x.skill.name;
+                            else if (x.project)
+                                return x.project.name;
+                        }).includes(name);
                     }
                 };
                 __decorate([

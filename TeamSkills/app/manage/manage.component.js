@@ -41,8 +41,6 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
                     this.userService = userService;
                 }
                 ManageSkills.prototype.onAddOrRemoveSkill = function (skillName) {
-                    debugger;
-                    console.info(this.userService);
                     this.userService.toggleSkill(skillName, 1);
                 };
                 ManageSkills.prototype.onAddOrRemoveProject = function (projectName) {

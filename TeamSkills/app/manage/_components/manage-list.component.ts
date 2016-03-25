@@ -17,7 +17,10 @@ export class ManageList {
 
     userHasItem(name) {
         if (this.userItems) {
-            return this.userItems.map(x => x.name).includes(name);
+            return this.userItems.map(x => {
+                if (x.skill) return x.skill.name;
+                else if (x.project) return x.project.name;
+            }).includes(name);
         }
     }
 }

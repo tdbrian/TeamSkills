@@ -28,8 +28,6 @@ export class ManageSkills {
     }
 
     onAddOrRemoveSkill(skillName: string) {
-        debugger;
-        console.info(this.userService);
         this.userService.toggleSkill(skillName, 1);
     }
 
