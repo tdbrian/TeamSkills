@@ -24,12 +24,12 @@
 	<!-- 2. Configure SystemJS -->
 	<script>
 		System.config({ packages: { app: { defaultExtension: 'js' },
-				"node_modules/ng2-bootstrap": {
-				"defaultExtension": "js"
-			 }
+				"node_modules/ng2-bootstrap": { "defaultExtension": "js" },
+				"node_modules/moment" : { "defaultExtension": "js" }
 		  },
 		  paths: {
-			"ng2-bootstrap/ng2-bootstrap":   "node_modules/ng2-bootstrap/ng2-bootstrap"
+			"ng2-bootstrap/ng2-bootstrap":   "node_modules/ng2-bootstrap/ng2-bootstrap",
+			"moment": "node_modules/ng2-bootstrap/node_modules/moment/moment"
 		  }});
 		System.import('app/main').then(null, console.error.bind(console));
 	</script>
