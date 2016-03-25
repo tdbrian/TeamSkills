@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../_common/services/auth.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../_common/services/auth.service', '../_common/services/current-user.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../_common/services/auth.s
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, auth_service_1;
+    var core_1, router_1, auth_service_1, current_user_service_1;
     var AppNav;
     return {
         setters:[
@@ -22,11 +22,15 @@ System.register(['angular2/core', 'angular2/router', '../_common/services/auth.s
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
+            },
+            function (current_user_service_1_1) {
+                current_user_service_1 = current_user_service_1_1;
             }],
         execute: function() {
             AppNav = (function () {
-                function AppNav(auth) {
+                function AppNav(auth, userService) {
                     this.auth = auth;
+                    this.userService = userService;
                 }
                 AppNav.prototype.logout = function () {
                     this.auth.logout();
@@ -37,7 +41,7 @@ System.register(['angular2/core', 'angular2/router', '../_common/services/auth.s
                         templateUrl: 'app/shell/nav.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [auth_service_1.AuthService, current_user_service_1.CurrentUserService])
                 ], AppNav);
                 return AppNav;
             }());

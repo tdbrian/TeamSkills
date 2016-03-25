@@ -31,7 +31,6 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                 function CurrentUserService(backend) {
                     var _this = this;
                     this.backend = backend;
-                    this.onUserLoggedIn = new Subject_1.Subject();
                     this.onUserCreated = new Subject_1.Subject();
                     this.onUserAdded = function (newUserSnapshot) {
                         var newUser = newUserSnapshot.val();
@@ -43,9 +42,25 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     };
                     this.listenForIncomingEvents();
                     this.usersRepo = backend.users;
+                    this.setCurrentUser();
                 }
+                CurrentUserService.prototype.setCurrentUser = function () {
+                    var _this = this;
+                    if (this.backend.isLoggedIn()) {
+                        var auth = this.backend.getLoggedInAuth();
+                        this.usersRepo.child(auth.uid).once(firebase_service_1.FireBaseService.VALUE, function (userSnapshot) {
+                            _this.currentUser = userSnapshot.val();
+                        });
+                    }
+                };
                 CurrentUserService.prototype.listenForIncomingEvents = function () {
+                    var _this = this;
                     this.backend.users.on(firebase_service_1.FireBaseService.ADDED, this.onUserAdded);
+                    this.backend.authObservable.subscribe(function (auth) {
+                        _this.usersRepo.child(auth.uid).on(firebase_service_1.FireBaseService.VALUE, function (userSnapshot) {
+                            _this.currentUser = userSnapshot.val();
+                        });
+                    });
                 };
                 CurrentUserService.prototype.attemptLogin = function (email, password) {
                     this.backend.attemptAuth(email, password);

@@ -19,6 +19,7 @@
               <li><a [routerLink]="['Login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" *ngIf="auth.isLoggedIn">
+              <li><a [routerLink]="['ManageSkills']"><span class="glyphicon glyphicon-user"></span> {{userService.currentUser?.name}}</a></li>
               <li><a (click)="logout()" href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           </ul>
       </div> 

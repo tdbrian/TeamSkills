@@ -41,6 +41,7 @@ export class FireBaseService {
 
     private onAuth = (authData: FirebaseAuthData) => {
         if (authData) {
+            debugger;
             this.authObservable.next(authData);
             this.loggedInStatus.next(true);
         }
@@ -81,6 +82,10 @@ export class FireBaseService {
                 this.users.child(userData.uid).set(user);
             }
         });
+    }
+
+    public getLoggedInAuth(): FirebaseAuthData {
+        return this.firebase.getAuth();
     }
 
     private handleCreateUserError(error) {

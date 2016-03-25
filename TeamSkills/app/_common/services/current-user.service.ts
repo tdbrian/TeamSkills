@@ -10,17 +10,32 @@ export class CurrentUserService {
 
     public waitingOnNewUser: User;
     public currentUser: User;
-    public onUserLoggedIn = new Subject<User>();
     public onUserCreated = new Subject<User>();
     private usersRepo: Firebase;
 
     constructor(private backend: FireBaseService) { 
         this.listenForIncomingEvents();
         this.usersRepo = backend.users;
+        this.setCurrentUser();
+    }
+
+    private setCurrentUser() {
+        if (this.backend.isLoggedIn()) {
+            let auth = this.backend.getLoggedInAuth();
+            this.usersRepo.child(auth.uid).once(FireBaseService.VALUE, (userSnapshot) => {
+                this.currentUser = userSnapshot.val();
+            });
+        }
     }
 
     private listenForIncomingEvents() {
         this.backend.users.on(FireBaseService.ADDED, this.onUserAdded);
+
+        this.backend.authObservable.subscribe((auth: FirebaseAuthData) => {
+            this.usersRepo.child(auth.uid).on(FireBaseService.VALUE, (userSnapshot) => {
+                this.currentUser = userSnapshot.val();
+            });
+        });
     }
 
     private onUserAdded = (newUserSnapshot: FirebaseDataSnapshot) => {
