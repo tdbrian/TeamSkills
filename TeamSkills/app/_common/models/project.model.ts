@@ -13,5 +13,5 @@ export class ProjectLevel {
     constructor(project: Project, level: number) {
         this.project = project;
         this.level = this.level;
-    }
+    } 
 }
