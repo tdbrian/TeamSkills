@@ -41,7 +41,6 @@ export class FireBaseService {
 
     private onAuth = (authData: FirebaseAuthData) => {
         if (authData) {
-            debugger;
             this.authObservable.next(authData);
             this.loggedInStatus.next(true);
         }

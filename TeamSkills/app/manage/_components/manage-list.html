@@ -1,6 +1,6 @@
 ﻿<h2>{{list.title}}</h2>
 <div class="list-group">
-	<a class="list-group-item" *ngFor="#item of list.items | selectedValues: userItems" href="javascript:{}" (click)="addOrRemoveItem(item.name)">
+	<a class="list-group-item" *ngFor="#item of list?.items | selectedValues: userItems" href="javascript:{}" (click)="addOrRemoveItem(item.name)">
 		<div class="checkbox">
 			<label>
 				<input type="checkbox" [(ngModel)]="item.isSelected">  {{item.name}}

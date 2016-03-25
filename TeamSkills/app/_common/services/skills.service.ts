@@ -7,7 +7,7 @@ import {Subject} from 'rxjs/Subject';
 export class SkillsService {
 
     private skillsRepo: Firebase;
-    public onSkills = new Subject<Skill[]>();
+    public skills: Skill[] = [];
 
     constructor(private backend: FireBaseService) { 
         this.skillsRepo = backend.skills;
@@ -18,12 +18,12 @@ export class SkillsService {
         this.skillsRepo.on(FireBaseService.VALUE, this.onSkillsChanged);
     }
 
-    private onSkillsChanged(skillsSnapshot: FirebaseDataSnapshot) {
-        this.onSkills.next(skillsSnapshot.val());
+    private onSkillsChanged = (skillsSnapshot: FirebaseDataSnapshot) => {
+        this.skills = skillsSnapshot.val();
+        console.info(this.skills);
     }
 
-    public addSkill = (name: string) => {
-        let skill = new Skill(name);
-        this.skillsRepo.push(skill);
+    public updateSkills = (skills: Skill[]) => {
+        this.skillsRepo.update(skills);
     }
 }

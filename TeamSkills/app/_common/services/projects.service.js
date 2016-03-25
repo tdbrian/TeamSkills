@@ -1,4 +1,4 @@
-System.register(['angular2/core', './firebase.service', '../models/project.model', 'rxjs/Subject'], function(exports_1, context_1) {
+System.register(['angular2/core', './firebase.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './firebase.service', '../models/project.model
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, firebase_service_1, project_model_1, Subject_1;
+    var core_1, firebase_service_1;
     var ProjectsService;
     return {
         setters:[
@@ -19,31 +19,25 @@ System.register(['angular2/core', './firebase.service', '../models/project.model
             },
             function (firebase_service_1_1) {
                 firebase_service_1 = firebase_service_1_1;
-            },
-            function (project_model_1_1) {
-                project_model_1 = project_model_1_1;
-            },
-            function (Subject_1_1) {
-                Subject_1 = Subject_1_1;
             }],
         execute: function() {
             ProjectsService = (function () {
                 function ProjectsService(backend) {
                     var _this = this;
                     this.backend = backend;
-                    this.onProjects = new Subject_1.Subject();
-                    this.addProject = function (name) {
-                        var project = new project_model_1.Project(name);
-                        _this.projectsRepo.push(project);
+                    this.projects = [];
+                    this.onProjectsChanged = function (projectsSnapshot) {
+                        _this.projects = projectsSnapshot.val();
+                        console.info(_this.projects);
+                    };
+                    this.updateProjects = function (projects) {
+                        _this.projectsRepo.update(projects);
                     };
                     this.projectsRepo = backend.projects;
                     this.listenForIncomingEvents();
                 }
                 ProjectsService.prototype.listenForIncomingEvents = function () {
                     this.projectsRepo.on(firebase_service_1.FireBaseService.VALUE, this.onProjectsChanged);
-                };
-                ProjectsService.prototype.onProjectsChanged = function (projectsSnapshot) {
-                    this.onProjects.next(projectsSnapshot.val());
                 };
                 ProjectsService = __decorate([
                     core_1.Injectable(), 
