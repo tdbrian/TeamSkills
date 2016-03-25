@@ -1,7 +1,7 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Project, ProjectLevels;
+    var Project, ProjectLevel;
     return {
         setters:[],
         execute: function() {
@@ -12,14 +12,14 @@ System.register([], function(exports_1, context_1) {
                 return Project;
             }());
             exports_1("Project", Project);
-            ProjectLevels = (function () {
-                function ProjectLevels(project, level) {
+            ProjectLevel = (function () {
+                function ProjectLevel(project, level) {
                     this.project = project;
                     this.level = this.level;
                 }
-                return ProjectLevels;
+                return ProjectLevel;
             }());
-            exports_1("ProjectLevels", ProjectLevels);
+            exports_1("ProjectLevel", ProjectLevel);
         }
     }
 });

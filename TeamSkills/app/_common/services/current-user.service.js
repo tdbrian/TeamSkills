@@ -26,41 +26,13 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
         execute: function() {
             CurrentUserService = (function () {
                 function CurrentUserService(backend) {
-                    var _this = this;
                     this.backend = backend;
-                    this.attemptLogin = function (email, password) {
-                        _this.backend.attemptAuth(email, password, function (authData) {
-                            _this.backend.users.child(authData.uid).once('value', function (user) {
-                                if (!user.exists()) {
-                                    _this.currentUser = null;
-                                    _this.onUserLoggedIn.onError('Unable to get user data');
-                                }
-                                else {
-                                    _this.currentUser = user.val();
-                                    _this.onUserLoggedIn.onNext(_this.currentUser);
-                                }
-                            });
-                        });
-                    };
-                    this.createUser = function (name, email, password) {
-                        var user = new user_model_1.User(name, email);
-                        _this.waitingOnNewUser = user;
-                        _this.backend.createUser(user, password, function (userData) {
-                            console.log('new user created!');
-                        });
-                    };
-                    this.logout = function () {
-                        _this.backend.logout();
-                    };
                     this.setupObservables();
                     this.listenForIncomingEvents();
+                    this.usersRepo = backend.users;
                 }
                 CurrentUserService.prototype.listenForIncomingEvents = function () {
                     this.backend.users.on(firebase_service_1.FireBaseService.ADDED, this.onUserAdded);
-                };
-                CurrentUserService.prototype.setupObservables = function () {
-                    this.onUserLoggedIn = new Rx.Subject();
-                    this.onUserCreated = new Rx.Subject();
                 };
                 CurrentUserService.prototype.onUserAdded = function (newUserSnapshot) {
                     var newUser = newUserSnapshot.val();
@@ -71,6 +43,54 @@ System.register(['angular2/core', './firebase.service', '../models/user.model'],
                         console.log(newUser);
                         this.onUserCreated.onNext(this.currentUser);
                     }
+                };
+                CurrentUserService.prototype.setupObservables = function () {
+                    this.onUserLoggedIn = new Rx.Subject();
+                    this.onUserCreated = new Rx.Subject();
+                };
+                CurrentUserService.prototype.attemptLogin = function (email, password) {
+                    var _this = this;
+                    this.backend.attemptAuth(email, password, function (authData) {
+                        _this.backend.users.child(authData.uid).once('value', function (user) {
+                            if (!user.exists()) {
+                                _this.currentUser = null;
+                                _this.onUserLoggedIn.onError('Unable to get user data');
+                            }
+                            else {
+                                _this.currentUser = user.val();
+                                _this.onUserLoggedIn.onNext(_this.currentUser);
+                            }
+                        });
+                    });
+                };
+                CurrentUserService.prototype.createUser = function (name, email, password) {
+                    var user = new user_model_1.User(name, email);
+                    this.waitingOnNewUser = user;
+                    this.backend.createUser(user, password, function (userData) {
+                        console.log('new user created!');
+                    });
+                };
+                CurrentUserService.prototype.logout = function () {
+                    this.backend.logout();
+                };
+                CurrentUserService.prototype.addSkill = function (skillLevel) {
+                    this.currentUser.skillLevels.push(skillLevel);
+                    this.update();
+                };
+                CurrentUserService.prototype.addProject = function (projectLevel) {
+                    this.currentUser.projectLevels.push(projectLevel);
+                    this.update();
+                };
+                CurrentUserService.prototype.updateSkillLevel = function (skillLevel) {
+                    this.currentUser.skillLevels.push(skillLevel);
+                    this.update();
+                };
+                CurrentUserService.prototype.updateProjectLevel = function (projectLevel) {
+                    this.currentUser.projectLevels.push(projectLevel);
+                    this.update();
+                };
+                CurrentUserService.prototype.update = function () {
+                    this.usersRepo.child(this.currentUser.uid).update(this.currentUser);
                 };
                 CurrentUserService = __decorate([
                     core_1.Injectable(), 

@@ -1,11 +1,11 @@
-﻿import {Project, ProjectLevels} from './project.model';
+﻿import {Project, ProjectLevel} from './project.model';
 import {Skill, SkillLevel} from './skill.model';
 
 export class User {
     uid: string;
     name: string;
     email: string;
-    projectLevels: ProjectLevels[];
+    projectLevels: ProjectLevel[];
     skillLevels: SkillLevel[];
 
     constructor(name: string, email: string) {
