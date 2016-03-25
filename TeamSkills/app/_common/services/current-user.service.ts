@@ -23,9 +23,8 @@ export class CurrentUserService {
         this.backend.users.on(FireBaseService.ADDED, this.onUserAdded);
     }
 
-    private onUserAdded(newUserSnapshot: FirebaseDataSnapshot) {
+    private onUserAdded = (newUserSnapshot: FirebaseDataSnapshot) => {
         let newUser: User = newUserSnapshot.val();
-        debugger;
         if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
             this.currentUser = newUser;
             this.waitingOnNewUser = null;
@@ -40,10 +39,7 @@ export class CurrentUserService {
     public createUser(name: string, email: string, password: string) {
         let user = new User(name, email);
         this.waitingOnNewUser = user;
-        this.backend.createUser(user, password, (userData) => {
-            debugger;
-            console.log('new user created!');
-        });
+        this.backend.createUser(user, password);
     }
 
     public logout() {

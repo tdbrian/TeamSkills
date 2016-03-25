@@ -69,15 +69,16 @@ export class FireBaseService {
         this.loggedInStatus.next(false);
     }
 
-    public createUser(user: User, password: string, onSuccess: (userData: any) => void) {
+    public createUser(user: User, password: string) {
         this.firebase.createUser({
             email: user.email,
             password: password
         }, (error, userData: any) => {
+            debugger;
             if (error) {
                 this.handleCreateUserError(error);
             } else {
-                onSuccess(userData);
+                this.users.child(userData.uid).set(user);
             }
         });
     }

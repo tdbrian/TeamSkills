@@ -66,17 +66,18 @@ System.register(['angular2/core', 'rxjs/Subject'], function(exports_1, context_1
                     this.firebase.unauth();
                     this.loggedInStatus.next(false);
                 };
-                FireBaseService.prototype.createUser = function (user, password, onSuccess) {
+                FireBaseService.prototype.createUser = function (user, password) {
                     var _this = this;
                     this.firebase.createUser({
                         email: user.email,
                         password: password
                     }, function (error, userData) {
+                        debugger;
                         if (error) {
                             _this.handleCreateUserError(error);
                         }
                         else {
-                            onSuccess(userData);
+                            _this.users.child(userData.uid).set(user);
                         }
                     });
                 };

@@ -29,23 +29,23 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
         execute: function() {
             CurrentUserService = (function () {
                 function CurrentUserService(backend) {
+                    var _this = this;
                     this.backend = backend;
                     this.onUserLoggedIn = new Subject_1.Subject();
                     this.onUserCreated = new Subject_1.Subject();
+                    this.onUserAdded = function (newUserSnapshot) {
+                        var newUser = newUserSnapshot.val();
+                        if (_this.waitingOnNewUser && newUser.email == _this.waitingOnNewUser.email) {
+                            _this.currentUser = newUser;
+                            _this.waitingOnNewUser = null;
+                            _this.onUserCreated.next(_this.currentUser);
+                        }
+                    };
                     this.listenForIncomingEvents();
                     this.usersRepo = backend.users;
                 }
                 CurrentUserService.prototype.listenForIncomingEvents = function () {
                     this.backend.users.on(firebase_service_1.FireBaseService.ADDED, this.onUserAdded);
-                };
-                CurrentUserService.prototype.onUserAdded = function (newUserSnapshot) {
-                    var newUser = newUserSnapshot.val();
-                    debugger;
-                    if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
-                        this.currentUser = newUser;
-                        this.waitingOnNewUser = null;
-                        this.onUserCreated.next(this.currentUser);
-                    }
                 };
                 CurrentUserService.prototype.attemptLogin = function (email, password) {
                     this.backend.attemptAuth(email, password);
@@ -53,10 +53,7 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                 CurrentUserService.prototype.createUser = function (name, email, password) {
                     var user = new user_model_1.User(name, email);
                     this.waitingOnNewUser = user;
-                    this.backend.createUser(user, password, function (userData) {
-                        debugger;
-                        console.log('new user created!');
-                    });
+                    this.backend.createUser(user, password);
                 };
                 CurrentUserService.prototype.logout = function () {
                     this.backend.logout();
