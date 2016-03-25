@@ -1,9 +1,9 @@
 ﻿import {Component, Input, Output, EventEmitter} from 'angular2/core';
-import {SelectedValues} from '../_pipes/selected-values';
+import {SelectedValues} from '../_pipes/selected-values.pipe';
 
 @Component({
     selector: 'manage-list',
-    templateUrl: 'app/manageSkills/_components/manage-list.html',
+    templateUrl: 'app/manage/_components/manage-list.html',
     pipes: [SelectedValues]
 })
 export class ManageList {

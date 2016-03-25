@@ -1,4 +1,4 @@
-System.register(['angular2/core', './_components/view-list', '../_common/models/user.model', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
+System.register(['angular2/core', './_components/view-list.component', '../_common/models/user.model', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, view_list_1, user_model_1, skill_model_1, project_model_1;
+    var core_1, view_list_component_1, user_model_1, skill_model_1, project_model_1;
     var ViewTeam;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (view_list_1_1) {
-                view_list_1 = view_list_1_1;
+            function (view_list_component_1_1) {
+                view_list_component_1 = view_list_component_1_1;
             },
             function (user_model_1_1) {
                 user_model_1 = user_model_1_1;
@@ -100,8 +100,8 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
                 ViewTeam = __decorate([
                     core_1.Component({
                         selector: 'view-team',
-                        templateUrl: 'app/viewTeam/view-team.html',
-                        directives: [view_list_1.ViewList]
+                        templateUrl: 'app/team/view-team.html',
+                        directives: [view_list_component_1.ViewList]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ViewTeam);
@@ -111,4 +111,4 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
         }
     }
 });
-//# sourceMappingURL=view-team.js.map
+//# sourceMappingURL=view-team.component.js.map

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './shell/nav', './register/register', './login/login', './home/home', './manageSkills/manage-skills', './viewTeam/view-team', './_common/services/current-user.service', './_common/services/firebase.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './shell/nav.component', './register/register.component', './login/login.component', './home/home.component', './manage/manage.component', './team/view-team.component', './_common/services/current-user.service', './_common/services/firebase.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './shell/nav', './register/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, nav_1, register_1, login_1, home_1, manage_skills_1, view_team_1, current_user_service_1, firebase_service_1;
+    var core_1, router_1, nav_component_1, register_component_1, login_component_1, home_component_1, manage_component_1, view_team_component_1, current_user_service_1, firebase_service_1;
     var AppComponent;
     return {
         setters:[
@@ -20,23 +20,23 @@ System.register(['angular2/core', 'angular2/router', './shell/nav', './register/
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (nav_1_1) {
-                nav_1 = nav_1_1;
+            function (nav_component_1_1) {
+                nav_component_1 = nav_component_1_1;
             },
-            function (register_1_1) {
-                register_1 = register_1_1;
+            function (register_component_1_1) {
+                register_component_1 = register_component_1_1;
             },
-            function (login_1_1) {
-                login_1 = login_1_1;
+            function (login_component_1_1) {
+                login_component_1 = login_component_1_1;
             },
-            function (home_1_1) {
-                home_1 = home_1_1;
+            function (home_component_1_1) {
+                home_component_1 = home_component_1_1;
             },
-            function (manage_skills_1_1) {
-                manage_skills_1 = manage_skills_1_1;
+            function (manage_component_1_1) {
+                manage_component_1 = manage_component_1_1;
             },
-            function (view_team_1_1) {
-                view_team_1 = view_team_1_1;
+            function (view_team_component_1_1) {
+                view_team_component_1 = view_team_component_1_1;
             },
             function (current_user_service_1_1) {
                 current_user_service_1 = current_user_service_1_1;
@@ -53,7 +53,7 @@ System.register(['angular2/core', 'angular2/router', './shell/nav', './register/
                         selector: 'my-app',
                         templateUrl: 'app/app.html',
                         directives: [
-                            nav_1.AppNav,
+                            nav_component_1.AppNav,
                             router_1.ROUTER_DIRECTIVES
                         ],
                         providers: [
@@ -62,11 +62,11 @@ System.register(['angular2/core', 'angular2/router', './shell/nav', './register/
                         ]
                     }),
                     router_1.RouteConfig([
-                        { path: '/home', name: 'Home', component: home_1.Home, useAsDefault: true },
-                        { path: '/register', name: 'Register', component: register_1.Register },
-                        { path: '/login', name: 'Login', component: login_1.Login },
-                        { path: '/view-team', name: 'ViewTeam', component: view_team_1.ViewTeam },
-                        { path: '/manage-skills', name: 'ManageSkills', component: manage_skills_1.ManageSkills }
+                        { path: '/home', name: 'Home', component: home_component_1.Home, useAsDefault: true },
+                        { path: '/register', name: 'Register', component: register_component_1.Register },
+                        { path: '/login', name: 'Login', component: login_component_1.Login },
+                        { path: '/view-team', name: 'ViewTeam', component: view_team_component_1.ViewTeam },
+                        { path: '/manage-skills', name: 'ManageSkills', component: manage_component_1.ManageSkills }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
@@ -76,4 +76,4 @@ System.register(['angular2/core', 'angular2/router', './shell/nav', './register/
         }
     }
 });
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=app.component.js.map

@@ -1,9 +1,9 @@
 ﻿import {Component, Input, Output, EventEmitter} from 'angular2/core';
-import {CorrespondingViewItems} from '../_pipes/corresponding-view-items'
+import {CorrespondingViewItems} from '../_pipes/corresponding-view-items.pipe'
 
 @Component({
     selector: 'view-list',
-    templateUrl: 'app/viewTeam/_components/view-list.html', 
+    templateUrl: 'app/team/_components/view-list.html', 
     pipes: [CorrespondingViewItems]
 })
 export class ViewList {

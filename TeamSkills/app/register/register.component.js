@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1;
-    var AppNav;
+    var Register;
     return {
         setters:[
             function (core_1_1) {
@@ -21,21 +21,21 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 router_1 = router_1_1;
             }],
         execute: function() {
-            AppNav = (function () {
-                function AppNav() {
+            Register = (function () {
+                function Register() {
                 }
-                AppNav = __decorate([
+                Register = __decorate([
                     core_1.Component({
-                        selector: 'app-nav',
-                        templateUrl: 'app/shell/nav.html',
+                        selector: 'register',
+                        templateUrl: 'app/register/register.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppNav);
-                return AppNav;
+                ], Register);
+                return Register;
             }());
-            exports_1("AppNav", AppNav);
+            exports_1("Register", Register);
         }
     }
 });
-//# sourceMappingURL=nav.js.map
+//# sourceMappingURL=register.component.js.map

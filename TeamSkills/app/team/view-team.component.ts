@@ -1,12 +1,12 @@
 ﻿import {Component, Input} from 'angular2/core';
-import {ViewList} from './_components/view-list';
+import {ViewList} from './_components/view-list.component';
 import {User} from '../_common/models/user.model';
 import {Skill, SkillLevel} from '../_common/models/skill.model';
 import {Project, ProjectLevel} from '../_common/models/project.model';
 
 @Component({
     selector: 'view-team',
-    templateUrl: 'app/viewTeam/view-team.html',
+    templateUrl: 'app/team/view-team.html',
     directives: [ViewList]
 })
 export class ViewTeam {

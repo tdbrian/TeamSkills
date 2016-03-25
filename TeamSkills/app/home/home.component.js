@@ -38,4 +38,4 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
         }
     }
 });
-//# sourceMappingURL=home.js.map
+//# sourceMappingURL=home.component.js.map

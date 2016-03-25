@@ -21,12 +21,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             CorrespondingViewItems = (function () {
                 function CorrespondingViewItems() {
                 }
-                CorrespondingViewItems.prototype.transform = function (value, args) {
-                    var filter = args[0];
-                    switch (filter.type) {
-                    }
-                    return value;
-                };
                 CorrespondingViewItems = __decorate([
                     core_1.Pipe({ name: 'correspondingViewItems' }), 
                     __metadata('design:paramtypes', [])
@@ -37,4 +31,4 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=corresponding-view-items.js.map
+//# sourceMappingURL=corresponding-view-items.pipe.js.map

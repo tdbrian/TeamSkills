@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../_pipes/selected-values'], function(exports_1, context_1) {
+System.register(['angular2/core', '../_pipes/corresponding-view-items.pipe'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,52 +10,48 @@ System.register(['angular2/core', '../_pipes/selected-values'], function(exports
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, selected_values_1;
-    var ManageList;
+    var core_1, corresponding_view_items_pipe_1;
+    var ViewList;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (selected_values_1_1) {
-                selected_values_1 = selected_values_1_1;
+            function (corresponding_view_items_pipe_1_1) {
+                corresponding_view_items_pipe_1 = corresponding_view_items_pipe_1_1;
             }],
         execute: function() {
-            ManageList = (function () {
-                function ManageList() {
+            ViewList = (function () {
+                function ViewList() {
                     this.itemSelected = new core_1.EventEmitter();
                 }
-                ManageList.prototype.addOrRemoveItem = function (name) {
-                    var newItem = {
-                        name: name,
-                        isSelected: this.userItems.map(function (x) { return x.name; }).includes(name)
-                    };
-                    this.itemSelected.emit(newItem);
+                ViewList.prototype.updateCorrespondingItems = function (item) {
+                    this.itemSelected.emit(item);
                 };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], ManageList.prototype, "list", void 0);
+                ], ViewList.prototype, "list", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], ManageList.prototype, "userItems", void 0);
+                ], ViewList.prototype, "filter", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], ManageList.prototype, "itemSelected", void 0);
-                ManageList = __decorate([
+                ], ViewList.prototype, "itemSelected", void 0);
+                ViewList = __decorate([
                     core_1.Component({
-                        selector: 'manage-list',
-                        templateUrl: 'app/manageSkills/_components/manage-list.html',
-                        pipes: [selected_values_1.SelectedValues]
+                        selector: 'view-list',
+                        templateUrl: 'app/team/_components/view-list.html',
+                        pipes: [corresponding_view_items_pipe_1.CorrespondingViewItems]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], ManageList);
-                return ManageList;
+                ], ViewList);
+                return ViewList;
             }());
-            exports_1("ManageList", ManageList);
+            exports_1("ViewList", ViewList);
         }
     }
 });
-//# sourceMappingURL=manage-list.js.map
+//# sourceMappingURL=view-list.component.js.map

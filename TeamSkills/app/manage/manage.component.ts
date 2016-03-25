@@ -1,12 +1,12 @@
 ﻿import {Component, Input} from 'angular2/core';
-import {ManageList} from './_components/manage-list';
+import {ManageList} from './_components/manage-list.component';
 import {User} from '../_common/models/user.model';
 import {Skill} from '../_common/models/skill.model';
 import {Project} from '../_common/models/project.model';
 
 @Component({
     selector: 'manage-skills',
-    templateUrl: 'app/manageSkills/manage-skills.html',
+    templateUrl: 'app/manage/manage.html',
     directives: [ManageList]
 })
 export class ManageSkills {

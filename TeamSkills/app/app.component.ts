@@ -1,12 +1,12 @@
 ﻿import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {AppNav} from './shell/nav';
-import {Register} from './register/register';
-import {Login} from './login/login';
-import {Home} from './home/home';
-import {ManageSkills} from './manageSkills/manage-skills';
-import {ViewTeam} from './viewTeam/view-team';
+import {AppNav} from './shell/nav.component';
+import {Register} from './register/register.component';
+import {Login} from './login/login.component';
+import {Home} from './home/home.component';
+import {ManageSkills} from './manage/manage.component';
+import {ViewTeam} from './team/view-team.component';
 
 import {CurrentUserService} from './_common/services/current-user.service';
 import {FireBaseService} from './_common/services/firebase.service';
