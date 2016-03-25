@@ -23,7 +23,7 @@ export class CurrentUserService {
         if (this.backend.isLoggedIn()) {
             let auth = this.backend.getLoggedInAuth();
             this.usersRepo.child(auth.uid).once(FireBaseService.VALUE, (userSnapshot) => {
-                this.currentUser = userSnapshot.val();
+                this.currentUser = this.normalizeUser(userSnapshot.val());
             });
         }
     }
@@ -33,18 +33,24 @@ export class CurrentUserService {
 
         this.backend.authObservable.subscribe((auth: FirebaseAuthData) => {
             this.usersRepo.child(auth.uid).on(FireBaseService.VALUE, (userSnapshot) => {
-                this.currentUser = userSnapshot.val();
+                this.currentUser = this.normalizeUser(userSnapshot.val());
             });
         });
     }
 
     private onUserAdded = (newUserSnapshot: FirebaseDataSnapshot) => {
-        let newUser: User = newUserSnapshot.val();
+        let newUser: User = this.normalizeUser(newUserSnapshot.val());
         if (this.waitingOnNewUser && newUser.email == this.waitingOnNewUser.email) {
             this.currentUser = newUser;
             this.waitingOnNewUser = null;
             this.onUserCreated.next(this.currentUser);
         }
+    }
+
+    private normalizeUser(user: User): User {
+        user.skillLevels = user.skillLevels ? user.skillLevels : [];
+        user.projectLevels = user.projectLevels ? user.projectLevels : [];
+        return user;
     }
 
     public attemptLogin(email: string, password: string) {
@@ -67,11 +73,13 @@ export class CurrentUserService {
     }
 
     public updateSkills(skillLevels: SkillLevel[]) {
+        debugger;
         this.currentUser.skillLevels = skillLevels;
         this.update();
     }
 
     private update() {
-        this.usersRepo.child(this.currentUser.uid).update(this.currentUser);
+        let auth = this.backend.getLoggedInAuth();
+        this.usersRepo.child(auth.uid).update(this.currentUser);
     }
 }
