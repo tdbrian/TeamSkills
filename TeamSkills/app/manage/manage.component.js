@@ -45,29 +45,28 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
                     this.skillsService = skillsService;
                     this.projectsService = projectsService;
                     this.userService = userService;
-                    this.user = userService.currentUser;
-                    this.skills = skillsService.skills;
-                    this.projects = projectsService.projects;
                 }
                 ManageSkills.prototype.onAddOrRemoveSkill = function (item) {
+                    debugger;
                     if (item.isSelected == true) {
-                        this.user.skillLevels = this.user.skillLevels.slice().filter(function (x) { return x.skill.name != item.name; });
+                        this.userService.currentUser.skillLevels = this.userService.currentUser.skillLevels.slice().filter(function (x) { return x.skill.name != item.name; });
                     }
                     if (item.isSelected == false) {
                         var newSkill = new skill_model_1.SkillLevel(item.name, item.level);
-                        this.user.skillLevels = this.user.skillLevels.concat([newSkill]);
+                        this.userService.currentUser.skillLevels = this.userService.currentUser.skillLevels.concat([newSkill]);
                     }
-                    this.userService.updateSkills(this.user.skillLevels);
+                    this.userService.updateSkills(this.userService.currentUser.skillLevels);
                 };
                 ManageSkills.prototype.onAddOrRemoveProject = function (item) {
+                    debugger;
                     if (item.isSelected == true) {
-                        this.user.projectLevels = this.user.projectLevels.slice().filter(function (x) { return x.project.name != item.name; });
+                        this.userService.currentUser.projectLevels = this.userService.currentUser.projectLevels.slice().filter(function (x) { return x.project.name != item.name; });
                     }
                     if (item.isSelected == false) {
                         var newProject = new project_model_1.ProjectLevel(item.name, item.level);
-                        this.user.projectLevels = this.user.projectLevels.concat([newProject]);
+                        this.userService.currentUser.projectLevels = this.userService.currentUser.projectLevels.concat([newProject]);
                     }
-                    this.userService.updateProjects(this.user.projectLevels);
+                    this.userService.updateProjects(this.userService.currentUser.projectLevels);
                 };
                 ManageSkills = __decorate([
                     core_1.Component({

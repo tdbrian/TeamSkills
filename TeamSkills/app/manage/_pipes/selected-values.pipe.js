@@ -22,7 +22,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function SelectedValues() {
                 }
                 SelectedValues.prototype.transform = function (value, args) {
-                    if (value) {
+                    if (value && args[0]) {
                         var itemList = args[0].map(function (x) { return x.name; });
                         var newValue = value.map(function (item) {
                             return {
@@ -31,6 +31,9 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                             };
                         });
                         return newValue;
+                    }
+                    else {
+                        return value;
                     }
                 };
                 SelectedValues = __decorate([

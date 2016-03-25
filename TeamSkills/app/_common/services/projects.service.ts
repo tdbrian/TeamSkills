@@ -19,8 +19,8 @@ export class ProjectsService {
     }
 
     private onProjectsChanged = (projectsSnapshot: FirebaseDataSnapshot) => {
-        this.projects = projectsSnapshot.val();
-        console.info(this.projects);
+        let projectsList: string[] = projectsSnapshot.val();
+        this.projects = projectsList.map(x => <Project>{ name: x });
     }
 
     public updateProjects = (projects: Project[]) => {

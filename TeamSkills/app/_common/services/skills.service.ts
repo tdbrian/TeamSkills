@@ -19,8 +19,8 @@ export class SkillsService {
     }
 
     private onSkillsChanged = (skillsSnapshot: FirebaseDataSnapshot) => {
-        this.skills = skillsSnapshot.val();
-        console.info(this.skills);
+        let skillList: string[] = skillsSnapshot.val();
+        this.skills = skillList.map(x => <Skill>{ name: x });
     }
 
     public updateSkills = (skills: Skill[]) => {
