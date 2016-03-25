@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './shell/nav.component', './register/register.component', './login/login.component', './home/home.component', './manage/manage.component', './team/view-team.component', './_common/services/current-user.service', './_common/services/firebase.service', './_common/services/auth.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './shell/nav.component', './register/register.component', './login/login.component', './home/home.component', './manage/manage.component', './team/view-team.component', './_common/services/current-user.service', './_common/services/firebase.service', './_common/services/users.service', './_common/services/projects.service', './_common/services/skills.service', './_common/services/auth.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './shell/nav.component', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, nav_component_1, register_component_1, login_component_1, home_component_1, manage_component_1, view_team_component_1, current_user_service_1, firebase_service_1, auth_service_1;
+    var core_1, router_1, nav_component_1, register_component_1, login_component_1, home_component_1, manage_component_1, view_team_component_1, current_user_service_1, firebase_service_1, users_service_1, projects_service_1, skills_service_1, auth_service_1;
     var AppComponent;
     return {
         setters:[
@@ -44,6 +44,15 @@ System.register(['angular2/core', 'angular2/router', './shell/nav.component', '.
             function (firebase_service_1_1) {
                 firebase_service_1 = firebase_service_1_1;
             },
+            function (users_service_1_1) {
+                users_service_1 = users_service_1_1;
+            },
+            function (projects_service_1_1) {
+                projects_service_1 = projects_service_1_1;
+            },
+            function (skills_service_1_1) {
+                skills_service_1 = skills_service_1_1;
+            },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
             }],
@@ -62,7 +71,10 @@ System.register(['angular2/core', 'angular2/router', './shell/nav.component', '.
                         providers: [
                             current_user_service_1.CurrentUserService,
                             firebase_service_1.FireBaseService,
-                            auth_service_1.AuthService
+                            auth_service_1.AuthService,
+                            skills_service_1.SkillsService,
+                            projects_service_1.ProjectsService,
+                            users_service_1.UsersService
                         ]
                     }),
                     router_1.RouteConfig([

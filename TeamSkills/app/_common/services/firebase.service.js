@@ -28,7 +28,6 @@ System.register(['angular2/core', 'rxjs/Subject'], function(exports_1, context_1
                     this.loggedInStatus = new Subject_1.Subject();
                     this.onAuth = function (authData) {
                         if (authData) {
-                            debugger;
                             _this.authObservable.next(authData);
                             _this.loggedInStatus.next(true);
                         }

@@ -22,14 +22,16 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function SelectedValues() {
                 }
                 SelectedValues.prototype.transform = function (value, args) {
-                    var itemList = args[0].map(function (x) { return x.name; });
-                    var newValue = value.map(function (item) {
-                        return {
-                            name: item.name,
-                            isSelected: itemList.includes(item.name)
-                        };
-                    });
-                    return newValue;
+                    if (value) {
+                        var itemList = args[0].map(function (x) { return x.name; });
+                        var newValue = value.map(function (item) {
+                            return {
+                                name: item.name,
+                                isSelected: itemList.includes(item.name)
+                            };
+                        });
+                        return newValue;
+                    }
                 };
                 SelectedValues = __decorate([
                     core_1.Pipe({ name: 'selectedValues' }), 

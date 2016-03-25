@@ -1,4 +1,4 @@
-System.register(['angular2/core', './firebase.service', '../models/skill.model', 'rxjs/Subject'], function(exports_1, context_1) {
+System.register(['angular2/core', './firebase.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './firebase.service', '../models/skill.model',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, firebase_service_1, skill_model_1, Subject_1;
+    var core_1, firebase_service_1;
     var SkillsService;
     return {
         setters:[
@@ -19,31 +19,25 @@ System.register(['angular2/core', './firebase.service', '../models/skill.model',
             },
             function (firebase_service_1_1) {
                 firebase_service_1 = firebase_service_1_1;
-            },
-            function (skill_model_1_1) {
-                skill_model_1 = skill_model_1_1;
-            },
-            function (Subject_1_1) {
-                Subject_1 = Subject_1_1;
             }],
         execute: function() {
             SkillsService = (function () {
                 function SkillsService(backend) {
                     var _this = this;
                     this.backend = backend;
-                    this.onSkills = new Subject_1.Subject();
-                    this.addSkill = function (name) {
-                        var skill = new skill_model_1.Skill(name);
-                        _this.skillsRepo.push(skill);
+                    this.skills = [];
+                    this.onSkillsChanged = function (skillsSnapshot) {
+                        _this.skills = skillsSnapshot.val();
+                        console.info(_this.skills);
+                    };
+                    this.updateSkills = function (skills) {
+                        _this.skillsRepo.update(skills);
                     };
                     this.skillsRepo = backend.skills;
                     this.listenForIncomingEvents();
                 }
                 SkillsService.prototype.listenForIncomingEvents = function () {
                     this.skillsRepo.on(firebase_service_1.FireBaseService.VALUE, this.onSkillsChanged);
-                };
-                SkillsService.prototype.onSkillsChanged = function (skillsSnapshot) {
-                    this.onSkills.next(skillsSnapshot.val());
                 };
                 SkillsService = __decorate([
                     core_1.Injectable(), 

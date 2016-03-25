@@ -7,7 +7,7 @@ import {Subject} from 'rxjs/Subject';
 export class ProjectsService {
 
     private projectsRepo: Firebase;
-    public onProjects = new Subject<Project[]>();
+    public projects: Project[] = [];
 
     constructor(private backend: FireBaseService) { 
         this.projectsRepo = backend.projects;
@@ -18,12 +18,12 @@ export class ProjectsService {
         this.projectsRepo.on(FireBaseService.VALUE, this.onProjectsChanged);
     }
 
-    private onProjectsChanged(projectsSnapshot: FirebaseDataSnapshot) {
-        this.onProjects.next(projectsSnapshot.val());
+    private onProjectsChanged = (projectsSnapshot: FirebaseDataSnapshot) => {
+        this.projects = projectsSnapshot.val();
+        console.info(this.projects);
     }
 
-    public addProject = (name: string) => {
-        let project = new Project(name);
-        this.projectsRepo.push(project);
+    public updateProjects = (projects: Project[]) => {
+        this.projectsRepo.update(projects);
     }
 }

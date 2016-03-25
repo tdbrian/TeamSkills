@@ -73,20 +73,12 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                 CurrentUserService.prototype.logout = function () {
                     this.backend.logout();
                 };
-                CurrentUserService.prototype.addSkill = function (skillLevel) {
-                    this.currentUser.skillLevels.push(skillLevel);
+                CurrentUserService.prototype.updateProjects = function (projectLevels) {
+                    this.currentUser.projectLevels = projectLevels;
                     this.update();
                 };
-                CurrentUserService.prototype.addProject = function (projectLevel) {
-                    this.currentUser.projectLevels.push(projectLevel);
-                    this.update();
-                };
-                CurrentUserService.prototype.updateSkillLevel = function (skillLevel) {
-                    this.currentUser.skillLevels.push(skillLevel);
-                    this.update();
-                };
-                CurrentUserService.prototype.updateProjectLevel = function (projectLevel) {
-                    this.currentUser.projectLevels.push(projectLevel);
+                CurrentUserService.prototype.updateSkills = function (skillLevels) {
+                    this.currentUser.skillLevels = skillLevels;
                     this.update();
                 };
                 CurrentUserService.prototype.update = function () {

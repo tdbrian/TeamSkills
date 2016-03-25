@@ -20,9 +20,9 @@ import {CurrentUserService} from '../_common/services/current-user.service';
     directives: [ManageList]
 })
 export class ManageSkills {
-    @Input() user: User;
-    @Input() skills: Skill[];
-    @Input() projects: Project[];
+    public user: User;
+    public skills: Skill[];
+    public projects: Project[];
 
     constructor(private authService: AuthService,
         private skillsService: SkillsService,
@@ -30,6 +30,8 @@ export class ManageSkills {
         private userService: CurrentUserService) {
 
         this.user = userService.currentUser;
+        this.skills = skillsService.skills;
+        this.projects = projectsService.projects;
     }
 
     onAddOrRemoveSkill(item) {
@@ -38,9 +40,9 @@ export class ManageSkills {
         }
         if (item.isSelected == false) {
             var newSkill = new SkillLevel(item.name, item.level);
-            this.userService.addSkill(newSkill);
             this.user.skillLevels = [...this.user.skillLevels, newSkill];
         }
+        this.userService.updateSkills(this.user.skillLevels);
     }
 
     onAddOrRemoveProject(item) {
@@ -49,8 +51,8 @@ export class ManageSkills {
         }
         if (item.isSelected == false) {
             var newProject = new ProjectLevel(item.name, item.level);
-            this.userService.addProject(newProject);
             this.user.projectLevels = [...this.user.projectLevels, newProject];
         }
+        this.userService.updateProjects(this.user.projectLevels);
     }
 } 

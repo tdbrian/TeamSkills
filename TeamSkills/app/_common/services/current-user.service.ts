@@ -61,23 +61,13 @@ export class CurrentUserService {
         this.backend.logout();
     }
 
-    public addSkill(skillLevel: SkillLevel) {
-        this.currentUser.skillLevels.push(skillLevel);
+    public updateProjects(projectLevels: ProjectLevel[]) {
+        this.currentUser.projectLevels = projectLevels;
         this.update();
     }
 
-    public addProject(projectLevel: ProjectLevel) {
-        this.currentUser.projectLevels.push(projectLevel);
-        this.update();
-    }
-
-    public updateSkillLevel(skillLevel: SkillLevel) {
-        this.currentUser.skillLevels.push(skillLevel);
-        this.update();
-    }
-
-    public updateProjectLevel(projectLevel: ProjectLevel) {
-        this.currentUser.projectLevels.push(projectLevel);
+    public updateSkills(skillLevels: SkillLevel[]) {
+        this.currentUser.skillLevels = skillLevels;
         this.update();
     }
 

@@ -25,7 +25,10 @@ import {AuthService} from './_common/services/auth.service';
     providers: [
         CurrentUserService,
         FireBaseService,
-        AuthService
+        AuthService,
+        SkillsService,
+        ProjectsService,
+        UsersService
     ]
 })
 @RouteConfig([
