@@ -4,9 +4,9 @@
 	<base href="/">
 	<title>TeamSkills :: Discover the skills of your team</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="Content/css/bootstrap.css">
-    <link rel="stylesheet" href="Content/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="Content/css/site.css">
+	<link rel="stylesheet" href="Content/css/bootstrap.css">
+	<link rel="stylesheet" href="Content/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="Content/css/site.css">
 
 	<!-- 1. Load Scripts -->
 	<!-- IE required polyfills, in this exact order -->
@@ -16,14 +16,21 @@
 
 	<script src="Scripts/angular2-polyfills.js"></script>
 	<script src="Scripts/system.src.js"></script>
-    <script src="Scripts/Rx.js"></script>
+	<script src="Scripts/Rx.js"></script>
 	<script src="Scripts/firebase-web.js"></script>
 	<script src="Scripts/angular2.dev.js"></script>
 	<script src="Scripts/router.dev.js"></script>
 
 	<!-- 2. Configure SystemJS -->
 	<script>
-		System.config({ packages: { app: { defaultExtension: 'js' } } });
+		System.config({ packages: { app: { defaultExtension: 'js' },
+				"node_modules/ng2-bootstrap": {
+				"defaultExtension": "js"
+			 }
+		  },
+		  paths: {
+			"ng2-bootstrap/ng2-bootstrap":   "node_modules/ng2-bootstrap/ng2-bootstrap"
+		  }});
 		System.import('app/main').then(null, console.error.bind(console));
 	</script>
 </head>
@@ -31,7 +38,7 @@
 <!-- 3. Display the application -->
 <body>
 
-<div class="container">
+	<div class="container">
 		<my-app>Loading...</my-app>
 	</div>
 

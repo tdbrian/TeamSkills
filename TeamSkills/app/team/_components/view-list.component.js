@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../_pipes/corresponding-view-items.pipe'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', "ng2-bootstrap/ng2-bootstrap"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,46 @@ System.register(['angular2/core', '../_pipes/corresponding-view-items.pipe'], fu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, corresponding_view_items_pipe_1;
+    var core_1, common_1, ng2_bootstrap_1;
     var ViewList;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (corresponding_view_items_pipe_1_1) {
-                corresponding_view_items_pipe_1 = corresponding_view_items_pipe_1_1;
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (ng2_bootstrap_1_1) {
+                ng2_bootstrap_1 = ng2_bootstrap_1_1;
             }],
         execute: function() {
             ViewList = (function () {
                 function ViewList() {
                     this.itemSelected = new core_1.EventEmitter();
+                    this.x = 5;
+                    this.y = 2;
+                    this.max = 10;
+                    this.rate = 7;
+                    this.isReadonly = false;
+                    this.ratingStates = [
+                        { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
+                        { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },
+                        { stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle' },
+                        { stateOn: 'glyphicon-heart' },
+                        { stateOff: 'glyphicon-off' }
+                    ];
                 }
                 ViewList.prototype.updateCorrespondingItems = function (item) {
                     this.itemSelected.emit(item);
+                };
+                ViewList.prototype.hoveringOver = function (value) {
+                    this.overStar = value;
+                    this.percent = 100 * (value / this.max);
+                };
+                ;
+                ViewList.prototype.resetStar = function () {
+                    this.overStar = null;
                 };
                 __decorate([
                     core_1.Input(), 
@@ -44,7 +67,7 @@ System.register(['angular2/core', '../_pipes/corresponding-view-items.pipe'], fu
                     core_1.Component({
                         selector: 'view-list',
                         templateUrl: 'app/team/_components/view-list.html',
-                        pipes: [corresponding_view_items_pipe_1.CorrespondingViewItems]
+                        directives: [ng2_bootstrap_1.Rating, common_1.FORM_DIRECTIVES, common_1.CORE_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ViewList);
