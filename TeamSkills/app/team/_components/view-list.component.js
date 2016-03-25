@@ -52,6 +52,10 @@ System.register(['angular2/core', 'angular2/common', "ng2-bootstrap/ng2-bootstra
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
+                ], ViewList.prototype, "title", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
                 ], ViewList.prototype, "list", void 0);
                 __decorate([
                     core_1.Input(), 

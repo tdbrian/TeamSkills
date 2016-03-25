@@ -1,4 +1,4 @@
-System.register(['angular2/router', 'angular2/core', './_components/view-list.component', '../_common/models/user.model', '../_common/services/auth.service', '../_common/models/skill.model', '../_common/models/project.model'], function(exports_1, context_1) {
+System.register(['angular2/router', 'angular2/core', './_components/view-list.component', '../_common/services/auth.service', '../_common/services/users.service', '../_common/services/skills.service', '../_common/services/projects.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var router_1, core_1, view_list_component_1, user_model_1, auth_service_1, skill_model_1, project_model_1;
+    var router_1, core_1, view_list_component_1, auth_service_1, users_service_1, skills_service_1, projects_service_1;
     var ViewTeam;
     return {
         setters:[
@@ -23,86 +23,61 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
             function (view_list_component_1_1) {
                 view_list_component_1 = view_list_component_1_1;
             },
-            function (user_model_1_1) {
-                user_model_1 = user_model_1_1;
-            },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
             },
-            function (skill_model_1_1) {
-                skill_model_1 = skill_model_1_1;
+            function (users_service_1_1) {
+                users_service_1 = users_service_1_1;
             },
-            function (project_model_1_1) {
-                project_model_1 = project_model_1_1;
+            function (skills_service_1_1) {
+                skills_service_1 = skills_service_1_1;
+            },
+            function (projects_service_1_1) {
+                projects_service_1 = projects_service_1_1;
             }],
         execute: function() {
             ViewTeam = (function () {
-                function ViewTeam(router, authService) {
+                function ViewTeam(router, authService, usersService, skillsService, projectsService) {
                     this.router = router;
                     this.authService = authService;
+                    this.usersService = usersService;
+                    this.skillsService = skillsService;
+                    this.projectsService = projectsService;
                     this.filter = { type: "none" };
-                    //fake data
-                    var supportal = new project_model_1.Project("Supportal");
-                    var monsoon = new project_model_1.Project("Monsoon");
-                    var secureTide = new project_model_1.Project("SecureTide");
-                    var angular = new skill_model_1.Skill("Angular");
-                    var cSharp = new skill_model_1.Skill("C#");
-                    var octopus = new skill_model_1.Skill("Octopus");
-                    var thomas = new user_model_1.User("Thomas Brian", "tbrian@appriver.com");
-                    var leif = new user_model_1.User("Leif Thillet", "lthillet@appriver.com");
-                    var shane = new user_model_1.User("Shane Drye", "sdrye@appriver.com");
-                    thomas.skillLevels = [new skill_model_1.SkillLevel(angular, 3)];
-                    thomas.projectLevels = [new project_model_1.ProjectLevel(supportal, 3)];
-                    leif.skillLevels = [new skill_model_1.SkillLevel(cSharp, 3)];
-                    leif.projectLevels = [new project_model_1.ProjectLevel(monsoon, 3)];
-                    shane.skillLevels = [new skill_model_1.SkillLevel(octopus, 3)];
-                    shane.projectLevels = [new project_model_1.ProjectLevel(secureTide, 3)];
-                    this.team = {
-                        title: "Team",
-                        items: [thomas, leif, shane]
-                    };
-                    this.skills = {
-                        title: "Skills",
-                        items: [angular, cSharp, octopus]
-                    };
-                    this.projects = {
-                        title: "Projects",
-                        items: [supportal, monsoon, secureTide]
-                    };
                 }
                 ViewTeam.prototype.routerOnActivate = function () {
                     var status = this.authService.isAuthenticated();
                     if (!status)
                         this.router.navigate(['Login']);
                 };
-                ViewTeam.prototype.onUpdateTeam = function (item) {
-                    var teamTop = item;
-                    var teamBottom = this.team.items.filter(function (x) { return x.name != item.name; });
-                    this.team.items = this.grayedOut([teamTop], teamBottom);
-                    var skillsTop = this.skills.items.filter(function (x) { return item.skillLevels.map(function (x) { return x.skill; }).includes(x); });
-                    var skillsBottom = this.skills.items.filter(function (x) { return !item.skillLevels.map(function (x) { return x.skill; }).includes(x); });
-                    this.skills.items = this.skillsWithStars(item, skillsTop, skillsBottom);
-                    var projectsTop = this.projects.items.filter(function (x) { return item.projectLevels.map(function (x) { return x.project; }).includes(x); });
-                    var projectsBottom = this.projects.items.filter(function (x) { return !item.projectLevels.map(function (x) { return x.project; }).includes(x); });
-                    this.projects.items = this.projectsWithStars(item, projectsTop, projectsBottom);
+                ViewTeam.prototype.onUpdateTeam = function (user) {
+                    var teamTop = user;
+                    var teamBottom = this.usersService.users.filter(function (x) { return x.name != user.name; });
+                    this.usersService.users = this.grayedOut([teamTop], teamBottom);
+                    var skillsTop = this.skillsService.skills.filter(function (x) { return user.skillLevels.map(function (level) { return level.skill.name; }).includes(x.name); });
+                    var skillsBottom = this.skillsService.skills.filter(function (x) { return !user.skillLevels.map(function (level) { return level.skill.name; }).includes(x.name); });
+                    this.skillsService.skills = this.skillsWithStars(user, skillsTop, skillsBottom);
+                    var projectsTop = this.projectsService.projects.filter(function (x) { return user.projectLevels.map(function (level) { return level.project.name; }).includes(x.name); });
+                    var projectsBottom = this.projectsService.projects.filter(function (x) { return !user.projectLevels.map(function (level) { return level.project.name; }).includes(x.name); });
+                    this.projectsService.projects = this.projectsWithStars(user, projectsTop, projectsBottom);
                 };
-                ViewTeam.prototype.onUpdateSkill = function (item) {
-                    var teamTop = this.team.items.filter(function (x) { return x.skillLevels.map(function (x) { return x.skill; }).includes(item); });
-                    var teamBottom = this.team.items.filter(function (x) { return !x.skillLevels.map(function (x) { return x.skill; }).includes(item); });
-                    this.team.items = this.usersWithSkillStars(item, teamTop, teamBottom);
-                    var skillsTop = item;
-                    var skillsBottom = this.skills.items.filter(function (x) { return x.name != item.name; });
-                    this.skills.items = this.grayedWithoutStars([skillsTop], skillsBottom);
-                    this.projects.items = this.grayedWithoutStars([], this.projects.items);
+                ViewTeam.prototype.onUpdateSkill = function (skill) {
+                    var teamTop = this.usersService.users.filter(function (x) { return x.skillLevels.map(function (level) { return level.skill.name; }).includes(skill.name); });
+                    var teamBottom = this.usersService.users.filter(function (x) { return !x.skillLevels.map(function (level) { return level.skill.name; }).includes(skill.name); });
+                    this.usersService.users = this.usersWithSkillStars(skill, teamTop, teamBottom);
+                    var skillsTop = skill;
+                    var skillsBottom = this.skillsService.skills.filter(function (x) { return x.name != skill.name; });
+                    this.skillsService.skills = this.grayedWithoutStars([skillsTop], skillsBottom);
+                    this.projectsService.projects = this.grayedWithoutStars([], this.projectsService.projects);
                 };
-                ViewTeam.prototype.onUpdateProject = function (item) {
-                    var teamTop = this.team.items.filter(function (x) { return x.projectLevels.map(function (x) { return x.project; }).includes(item); });
-                    var teamBottom = this.team.items.filter(function (x) { return !x.projectLevels.map(function (x) { return x.project; }).includes(item); });
-                    this.team.items = this.usersWithProjectStars(item, teamTop, teamBottom);
-                    var projectsTop = item;
-                    var projectsBottom = this.projects.items.filter(function (x) { return x.name != item.name; });
-                    this.projects.items = this.grayedWithoutStars([projectsTop], projectsBottom);
-                    this.skills.items = this.grayedWithoutStars([], this.skills.items);
+                ViewTeam.prototype.onUpdateProject = function (project) {
+                    var teamTop = this.usersService.users.filter(function (x) { return x.projectLevels.map(function (x) { return x.project.name; }).includes(project.name); });
+                    var teamBottom = this.usersService.users.filter(function (x) { return !x.projectLevels.map(function (x) { return x.project.name; }).includes(project.name); });
+                    this.usersService.users = this.usersWithProjectStars(project, teamTop, teamBottom);
+                    var projectsTop = project;
+                    var projectsBottom = this.projectsService.projects.filter(function (x) { return x.name != project.name; });
+                    this.projectsService.projects = this.grayedWithoutStars([projectsTop], projectsBottom);
+                    this.skillsService.skills = this.grayedWithoutStars([], this.skillsService.skills);
                 };
                 ViewTeam.prototype.grayedOut = function (top, bottom) {
                     top = top.map(function (x) {
@@ -129,9 +104,10 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                     return this.grayedOut(top, bottom);
                 };
                 ViewTeam.prototype.skillsWithStars = function (user, top, bottom) {
+                    console.info(user);
                     top = top.map(function (x) {
                         x['showRating'] = true;
-                        x['rating'] = user.skillLevels.filter(function (y) { return y.skill == x; })[0].level;
+                        x['rating'] = user.skillLevels.filter(function (y) { return y.skill.name == x.name; })[0].level;
                         return x;
                     });
                     bottom = bottom.map(function (x) {
@@ -144,7 +120,7 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                 ViewTeam.prototype.projectsWithStars = function (user, top, bottom) {
                     top = top.map(function (x) {
                         x['showRating'] = true;
-                        x['rating'] = user.projectLevels.filter(function (y) { return y.project == x; })[0].level;
+                        x['rating'] = user.projectLevels.filter(function (y) { return y.project.name == x.name; })[0].level;
                         return x;
                     });
                     bottom = bottom.map(function (x) {
@@ -157,7 +133,7 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                 ViewTeam.prototype.usersWithSkillStars = function (skill, top, bottom) {
                     top = top.map(function (x) {
                         x['showRating'] = true;
-                        x['rating'] = x.skillLevels.filter(function (y) { return y.skill == skill; })[0].level;
+                        x['rating'] = x.skillLevels.filter(function (y) { return y.skill.name == skill.name; })[0].level;
                         return x;
                     });
                     bottom = bottom.map(function (x) {
@@ -170,7 +146,7 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                 ViewTeam.prototype.usersWithProjectStars = function (project, top, bottom) {
                     top = top.map(function (x) {
                         x['showRating'] = true;
-                        x['rating'] = x.projectLevels.filter(function (y) { return y.project == project; })[0].level;
+                        x['rating'] = x.projectLevels.filter(function (y) { return y.project.name == project.name; })[0].level;
                         return x;
                     });
                     bottom = bottom.map(function (x) {
@@ -180,25 +156,13 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                     });
                     return this.grayedOut(top, bottom);
                 };
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Object)
-                ], ViewTeam.prototype, "team", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Object)
-                ], ViewTeam.prototype, "skills", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Object)
-                ], ViewTeam.prototype, "projects", void 0);
                 ViewTeam = __decorate([
                     core_1.Component({
                         selector: 'view-team',
                         templateUrl: 'app/team/view-team.html',
                         directives: [view_list_component_1.ViewList]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, users_service_1.UsersService, skills_service_1.SkillsService, projects_service_1.ProjectsService])
                 ], ViewTeam);
                 return ViewTeam;
             }());

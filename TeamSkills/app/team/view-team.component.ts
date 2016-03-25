@@ -1,10 +1,19 @@
 ﻿import {OnActivate, Router} from 'angular2/router';
 import {Component, Input} from 'angular2/core';
+
+// Sub components
 import {ViewList} from './_components/view-list.component';
+
+// Models
 import {User} from '../_common/models/user.model';
 import {AuthService} from '../_common/services/auth.service';
 import {Skill, SkillLevel} from '../_common/models/skill.model';
 import {Project, ProjectLevel} from '../_common/models/project.model';
+
+// Services
+import {UsersService} from '../_common/services/users.service'
+import {SkillsService} from '../_common/services/skills.service'
+import {ProjectsService} from '../_common/services/projects.service'
 
 @Component({
     selector: 'view-team',
@@ -12,46 +21,16 @@ import {Project, ProjectLevel} from '../_common/models/project.model';
     directives: [ViewList]
 })
 export class ViewTeam implements OnActivate {
-    @Input() team;
-    @Input() skills;
-    @Input() projects;
+    public filter: {};
 
-    filter: {};
-    constructor(private router: Router, private authService: AuthService) {
+    constructor(
+        private router: Router,
+        private authService: AuthService,
+        private usersService: UsersService,
+        private skillsService: SkillsService,
+        private projectsService: ProjectsService) {
 
         this.filter = { type: "none" }
-        //fake data
-        var supportal = new Project("Supportal");
-        var monsoon = new Project("Monsoon");
-        var secureTide = new Project("SecureTide");
-
-        var angular = new Skill("Angular");
-        var cSharp = new Skill("C#");
-        var octopus = new Skill("Octopus");
-
-        var thomas = new User("Thomas Brian", "tbrian@appriver.com");
-        var leif = new User("Leif Thillet", "lthillet@appriver.com");
-        var shane = new User("Shane Drye", "sdrye@appriver.com");
-
-        thomas.skillLevels = [new SkillLevel(angular, 3)];
-        thomas.projectLevels = [new ProjectLevel(supportal, 3)];
-        leif.skillLevels = [new SkillLevel(cSharp, 3)];
-        leif.projectLevels = [new ProjectLevel(monsoon, 3)];
-        shane.skillLevels = [new SkillLevel(octopus, 3)];
-        shane.projectLevels = [new ProjectLevel(secureTide, 3)];
-
-        this.team = {
-            title: "Team",
-            items: [thomas, leif, shane]
-        }
-        this.skills = {
-            title: "Skills",
-            items: [angular, cSharp, octopus]
-        }
-        this.projects = {
-            title: "Projects",
-            items: [supportal, monsoon, secureTide]
-        }
     }
 
     routerOnActivate() {
@@ -59,42 +38,43 @@ export class ViewTeam implements OnActivate {
         if (!status) this.router.navigate(['Login']);
     }
 
-    onUpdateTeam(item) {
-        var teamTop = item;
-        var teamBottom = this.team.items.filter(x => x.name != item.name);
-        this.team.items = this.grayedOut([teamTop], teamBottom);
+    onUpdateTeam(user: User) {
+        var teamTop = user;
+        var teamBottom = this.usersService.users.filter(x => x.name != user.name);
+        this.usersService.users = this.grayedOut([teamTop], teamBottom);
 
-        var skillsTop = this.skills.items.filter(x => item.skillLevels.map(x => x.skill).includes(x));
-        var skillsBottom = this.skills.items.filter(x => !item.skillLevels.map(x => x.skill).includes(x));
-        this.skills.items = this.skillsWithStars(item, skillsTop, skillsBottom);
+        var skillsTop = this.skillsService.skills.filter(x => user.skillLevels.map(level => level.skill.name).includes(x.name));
 
-        var projectsTop = this.projects.items.filter(x => item.projectLevels.map(x => x.project).includes(x));
-        var projectsBottom = this.projects.items.filter(x => !item.projectLevels.map(x => x.project).includes(x));
-        this.projects.items = this.projectsWithStars(item, projectsTop, projectsBottom);
+        var skillsBottom = this.skillsService.skills.filter(x => !user.skillLevels.map(level => level.skill.name).includes(x.name));
+        this.skillsService.skills = this.skillsWithStars(user, skillsTop, skillsBottom);
+
+        var projectsTop = this.projectsService.projects.filter(x => user.projectLevels.map(level => level.project.name).includes(x.name));
+        var projectsBottom = this.projectsService.projects.filter(x => !user.projectLevels.map(level => level.project.name).includes(x.name));
+        this.projectsService.projects = this.projectsWithStars(user, projectsTop, projectsBottom);
     }
 
-    onUpdateSkill(item: Skill) {
-        var teamTop = this.team.items.filter(x => x.skillLevels.map(x => x.skill).includes(item));
-        var teamBottom = this.team.items.filter(x => !x.skillLevels.map(x => x.skill).includes(item));
-        this.team.items = this.usersWithSkillStars(item, teamTop, teamBottom);
+    onUpdateSkill(skill: Skill) {
+        var teamTop = this.usersService.users.filter(x => x.skillLevels.map(level => level.skill.name).includes(skill.name));
+        var teamBottom = this.usersService.users.filter(x => !x.skillLevels.map(level => level.skill.name).includes(skill.name));
+        this.usersService.users = this.usersWithSkillStars(skill, teamTop, teamBottom);
 
-        var skillsTop = item;
-        var skillsBottom = this.skills.items.filter(x => x.name != item.name)
-        this.skills.items = this.grayedWithoutStars([skillsTop], skillsBottom)
+        var skillsTop = skill;
+        var skillsBottom = this.skillsService.skills.filter(x => x.name != skill.name);
+        this.skillsService.skills = this.grayedWithoutStars([skillsTop], skillsBottom);
 
-        this.projects.items = this.grayedWithoutStars([], this.projects.items);
+        this.projectsService.projects = this.grayedWithoutStars([], this.projectsService.projects);
     }
 
-    onUpdateProject(item: Project) {
-        var teamTop = this.team.items.filter(x => x.projectLevels.map(x => x.project).includes(item));
-        var teamBottom = this.team.items.filter(x => !x.projectLevels.map(x => x.project).includes(item));
-        this.team.items = this.usersWithProjectStars(item, teamTop, teamBottom);
+    onUpdateProject(project: Project) {
+        var teamTop = this.usersService.users.filter(x => x.projectLevels.map(x => x.project.name).includes(project.name));
+        var teamBottom = this.usersService.users.filter(x => !x.projectLevels.map(x => x.project.name).includes(project.name));
+        this.usersService.users = this.usersWithProjectStars(project, teamTop, teamBottom);
 
-        var projectsTop = item;
-        var projectsBottom = this.projects.items.filter(x => x.name != item.name)
-        this.projects.items = this.grayedWithoutStars([projectsTop], projectsBottom)
+        var projectsTop = project;
+        var projectsBottom = this.projectsService.projects.filter(x => x.name != project.name);
+        this.projectsService.projects = this.grayedWithoutStars([projectsTop], projectsBottom);
 
-        this.skills.items = this.grayedWithoutStars([], this.skills.items);
+        this.skillsService.skills = this.grayedWithoutStars([], this.skillsService.skills);
     }
 
     private grayedOut(top, bottom) {
@@ -123,10 +103,11 @@ export class ViewTeam implements OnActivate {
         return this.grayedOut(top, bottom)
     }
 
-    private skillsWithStars(user: User, top, bottom) {
+    private skillsWithStars(user: User, top: Skill[], bottom: Skill[]) {
+        console.info(user)
         top = top.map(x => {
             x['showRating'] = true;
-            x['rating'] = user.skillLevels.filter(y => y.skill == x)[0].level;
+            x['rating'] = user.skillLevels.filter(y => y.skill.name == x.name)[0].level;
             return x;
         });
         bottom = bottom.map(x => {
@@ -136,10 +117,11 @@ export class ViewTeam implements OnActivate {
         });
         return this.grayedOut(top, bottom);
     }
-    private projectsWithStars(user: User, top, bottom) {
+
+    private projectsWithStars(user: User, top: Project[], bottom: Project[]) {
         top = top.map(x => {
             x['showRating'] = true;
-            x['rating'] = user.projectLevels.filter(y => y.project == x)[0].level;
+            x['rating'] = user.projectLevels.filter(y => y.project.name == x.name)[0].level;
             return x;
         });
         bottom = bottom.map(x => {
@@ -149,23 +131,25 @@ export class ViewTeam implements OnActivate {
         });
         return this.grayedOut(top, bottom);
     }
-    private usersWithSkillStars(skill: Skill, top, bottom) {
-        top = top.map((x:User) => {
-            x['showRating'] = true;
-            x['rating'] = x.skillLevels.filter(y => y.skill == skill)[0].level;
-            return x;
-        });
-        bottom = bottom.map(x => {
-            x['showRating'] = false;
-            x['rating'] = 0;
-            return x;
-        });
-        return this.grayedOut(top, bottom);
-    }
-    private usersWithProjectStars(project: Project, top, bottom) {
+
+    private usersWithSkillStars(skill: Skill, top: User[], bottom: User[]) {
         top = top.map((x: User) => {
             x['showRating'] = true;
-            x['rating'] = x.projectLevels.filter(y => y.project == project)[0].level;
+            x['rating'] = x.skillLevels.filter(y => y.skill.name == skill.name)[0].level;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        return this.grayedOut(top, bottom);
+    }
+
+    private usersWithProjectStars(project: Project, top: User[], bottom: User[]) {
+        top = top.map((x: User) => {
+            x['showRating'] = true;
+            x['rating'] = x.projectLevels.filter(y => y.project.name == project.name)[0].level;
             return x;
         });
         bottom = bottom.map(x => {

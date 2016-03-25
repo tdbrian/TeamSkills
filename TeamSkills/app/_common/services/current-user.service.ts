@@ -66,7 +66,7 @@ export class CurrentUserService {
         this.backend.logout();
     }
 
-    private userProjectsContain(name: string): boolean {
+    public userProjectsContain(name: string): boolean {
         return this.currentUser.projectLevels.map(x => x.project.name).indexOf(name) > -1;
     }
 
@@ -91,7 +91,6 @@ export class CurrentUserService {
     }
 
     public toggleSkill(skillName: string, level: number) {
-        debugger;
         if (this.userSkillsContain(skillName)) {
             this.currentUser.skillLevels = this.currentUser.skillLevels.filter(x => x.skill.name !== skillName);
         } else {
@@ -103,7 +102,6 @@ export class CurrentUserService {
     }
 
     public updateSkills(skillLevels: SkillLevel[]) {
-        debugger;
         this.currentUser.skillLevels = skillLevels;
         this.update();
     }

@@ -106,7 +106,6 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     return this.currentUser.skillLevels.map(function (x) { return x.skill.name; }).indexOf(name) > -1;
                 };
                 CurrentUserService.prototype.toggleSkill = function (skillName, level) {
-                    debugger;
                     if (this.userSkillsContain(skillName)) {
                         this.currentUser.skillLevels = this.currentUser.skillLevels.filter(function (x) { return x.skill.name !== skillName; });
                     }
@@ -118,7 +117,6 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     this.update();
                 };
                 CurrentUserService.prototype.updateSkills = function (skillLevels) {
-                    debugger;
                     this.currentUser.skillLevels = skillLevels;
                     this.update();
                 };

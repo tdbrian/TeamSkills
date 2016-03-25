@@ -72,7 +72,6 @@ System.register(['angular2/core', 'rxjs/Subject'], function(exports_1, context_1
                         email: user.email,
                         password: password
                     }, function (error, userData) {
-                        debugger;
                         if (error) {
                             _this.handleCreateUserError(error);
                         }
@@ -86,7 +85,6 @@ System.register(['angular2/core', 'rxjs/Subject'], function(exports_1, context_1
                 };
                 FireBaseService.prototype.handleCreateUserError = function (error) {
                     console.error(error);
-                    debugger;
                     switch (error.code) {
                         case "EMAIL_TAKEN":
                             alert("The new user account cannot be created because the email is already in use.");

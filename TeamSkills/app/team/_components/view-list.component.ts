@@ -8,6 +8,7 @@ import { Rating } from "ng2-bootstrap/ng2-bootstrap";
     directives: [Rating, FORM_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class ViewList {
+    @Input() title;
     @Input() list;
     @Input() filter;
     @Output() itemSelected = new EventEmitter();

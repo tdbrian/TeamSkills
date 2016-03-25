@@ -74,7 +74,6 @@ export class FireBaseService {
             email: user.email,
             password: password
         }, (error, userData: any) => {
-            debugger;
             if (error) {
                 this.handleCreateUserError(error);
             } else {
@@ -89,7 +88,6 @@ export class FireBaseService {
 
     private handleCreateUserError(error) {
         console.error(error);
-        debugger;
         switch (error.code) {
             case "EMAIL_TAKEN":
                 alert("The new user account cannot be created because the email is already in use.");

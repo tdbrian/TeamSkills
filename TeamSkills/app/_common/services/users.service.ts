@@ -7,7 +7,7 @@ import {Subject} from 'rxjs/Subject';
 export class UsersService {
 
     private usersRepo: Firebase;
-    public onUsers = new Subject<User[]>();
+    public users: User[] = [];
 
     constructor(private backend: FireBaseService) {
         this.usersRepo = backend.users;
@@ -18,7 +18,9 @@ export class UsersService {
         this.usersRepo.on(FireBaseService.VALUE, this.onUsersChanged);
     }
 
-    private onUsersChanged(usersSnapshot: FirebaseDataSnapshot) {
-        this.onUsers.next(usersSnapshot.val());
+    private onUsersChanged = (usersSnapshot: FirebaseDataSnapshot) => {
+        let usersObj = usersSnapshot.val()
+        this.users = Object.keys(usersObj).map(function (key) { return usersObj[key] });
+        console.info(this.users);
     }
 }

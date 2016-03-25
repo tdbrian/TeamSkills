@@ -1,13 +1,13 @@
 ﻿<div class="container">
 	<div class="row">
 		<div class="col-md-4">
-			<view-list [list]="team" [filter]="filter" (itemSelected)="onUpdateTeam($event)"></view-list>
+			<view-list [list]="usersService.users" [title]="'Team'" [filter]="filter" (itemSelected)="onUpdateTeam($event)"></view-list>
 		</div>
 		<div class="col-md-4">
-			<view-list [list]="skills" [filter]="filter" (itemSelected)="onUpdateSkill($event)"></view-list>
+			<view-list [list]="skillsService.skills" [title]="'Skills'" [filter]="filter" (itemSelected)="onUpdateSkill($event)"></view-list>
 		</div>
 		<div class="col-md-4">
-			<view-list [list]="projects" [filter]="filter" (itemSelected)="onUpdateProject($event)"></view-list>
+			<view-list [list]="projectsService.projects" [title]="'Projects'" [filter]="filter" (itemSelected)="onUpdateProject($event)"></view-list>
 		</div>
 	</div>
 </div>
