@@ -5,7 +5,7 @@ export class CorrespondingViewItems {
     transform(value, args) {
         var filter = args[0];
         switch (filter.type) {
-                return value;
+            return value;
         }
     }
 }

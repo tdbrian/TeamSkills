@@ -69,15 +69,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.html" />
-    <Content Include="app\manageSkills\manage-skills.html" />
-    <Content Include="app\manageSkills\_components\manage-list.html" />
+    <Content Include="app\manage\manage-skills.html" />
+    <Content Include="app\manage\_components\manage-list.html" />
     <Content Include="app\register\register.html" />
     <Content Include="app\login\login.html" />
     <Content Include="app\shell\nav.html" />
     <Content Include="app\home\home.html" />
-    <Content Include="app\viewTeam\view-team.html" />
-    <Content Include="app\viewTeam\_components\view-list.html" />
-    <Content Include="app\viewTeam\_pipes\corresponding-view-items.js" />
+    <Content Include="app\team\view-team.html" />
+    <Content Include="app\team\_components\view-list.html" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -154,17 +153,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\manageSkills\manage-skills.ts" />
-    <TypeScriptCompile Include="app\manageSkills\_components\manage-list.ts" />
-    <TypeScriptCompile Include="app\manageSkills\_pipes\selected-values.ts" />
+    <TypeScriptCompile Include="app\app.ts" />
+    <TypeScriptCompile Include="app\manage\manage-skills.ts" />
+    <TypeScriptCompile Include="app\manage\_components\manage-list.ts" />
+    <TypeScriptCompile Include="app\manage\_pipes\selected-values.ts" />
     <TypeScriptCompile Include="app\register\register.ts" />
     <TypeScriptCompile Include="app\login\login.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\shell\nav.ts" />
     <TypeScriptCompile Include="app\home\home.ts" />
-    <TypeScriptCompile Include="app\viewTeam\view-team.ts" />
-    <TypeScriptCompile Include="app\viewTeam\_components\view-list.ts" />
+    <TypeScriptCompile Include="app\team\view-team.ts" />
+    <TypeScriptCompile Include="app\team\_components\view-list.ts" />
+    <TypeScriptCompile Include="app\team\_pipes\corresponding-view-items.ts" />
     <TypeScriptCompile Include="app\_common\models\skill.model.ts" />
     <TypeScriptCompile Include="app\_common\models\user.model.ts" />
     <TypeScriptCompile Include="app\_common\models\project.model.ts" />

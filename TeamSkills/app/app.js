@@ -76,4 +76,4 @@ System.register(['angular2/core', 'angular2/router', './shell/nav', './register/
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=app.js.map
