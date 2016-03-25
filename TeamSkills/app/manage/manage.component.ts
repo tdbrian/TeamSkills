@@ -28,24 +28,22 @@ export class ManageSkills {
     }
 
     onAddOrRemoveSkill(item) {
-        debugger;
         if (item.isSelected == true) {
             this.userService.currentUser.skillLevels = [...this.userService.currentUser.skillLevels].filter(x => x.skill.name != item.name);
         }
         if (item.isSelected == false) {
-            var newSkill = new SkillLevel(item.name, item.level);
+            var newSkill = new SkillLevel(item.name, 1);
             this.userService.currentUser.skillLevels = [...this.userService.currentUser.skillLevels, newSkill];
         }
         this.userService.updateSkills(this.userService.currentUser.skillLevels);
     }
 
     onAddOrRemoveProject(item) {
-        debugger;
         if (item.isSelected == true) {
             this.userService.currentUser.projectLevels = [...this.userService.currentUser.projectLevels].filter(x => x.project.name != item.name);
         }
         if (item.isSelected == false) {
-            var newProject = new ProjectLevel(item.name, item.level);
+            var newProject = new ProjectLevel(item.name, 1);
             this.userService.currentUser.projectLevels = [...this.userService.currentUser.projectLevels, newProject];
         }
         this.userService.updateProjects(this.userService.currentUser.projectLevels);

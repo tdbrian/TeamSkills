@@ -33,7 +33,7 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     this.backend = backend;
                     this.onUserCreated = new Subject_1.Subject();
                     this.onUserAdded = function (newUserSnapshot) {
-                        var newUser = newUserSnapshot.val();
+                        var newUser = _this.normalizeUser(newUserSnapshot.val());
                         if (_this.waitingOnNewUser && newUser.email == _this.waitingOnNewUser.email) {
                             _this.currentUser = newUser;
                             _this.waitingOnNewUser = null;
@@ -49,7 +49,7 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     if (this.backend.isLoggedIn()) {
                         var auth = this.backend.getLoggedInAuth();
                         this.usersRepo.child(auth.uid).once(firebase_service_1.FireBaseService.VALUE, function (userSnapshot) {
-                            _this.currentUser = userSnapshot.val();
+                            _this.currentUser = _this.normalizeUser(userSnapshot.val());
                         });
                     }
                 };
@@ -58,9 +58,14 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     this.backend.users.on(firebase_service_1.FireBaseService.ADDED, this.onUserAdded);
                     this.backend.authObservable.subscribe(function (auth) {
                         _this.usersRepo.child(auth.uid).on(firebase_service_1.FireBaseService.VALUE, function (userSnapshot) {
-                            _this.currentUser = userSnapshot.val();
+                            _this.currentUser = _this.normalizeUser(userSnapshot.val());
                         });
                     });
+                };
+                CurrentUserService.prototype.normalizeUser = function (user) {
+                    user.skillLevels = user.skillLevels ? user.skillLevels : [];
+                    user.projectLevels = user.projectLevels ? user.projectLevels : [];
+                    return user;
                 };
                 CurrentUserService.prototype.attemptLogin = function (email, password) {
                     this.backend.attemptAuth(email, password);
@@ -78,11 +83,13 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                     this.update();
                 };
                 CurrentUserService.prototype.updateSkills = function (skillLevels) {
+                    debugger;
                     this.currentUser.skillLevels = skillLevels;
                     this.update();
                 };
                 CurrentUserService.prototype.update = function () {
-                    this.usersRepo.child(this.currentUser.uid).update(this.currentUser);
+                    var auth = this.backend.getLoggedInAuth();
+                    this.usersRepo.child(auth.uid).update(this.currentUser);
                 };
                 CurrentUserService = __decorate([
                     core_1.Injectable(), 

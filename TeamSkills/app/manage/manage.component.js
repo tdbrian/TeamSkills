@@ -47,23 +47,21 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
                     this.userService = userService;
                 }
                 ManageSkills.prototype.onAddOrRemoveSkill = function (item) {
-                    debugger;
                     if (item.isSelected == true) {
                         this.userService.currentUser.skillLevels = this.userService.currentUser.skillLevels.slice().filter(function (x) { return x.skill.name != item.name; });
                     }
                     if (item.isSelected == false) {
-                        var newSkill = new skill_model_1.SkillLevel(item.name, item.level);
+                        var newSkill = new skill_model_1.SkillLevel(item.name, 1);
                         this.userService.currentUser.skillLevels = this.userService.currentUser.skillLevels.concat([newSkill]);
                     }
                     this.userService.updateSkills(this.userService.currentUser.skillLevels);
                 };
                 ManageSkills.prototype.onAddOrRemoveProject = function (item) {
-                    debugger;
                     if (item.isSelected == true) {
                         this.userService.currentUser.projectLevels = this.userService.currentUser.projectLevels.slice().filter(function (x) { return x.project.name != item.name; });
                     }
                     if (item.isSelected == false) {
-                        var newProject = new project_model_1.ProjectLevel(item.name, item.level);
+                        var newProject = new project_model_1.ProjectLevel(item.name, 1);
                         this.userService.currentUser.projectLevels = this.userService.currentUser.projectLevels.concat([newProject]);
                     }
                     this.userService.updateProjects(this.userService.currentUser.projectLevels);
