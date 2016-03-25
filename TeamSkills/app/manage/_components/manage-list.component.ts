@@ -12,12 +12,13 @@ export class ManageList {
     @Output() itemSelected = new EventEmitter();
     
     addOrRemoveItem(name) {
-        if (!this.userItems) this.userItems = [];
-        var newItem = {
-            name: name,
-            isSelected: this.userItems.map(x => x.name).includes(name)
+        this.itemSelected.emit(name);
+    }
+
+    userHasItem(name) {
+        if (this.userItems) {
+            return this.userItems.map(x => x.name).includes(name);
         }
-        this.itemSelected.emit(newItem);
     }
 }
 

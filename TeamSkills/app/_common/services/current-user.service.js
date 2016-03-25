@@ -1,4 +1,4 @@
-System.register(['angular2/core', './firebase.service', '../models/user.model', 'rxjs/Subject'], function(exports_1, context_1) {
+System.register(['angular2/core', './firebase.service', '../models/user.model', '../models/skill.model', '../models/project.model', 'rxjs/Subject'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, firebase_service_1, user_model_1, Subject_1;
+    var core_1, firebase_service_1, user_model_1, skill_model_1, project_model_1, Subject_1;
     var CurrentUserService;
     return {
         setters:[
@@ -22,6 +22,12 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
             },
             function (user_model_1_1) {
                 user_model_1 = user_model_1_1;
+            },
+            function (skill_model_1_1) {
+                skill_model_1 = skill_model_1_1;
+            },
+            function (project_model_1_1) {
+                project_model_1 = project_model_1_1;
             },
             function (Subject_1_1) {
                 Subject_1 = Subject_1_1;
@@ -78,14 +84,46 @@ System.register(['angular2/core', './firebase.service', '../models/user.model', 
                 CurrentUserService.prototype.logout = function () {
                     this.backend.logout();
                 };
+                CurrentUserService.prototype.userProjectsContain = function (name) {
+                    return this.currentUser.projectLevels.map(function (x) { return x.project.name; }).indexOf(name) > -1;
+                };
+                CurrentUserService.prototype.toggleProject = function (projectName, level) {
+                    if (this.userProjectsContain(projectName)) {
+                        this.currentUser.projectLevels = this.currentUser.projectLevels.filter(function (x) { return x.project.name !== projectName; });
+                    }
+                    else {
+                        var projectLevel = new project_model_1.ProjectLevel({ name: projectName }, level);
+                        this.currentUser.projectLevels.push(projectLevel);
+                    }
+                    this.currentUser.projectLevels = this.currentUser.projectLevels.filter(this.onlyUnique);
+                    this.update();
+                };
                 CurrentUserService.prototype.updateProjects = function (projectLevels) {
                     this.currentUser.projectLevels = projectLevels;
+                    this.update();
+                };
+                CurrentUserService.prototype.userSkillsContain = function (name) {
+                    return this.currentUser.skillLevels.map(function (x) { return x.skill.name; }).indexOf(name) > -1;
+                };
+                CurrentUserService.prototype.toggleSkill = function (skillName, level) {
+                    debugger;
+                    if (this.userSkillsContain(skillName)) {
+                        this.currentUser.skillLevels = this.currentUser.skillLevels.filter(function (x) { return x.skill.name !== skillName; });
+                    }
+                    else {
+                        var skillLevel = new skill_model_1.SkillLevel({ name: skillName }, level);
+                        this.currentUser.skillLevels.push(skillLevel);
+                    }
+                    this.currentUser.skillLevels = this.currentUser.skillLevels.filter(this.onlyUnique);
                     this.update();
                 };
                 CurrentUserService.prototype.updateSkills = function (skillLevels) {
                     debugger;
                     this.currentUser.skillLevels = skillLevels;
                     this.update();
+                };
+                CurrentUserService.prototype.onlyUnique = function (value, index, self) {
+                    return self.indexOf(value) === index;
                 };
                 CurrentUserService.prototype.update = function () {
                     var auth = this.backend.getLoggedInAuth();

@@ -26,13 +26,12 @@ System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(ex
                     this.itemSelected = new core_1.EventEmitter();
                 }
                 ManageList.prototype.addOrRemoveItem = function (name) {
-                    if (!this.userItems)
-                        this.userItems = [];
-                    var newItem = {
-                        name: name,
-                        isSelected: this.userItems.map(function (x) { return x.name; }).includes(name)
-                    };
-                    this.itemSelected.emit(newItem);
+                    this.itemSelected.emit(name);
+                };
+                ManageList.prototype.userHasItem = function (name) {
+                    if (this.userItems) {
+                        return this.userItems.map(function (x) { return x.name; }).includes(name);
+                    }
                 };
                 __decorate([
                     core_1.Input(), 

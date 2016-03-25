@@ -27,25 +27,13 @@ export class ManageSkills {
         private userService: CurrentUserService) {
     }
 
-    onAddOrRemoveSkill(item) {
-        if (item.isSelected == true) {
-            this.userService.currentUser.skillLevels = [...this.userService.currentUser.skillLevels].filter(x => x.skill.name != item.name);
-        }
-        if (item.isSelected == false) {
-            var newSkill = new SkillLevel(item.name, 1);
-            this.userService.currentUser.skillLevels = [...this.userService.currentUser.skillLevels, newSkill];
-        }
-        this.userService.updateSkills(this.userService.currentUser.skillLevels);
+    onAddOrRemoveSkill(skillName: string) {
+        debugger;
+        console.info(this.userService);
+        this.userService.toggleSkill(skillName, 1);
     }
 
-    onAddOrRemoveProject(item) {
-        if (item.isSelected == true) {
-            this.userService.currentUser.projectLevels = [...this.userService.currentUser.projectLevels].filter(x => x.project.name != item.name);
-        }
-        if (item.isSelected == false) {
-            var newProject = new ProjectLevel(item.name, 1);
-            this.userService.currentUser.projectLevels = [...this.userService.currentUser.projectLevels, newProject];
-        }
-        this.userService.updateProjects(this.userService.currentUser.projectLevels);
+    onAddOrRemoveProject(projectName: string) {
+        this.userService.toggleProject(projectName, 1);
     }
-} 
+}

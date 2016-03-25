@@ -1,4 +1,4 @@
-System.register(['angular2/core', './_components/manage-list.component', '../_common/models/skill.model', '../_common/models/project.model', '../_common/services/auth.service', '../_common/services/projects.service', '../_common/services/skills.service', '../_common/services/current-user.service'], function(exports_1, context_1) {
+System.register(['angular2/core', './_components/manage-list.component', '../_common/services/auth.service', '../_common/services/projects.service', '../_common/services/skills.service', '../_common/services/current-user.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, manage_list_component_1, skill_model_1, project_model_1, auth_service_1, projects_service_1, skills_service_1, current_user_service_1;
+    var core_1, manage_list_component_1, auth_service_1, projects_service_1, skills_service_1, current_user_service_1;
     var ManageSkills;
     return {
         setters:[
@@ -19,12 +19,6 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
             },
             function (manage_list_component_1_1) {
                 manage_list_component_1 = manage_list_component_1_1;
-            },
-            function (skill_model_1_1) {
-                skill_model_1 = skill_model_1_1;
-            },
-            function (project_model_1_1) {
-                project_model_1 = project_model_1_1;
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
@@ -46,25 +40,13 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
                     this.projectsService = projectsService;
                     this.userService = userService;
                 }
-                ManageSkills.prototype.onAddOrRemoveSkill = function (item) {
-                    if (item.isSelected == true) {
-                        this.userService.currentUser.skillLevels = this.userService.currentUser.skillLevels.slice().filter(function (x) { return x.skill.name != item.name; });
-                    }
-                    if (item.isSelected == false) {
-                        var newSkill = new skill_model_1.SkillLevel(item.name, 1);
-                        this.userService.currentUser.skillLevels = this.userService.currentUser.skillLevels.concat([newSkill]);
-                    }
-                    this.userService.updateSkills(this.userService.currentUser.skillLevels);
+                ManageSkills.prototype.onAddOrRemoveSkill = function (skillName) {
+                    debugger;
+                    console.info(this.userService);
+                    this.userService.toggleSkill(skillName, 1);
                 };
-                ManageSkills.prototype.onAddOrRemoveProject = function (item) {
-                    if (item.isSelected == true) {
-                        this.userService.currentUser.projectLevels = this.userService.currentUser.projectLevels.slice().filter(function (x) { return x.project.name != item.name; });
-                    }
-                    if (item.isSelected == false) {
-                        var newProject = new project_model_1.ProjectLevel(item.name, 1);
-                        this.userService.currentUser.projectLevels = this.userService.currentUser.projectLevels.concat([newProject]);
-                    }
-                    this.userService.updateProjects(this.userService.currentUser.projectLevels);
+                ManageSkills.prototype.onAddOrRemoveProject = function (projectName) {
+                    this.userService.toggleProject(projectName, 1);
                 };
                 ManageSkills = __decorate([
                     core_1.Component({
