@@ -1,4 +1,4 @@
 ﻿<h2>{{list.title}}</h2>
 <div class="list-group">
-	<a class="list-group-item" *ngFor="#item of list.items" href="javascript:{}" (click)="updateCorrespondingItems(item)">{{item.name}}</a>
+	<a class="list-group-item" *ngFor="#item of list.items" [ngClass]="{grayedOut: item.grayedOut}" href="javascript:{}" (click)="updateCorrespondingItems(item)">{{item.name}}</a>
 </div>
