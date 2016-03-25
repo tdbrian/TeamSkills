@@ -27,8 +27,8 @@ System.register(['angular2/core', './firebase.service'], function(exports_1, con
                     this.backend = backend;
                     this.skills = [];
                     this.onSkillsChanged = function (skillsSnapshot) {
-                        _this.skills = skillsSnapshot.val();
-                        console.info(_this.skills);
+                        var skillList = skillsSnapshot.val();
+                        _this.skills = skillList.map(function (x) { return { name: x }; });
                     };
                     this.updateSkills = function (skills) {
                         _this.skillsRepo.update(skills);

@@ -3,7 +3,7 @@
 @Pipe({ name: 'selectedValues' })
 export class SelectedValues {
     transform(value, args) {
-        if (value) {
+        if (value && args[0]) {
             var itemList = args[0].map(x => x.name);
             var newValue = value.map((item) => {
                 return {
@@ -12,6 +12,8 @@ export class SelectedValues {
                 }
             });
             return newValue;
+        } else {
+            return value;
         }
     }
 }

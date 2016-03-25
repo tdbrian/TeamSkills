@@ -4,11 +4,12 @@
         <hr />
     </div>
     <div class="row">
+        {{userService.currentUser?.skillLevels}}
         <div class="col-md-6">
-            <manage-list [list]="skills" [userItems]="user?.skills" (itemSelected)="onAddOrRemoveSkill($event)"></manage-list>
+            <manage-list [list]="skillsService.skills" [userItems]="userService.currentUser?.skillLevels" (itemSelected)="onAddOrRemoveSkill($event)"></manage-list>
         </div>
         <div class="col-md-6">
-            <manage-list [list]="projects" [userItems]="user?.projects" (itemSelected)="onAddOrRemoveProject($event)"></manage-list>
+            <manage-list [list]="projectsService.projects" [userItems]="userService.currentUser?.projectLevels" (itemSelected)="onAddOrRemoveProject($event)"></manage-list>
         </div>
     </div>
 </div>

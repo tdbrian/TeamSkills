@@ -27,8 +27,8 @@ System.register(['angular2/core', './firebase.service'], function(exports_1, con
                     this.backend = backend;
                     this.projects = [];
                     this.onProjectsChanged = function (projectsSnapshot) {
-                        _this.projects = projectsSnapshot.val();
-                        console.info(_this.projects);
+                        var projectsList = projectsSnapshot.val();
+                        _this.projects = projectsList.map(function (x) { return { name: x }; });
                     };
                     this.updateProjects = function (projects) {
                         _this.projectsRepo.update(projects);
