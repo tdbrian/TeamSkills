@@ -69,14 +69,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.html" />
-    <Content Include="app\manage\manage.html" />
-    <Content Include="app\manage\_components\manage-list.html" />
-    <Content Include="app\register\register.html" />
-    <Content Include="app\login\login.html" />
-    <Content Include="app\shell\nav.html" />
-    <Content Include="app\home\home.html" />
-    <Content Include="app\team\view-team.html" />
-    <Content Include="app\team\_components\view-list.html" />
+    <Content Include="app\manage.html" />
+    <Content Include="app\register.html" />
+    <Content Include="app\login.html" />
+    <Content Include="app\home.html" />
+    <Content Include="app\view-team.html" />
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
@@ -158,27 +155,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\manage\manage.component.ts" />
-    <TypeScriptCompile Include="app\manage\_components\manage-list.component.ts" />
-    <TypeScriptCompile Include="app\manage\_pipes\selected-values.pipe.ts" />
-    <TypeScriptCompile Include="app\register\register.component.ts" />
-    <TypeScriptCompile Include="app\login\login.component.ts" />
-    <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\shell\nav.component.ts" />
-    <TypeScriptCompile Include="app\home\home.component.ts" />
-    <TypeScriptCompile Include="app\team\view-team.component.ts" />
-    <TypeScriptCompile Include="app\team\_components\view-list.component.ts" />
-    <TypeScriptCompile Include="app\team\_pipes\corresponding-view-items.pipe.ts" />
-    <TypeScriptCompile Include="app\_common\models\skill.model.ts" />
-    <TypeScriptCompile Include="app\_common\models\user.model.ts" />
-    <TypeScriptCompile Include="app\_common\models\project.model.ts" />
-    <TypeScriptCompile Include="app\_common\services\auth.service.ts" />
-    <TypeScriptCompile Include="app\_common\services\skills.service.ts" />
-    <TypeScriptCompile Include="app\_common\services\projects.service.ts" />
-    <TypeScriptCompile Include="app\_common\services\firebase.service.ts" />
-    <TypeScriptCompile Include="app\_common\services\current-user.service.ts" />
-    <TypeScriptCompile Include="app\_common\services\users.service.ts" />
+    <TypeScriptCompile Include="app\models\skill.model.ts" />
+    <TypeScriptCompile Include="app\models\user.model.ts" />
+    <TypeScriptCompile Include="app\models\project.model.ts" />
+    <TypeScriptCompile Include="app\services\auth.service.ts" />
+    <TypeScriptCompile Include="app\services\skills.service.ts" />
+    <TypeScriptCompile Include="app\services\projects.service.ts" />
+    <TypeScriptCompile Include="app\services\firebase.service.ts" />
+    <TypeScriptCompile Include="app\services\current-user.service.ts" />
+    <TypeScriptCompile Include="app\services\users.service.ts" />
     <TypeScriptCompile Include="typings\browser.d.ts" />
     <TypeScriptCompile Include="typings\browser\ambient\firebase\index.d.ts" />
   </ItemGroup>
@@ -200,7 +185,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>26513</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
