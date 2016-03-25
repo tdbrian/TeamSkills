@@ -43,12 +43,12 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
                     var thomas = new user_model_1.User("Thomas Brian", "tbrian@appriver.com");
                     var leif = new user_model_1.User("Leif Thillet", "lthillet@appriver.com");
                     var shane = new user_model_1.User("Shane Drye", "sdrye@appriver.com");
-                    thomas.skills = [angular];
-                    thomas.projects = [supportal];
-                    leif.skills = [cSharp];
-                    leif.projects = [monsoon];
-                    shane.skills = [octopus];
-                    shane.projects = [secureTide];
+                    thomas.skillLevels = [new skill_model_1.SkillLevel(angular, 3)];
+                    thomas.projectLevels = [new project_model_1.ProjectLevel(supportal, 3)];
+                    leif.skillLevels = [new skill_model_1.SkillLevel(cSharp, 3)];
+                    leif.projectLevels = [new project_model_1.ProjectLevel(monsoon, 3)];
+                    shane.skillLevels = [new skill_model_1.SkillLevel(octopus, 3)];
+                    shane.projectLevels = [new project_model_1.ProjectLevel(secureTide, 3)];
                     this.team = {
                         title: "Team",
                         items: [thomas, leif, shane]
@@ -63,19 +63,27 @@ System.register(['angular2/core', './_components/view-list', '../_common/models/
                     };
                 }
                 ViewTeam.prototype.onUpdateTeam = function (item) {
-                    this.team.items = [item];
-                    this.skills.items = this.skills.items.slice().filter(function (x) { return item.skills.includes(x); });
-                    this.projects.items = this.projects.items.slice().filter(function (x) { return item.projects.includes(x); });
+                    this.team.items = [item].concat(this.team.items.filter(function (x) { return x.name != item.name; }));
+                    var skillsTop = this.skills.items.filter(function (x) { return item.skillLevels.map(function (x) { return x.skill; }).includes(x); }).slice();
+                    var skillsBottom = this.skills.items.filter(function (x) { return !item.skillLevels.map(function (x) { return x.skill; }).includes(x); }).slice();
+                    this.skills.items = skillsTop.concat(skillsBottom);
+                    var projectsTop = this.projects.items.filter(function (x) { return item.projectLevels.map(function (x) { return x.project; }).includes(x); }).slice();
+                    var projectsBottom = this.projects.items.filter(function (x) { return !item.projectLevels.map(function (x) { return x.project; }).includes(x); }).slice();
+                    this.projects.items = projectsTop.concat(projectsBottom);
                 };
                 ViewTeam.prototype.onUpdateSkill = function (item) {
-                    this.team.items = this.team.items.slice().filter(function (x) { return x.skills.includes(item); });
-                    this.skills.items = [item];
-                    this.projects.items = [];
+                    var teamTop = this.team.items.filter(function (x) { return x.skillLevels.map(function (x) { return x.skill; }).includes(item); }).slice();
+                    var teamBottom = this.team.items.filter(function (x) { return !x.skillLevels.map(function (x) { return x.skill; }).includes(item); }).slice();
+                    this.team.items = teamTop.concat(teamBottom);
+                    this.skills.items = [item].concat(this.skills.items.filter(function (x) { return x.name != item.name; }));
+                    //this.projects.items = [];
                 };
                 ViewTeam.prototype.onUpdateProject = function (item) {
-                    this.team.items = this.team.items.slice().filter(function (x) { return x.projects.includes(item); });
-                    this.skills.items = [];
-                    this.projects.items = [item];
+                    var teamTop = this.team.items.filter(function (x) { return x.projectLevels.map(function (x) { return x.project; }).includes(item); }).slice();
+                    var teamBottom = this.team.items.filter(function (x) { return !x.projectLevels.map(function (x) { return x.project; }).includes(item); }).slice();
+                    this.team.items = teamTop.concat(teamBottom);
+                    this.projects.items = [item].concat(this.projects.items.filter(function (x) { return x.name != item.name; }));
+                    //this.skills.items = [];
                 };
                 __decorate([
                     core_1.Input(), 

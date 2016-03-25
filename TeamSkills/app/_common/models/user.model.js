@@ -9,8 +9,8 @@ System.register([], function(exports_1, context_1) {
                 function User(name, email) {
                     this.name = name;
                     this.email = email;
-                    this.projects = [];
-                    this.skills = [];
+                    this.projectLevels = [];
+                    this.skillLevels = [];
                 }
                 return User;
             }());
