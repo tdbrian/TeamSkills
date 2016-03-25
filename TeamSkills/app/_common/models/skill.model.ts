@@ -6,7 +6,7 @@
     }
 }
 
-export class SkillLevel {
+export class SkillLevel { 
     public skill: Skill;
     public level: number;
 

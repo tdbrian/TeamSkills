@@ -81,28 +81,28 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                     this.team.items = this.grayedOut([teamTop], teamBottom);
                     var skillsTop = this.skills.items.filter(function (x) { return item.skillLevels.map(function (x) { return x.skill; }).includes(x); });
                     var skillsBottom = this.skills.items.filter(function (x) { return !item.skillLevels.map(function (x) { return x.skill; }).includes(x); });
-                    this.skills.items = this.grayedOut(skillsTop, skillsBottom);
+                    this.skills.items = this.skillsWithStars(item, skillsTop, skillsBottom);
                     var projectsTop = this.projects.items.filter(function (x) { return item.projectLevels.map(function (x) { return x.project; }).includes(x); });
                     var projectsBottom = this.projects.items.filter(function (x) { return !item.projectLevels.map(function (x) { return x.project; }).includes(x); });
-                    this.projects.items = this.grayedOut(projectsTop, projectsBottom);
+                    this.projects.items = this.projectsWithStars(item, projectsTop, projectsBottom);
                 };
                 ViewTeam.prototype.onUpdateSkill = function (item) {
                     var teamTop = this.team.items.filter(function (x) { return x.skillLevels.map(function (x) { return x.skill; }).includes(item); });
                     var teamBottom = this.team.items.filter(function (x) { return !x.skillLevels.map(function (x) { return x.skill; }).includes(item); });
-                    this.team.items = this.grayedOut(teamTop, teamBottom);
+                    this.team.items = this.usersWithSkillStars(item, teamTop, teamBottom);
                     var skillsTop = item;
                     var skillsBottom = this.skills.items.filter(function (x) { return x.name != item.name; });
-                    this.skills.items = this.grayedOut([skillsTop], skillsBottom);
-                    this.projects.items = this.grayedOut([], this.projects.items);
+                    this.skills.items = this.grayedWithoutStars([skillsTop], skillsBottom);
+                    this.projects.items = this.grayedWithoutStars([], this.projects.items);
                 };
                 ViewTeam.prototype.onUpdateProject = function (item) {
                     var teamTop = this.team.items.filter(function (x) { return x.projectLevels.map(function (x) { return x.project; }).includes(item); });
                     var teamBottom = this.team.items.filter(function (x) { return !x.projectLevels.map(function (x) { return x.project; }).includes(item); });
-                    this.team.items = this.grayedOut(teamTop, teamBottom);
+                    this.team.items = this.usersWithProjectStars(item, teamTop, teamBottom);
                     var projectsTop = item;
                     var projectsBottom = this.projects.items.filter(function (x) { return x.name != item.name; });
-                    this.projects.items = this.grayedOut([projectsTop], projectsBottom);
-                    this.skills.items = this.grayedOut([], this.skills.items);
+                    this.projects.items = this.grayedWithoutStars([projectsTop], projectsBottom);
+                    this.skills.items = this.grayedWithoutStars([], this.skills.items);
                 };
                 ViewTeam.prototype.grayedOut = function (top, bottom) {
                     top = top.map(function (x) {
@@ -114,6 +114,71 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                         return x;
                     });
                     return top.concat(bottom);
+                };
+                ViewTeam.prototype.grayedWithoutStars = function (top, bottom) {
+                    top = top.map(function (x) {
+                        x['showRating'] = false;
+                        x['rating'] = 0;
+                        return x;
+                    });
+                    bottom = bottom.map(function (x) {
+                        x['showRating'] = false;
+                        x['rating'] = 0;
+                        return x;
+                    });
+                    return this.grayedOut(top, bottom);
+                };
+                ViewTeam.prototype.skillsWithStars = function (user, top, bottom) {
+                    top = top.map(function (x) {
+                        x['showRating'] = true;
+                        x['rating'] = user.skillLevels.filter(function (y) { return y.skill == x; })[0].level;
+                        return x;
+                    });
+                    bottom = bottom.map(function (x) {
+                        x['showRating'] = false;
+                        x['rating'] = 0;
+                        return x;
+                    });
+                    return this.grayedOut(top, bottom);
+                };
+                ViewTeam.prototype.projectsWithStars = function (user, top, bottom) {
+                    top = top.map(function (x) {
+                        x['showRating'] = true;
+                        x['rating'] = user.projectLevels.filter(function (y) { return y.project == x; })[0].level;
+                        return x;
+                    });
+                    bottom = bottom.map(function (x) {
+                        x['showRating'] = false;
+                        x['rating'] = 0;
+                        return x;
+                    });
+                    return this.grayedOut(top, bottom);
+                };
+                ViewTeam.prototype.usersWithSkillStars = function (skill, top, bottom) {
+                    top = top.map(function (x) {
+                        x['showRating'] = true;
+                        x['rating'] = x.skillLevels.filter(function (y) { return y.skill == skill; })[0].level;
+                        return x;
+                    });
+                    bottom = bottom.map(function (x) {
+                        x['showRating'] = false;
+                        x['rating'] = 0;
+                        return x;
+                    });
+                    return this.grayedOut(top, bottom);
+                };
+                ViewTeam.prototype.usersWithProjectStars = function (project, top, bottom) {
+                    top = top.map(function (x) {
+                        x['showRating'] = true;
+                        x['rating'] = x.projectLevels.filter(function (y) { return y.project == project; })[0].level;
+                        return x;
+                    });
+                    bottom = bottom.map(function (x) {
+                        x['showRating'] = false;
+                        x['rating'] = 0;
+                        return x;
+                    });
+                    return this.grayedOut(top, bottom);
                 };
                 __decorate([
                     core_1.Input(), 
@@ -133,10 +198,9 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                         templateUrl: 'app/team/view-team.html',
                         directives: [view_list_component_1.ViewList]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object, (typeof (_b = typeof auth_service_1.AuthService !== 'undefined' && auth_service_1.AuthService) === 'function' && _b) || Object])
+                    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
                 ], ViewTeam);
                 return ViewTeam;
-                var _a, _b;
             }());
             exports_1("ViewTeam", ViewTeam);
         }

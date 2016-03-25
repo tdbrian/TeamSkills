@@ -66,35 +66,35 @@ export class ViewTeam implements OnActivate {
 
         var skillsTop = this.skills.items.filter(x => item.skillLevels.map(x => x.skill).includes(x));
         var skillsBottom = this.skills.items.filter(x => !item.skillLevels.map(x => x.skill).includes(x));
-        this.skills.items = this.grayedOut(skillsTop, skillsBottom);
+        this.skills.items = this.skillsWithStars(item, skillsTop, skillsBottom);
 
         var projectsTop = this.projects.items.filter(x => item.projectLevels.map(x => x.project).includes(x));
         var projectsBottom = this.projects.items.filter(x => !item.projectLevels.map(x => x.project).includes(x));
-        this.projects.items = this.grayedOut(projectsTop, projectsBottom);
+        this.projects.items = this.projectsWithStars(item, projectsTop, projectsBottom);
     }
 
-    onUpdateSkill(item) {
+    onUpdateSkill(item: Skill) {
         var teamTop = this.team.items.filter(x => x.skillLevels.map(x => x.skill).includes(item));
         var teamBottom = this.team.items.filter(x => !x.skillLevels.map(x => x.skill).includes(item));
-        this.team.items = this.grayedOut(teamTop, teamBottom);
+        this.team.items = this.usersWithSkillStars(item, teamTop, teamBottom);
 
         var skillsTop = item;
         var skillsBottom = this.skills.items.filter(x => x.name != item.name)
-        this.skills.items = this.grayedOut([skillsTop], skillsBottom)
+        this.skills.items = this.grayedWithoutStars([skillsTop], skillsBottom)
 
-        this.projects.items = this.grayedOut([], this.projects.items);
+        this.projects.items = this.grayedWithoutStars([], this.projects.items);
     }
 
-    onUpdateProject(item) {
+    onUpdateProject(item: Project) {
         var teamTop = this.team.items.filter(x => x.projectLevels.map(x => x.project).includes(item));
         var teamBottom = this.team.items.filter(x => !x.projectLevels.map(x => x.project).includes(item));
-        this.team.items = this.grayedOut(teamTop, teamBottom);
+        this.team.items = this.usersWithProjectStars(item, teamTop, teamBottom);
 
         var projectsTop = item;
         var projectsBottom = this.projects.items.filter(x => x.name != item.name)
-        this.projects.items = this.grayedOut([projectsTop], projectsBottom)
+        this.projects.items = this.grayedWithoutStars([projectsTop], projectsBottom)
 
-        this.skills.items = this.grayedOut([], this.skills.items);
+        this.skills.items = this.grayedWithoutStars([], this.skills.items);
     }
 
     private grayedOut(top, bottom) {
@@ -107,5 +107,72 @@ export class ViewTeam implements OnActivate {
             return x;
         });
         return [...top, ...bottom]
+    }
+
+    private grayedWithoutStars(top, bottom) {
+        top = top.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        return this.grayedOut(top, bottom)
+    }
+
+    private skillsWithStars(user: User, top, bottom) {
+        top = top.map(x => {
+            x['showRating'] = true;
+            x['rating'] = user.skillLevels.filter(y => y.skill == x)[0].level;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        return this.grayedOut(top, bottom);
+    }
+    private projectsWithStars(user: User, top, bottom) {
+        top = top.map(x => {
+            x['showRating'] = true;
+            x['rating'] = user.projectLevels.filter(y => y.project == x)[0].level;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        return this.grayedOut(top, bottom);
+    }
+    private usersWithSkillStars(skill: Skill, top, bottom) {
+        top = top.map((x:User) => {
+            x['showRating'] = true;
+            x['rating'] = x.skillLevels.filter(y => y.skill == skill)[0].level;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        return this.grayedOut(top, bottom);
+    }
+    private usersWithProjectStars(project: Project, top, bottom) {
+        top = top.map((x: User) => {
+            x['showRating'] = true;
+            x['rating'] = x.projectLevels.filter(y => y.project == project)[0].level;
+            return x;
+        });
+        bottom = bottom.map(x => {
+            x['showRating'] = false;
+            x['rating'] = 0;
+            return x;
+        });
+        return this.grayedOut(top, bottom);
     }
 }

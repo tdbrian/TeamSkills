@@ -15,7 +15,7 @@ System.register([], function(exports_1, context_1) {
             ProjectLevel = (function () {
                 function ProjectLevel(project, level) {
                     this.project = project;
-                    this.level = this.level;
+                    this.level = level;
                 }
                 return ProjectLevel;
             }());

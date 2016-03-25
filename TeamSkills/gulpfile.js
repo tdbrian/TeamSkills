@@ -39,6 +39,7 @@ gulp.task("moveNpmToLibs", function (done) {
         "node_modules/es6-shim/es6-shim.min.js*",
         "node_modules/angular2/es6/dev/src/testing/shims_for_IE.js",
         "node_modules/systemjs/dist/*.*",
+        "node_modules/ng2-bootstrap/dist/components/rating/rating.component.js",
         "node_modules/jquery/dist/jquery.*js",
         "node_modules/bootstrap/dist/js/bootstrap*.js",
         "node_modules/rxjs/bundles/Rx.js",
