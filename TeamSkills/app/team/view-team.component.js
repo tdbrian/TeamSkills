@@ -54,12 +54,22 @@ System.register(['angular2/router', 'angular2/core', './_components/view-list.co
                     var teamTop = user;
                     var teamBottom = this.usersService.users.filter(function (x) { return x.name != user.name; });
                     this.usersService.users = this.grayedOut([teamTop], teamBottom);
-                    var skillsTop = this.skillsService.skills.filter(function (x) { return user.skillLevels.map(function (level) { return level.skill.name; }).includes(x.name); });
-                    var skillsBottom = this.skillsService.skills.filter(function (x) { return !user.skillLevels.map(function (level) { return level.skill.name; }).includes(x.name); });
-                    this.skillsService.skills = this.skillsWithStars(user, skillsTop, skillsBottom);
-                    var projectsTop = this.projectsService.projects.filter(function (x) { return user.projectLevels.map(function (level) { return level.project.name; }).includes(x.name); });
-                    var projectsBottom = this.projectsService.projects.filter(function (x) { return !user.projectLevels.map(function (level) { return level.project.name; }).includes(x.name); });
-                    this.projectsService.projects = this.projectsWithStars(user, projectsTop, projectsBottom);
+                    if (user.skillLevels == null || user.skillLevels == undefined) {
+                        this.grayedWithoutStars([], this.skillsService.skills);
+                    }
+                    else {
+                        var skillsTop = this.skillsService.skills.filter(function (x) { return user.skillLevels.map(function (level) { return level.skill.name; }).includes(x.name); });
+                        var skillsBottom = this.skillsService.skills.filter(function (x) { return !user.skillLevels.map(function (level) { return level.skill.name; }).includes(x.name); });
+                        this.skillsService.skills = this.skillsWithStars(user, skillsTop, skillsBottom);
+                    }
+                    if (user.projectLevels == null || user.projectLevels == undefined) {
+                        this.projectsService.projects = this.grayedWithoutStars([], this.projectsService.projects);
+                    }
+                    else {
+                        var projectsTop = this.projectsService.projects.filter(function (x) { return user.projectLevels.map(function (level) { return level.project.name; }).includes(x.name); });
+                        var projectsBottom = this.projectsService.projects.filter(function (x) { return !user.projectLevels.map(function (level) { return level.project.name; }).includes(x.name); });
+                        this.projectsService.projects = this.projectsWithStars(user, projectsTop, projectsBottom);
+                    }
                 };
                 ViewTeam.prototype.onUpdateSkill = function (skill) {
                     var teamTop = this.usersService.users.filter(function (x) { return x.skillLevels.map(function (level) { return level.skill.name; }).includes(skill.name); });

@@ -27,11 +27,11 @@ export class ManageSkills {
         private userService: CurrentUserService) {
     }
 
-    onAddOrRemoveSkill(skillName: string) {
-        this.userService.toggleSkill(skillName, 1);
+    onAddOrRemoveSkill(ratedItem) {
+        this.userService.toggleSkill(ratedItem.name, ratedItem.rating);
     }
 
-    onAddOrRemoveProject(projectName: string) {
-        this.userService.toggleProject(projectName, 1);
+    onAddOrRemoveProject(ratedItem) {
+        this.userService.toggleProject(ratedItem.name, ratedItem.rating);
     }
 }

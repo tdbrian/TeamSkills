@@ -16,6 +16,7 @@ System.register([], function(exports_1, context_1) {
                 function SkillLevel(skill, level) {
                     this.skill = skill;
                     this.level = level;
+                    this.name = skill.name;
                 }
                 return SkillLevel;
             }());

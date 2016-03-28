@@ -40,11 +40,11 @@ System.register(['angular2/core', './_components/manage-list.component', '../_co
                     this.projectsService = projectsService;
                     this.userService = userService;
                 }
-                ManageSkills.prototype.onAddOrRemoveSkill = function (skillName) {
-                    this.userService.toggleSkill(skillName, 1);
+                ManageSkills.prototype.onAddOrRemoveSkill = function (ratedItem) {
+                    this.userService.toggleSkill(ratedItem.name, ratedItem.rating);
                 };
-                ManageSkills.prototype.onAddOrRemoveProject = function (projectName) {
-                    this.userService.toggleProject(projectName, 1);
+                ManageSkills.prototype.onAddOrRemoveProject = function (ratedItem) {
+                    this.userService.toggleProject(ratedItem.name, ratedItem.rating);
                 };
                 ManageSkills = __decorate([
                     core_1.Component({

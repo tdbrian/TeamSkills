@@ -4,11 +4,12 @@
 export class SelectedValues {
     transform(value, args) {
         if (value && args[0]) {
-            var itemList = args[0].map(x => x.name);
+            var itemList = args[0];
             var newValue = value.map((item) => {
+                var thisItem = itemList.filter(y => y.name == item.name)[0];
                 return {
                     name: item.name,
-                    isSelected: itemList.includes(item.name)
+                    rating: thisItem === null || thisItem === undefined ? 0 : thisItem.level
                 }
             });
             return newValue;

@@ -18,7 +18,6 @@ export class ViewList {
     }
     
     private max: number = 5;
-    private rate: number = 7;
     private isReadonly: boolean = true;
 
     private overStar: number;

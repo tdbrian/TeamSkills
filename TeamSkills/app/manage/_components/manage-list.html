@@ -1,10 +1,17 @@
 ﻿<h2>{{list.title}}</h2>
 <div class="list-group">
-    <a class="list-group-item" *ngFor="#item of list | selectedValues: userItems" href="javascript:{}">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" [checked]="userHasItem(item.name)" (change)="addOrRemoveItem(item.name)"> {{item.name}}
-            </label>
-        </div>
-    </a>
+	<a class="list-group-item" *ngFor="#item of list | selectedValues: userItems" href="javascript:{}"> {{item.name}}
+		<rating class="pull-right"
+				[(ngModel)]="item.rating"
+				[max]="max" [readonly]="isReadonly"
+				(onHover)="hoveringOver($event)"
+				(onLeave)="resetStar($event)"
+		        [titles]="['one','two','three']"
+				(click)="addOrRemoveItem(item)"></rating>
+		<!--<div class="checkbox">
+			<label>
+				<input type="checkbox" [checked]="userHasItem(item.name)" (change)="addOrRemoveItem(item.name)"> 
+			</label>
+		</div>-->
+	</a>
 </div>

@@ -23,11 +23,12 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 }
                 SelectedValues.prototype.transform = function (value, args) {
                     if (value && args[0]) {
-                        var itemList = args[0].map(function (x) { return x.name; });
+                        var itemList = args[0];
                         var newValue = value.map(function (item) {
+                            var thisItem = itemList.filter(function (y) { return y.name == item.name; })[0];
                             return {
                                 name: item.name,
-                                isSelected: itemList.includes(item.name)
+                                rating: thisItem === null || thisItem === undefined ? 0 : thisItem.level
                             };
                         });
                         return newValue;

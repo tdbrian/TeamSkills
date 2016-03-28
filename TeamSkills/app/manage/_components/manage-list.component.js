@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(exports_1, context_1) {
+System.register(['angular2/core', '../_pipes/selected-values.pipe', 'angular2/common', "ng2-bootstrap/ng2-bootstrap"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(ex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, selected_values_pipe_1;
+    var core_1, selected_values_pipe_1, common_1, ng2_bootstrap_1;
     var ManageList;
     return {
         setters:[
@@ -19,11 +19,26 @@ System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(ex
             },
             function (selected_values_pipe_1_1) {
                 selected_values_pipe_1 = selected_values_pipe_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (ng2_bootstrap_1_1) {
+                ng2_bootstrap_1 = ng2_bootstrap_1_1;
             }],
         execute: function() {
             ManageList = (function () {
                 function ManageList() {
                     this.itemSelected = new core_1.EventEmitter();
+                    this.max = 5;
+                    this.isReadonly = false;
+                    this.ratingStates = [
+                        { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
+                        { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },
+                        { stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle' },
+                        { stateOn: 'glyphicon-heart' },
+                        { stateOff: 'glyphicon-off' }
+                    ];
                 }
                 ManageList.prototype.addOrRemoveItem = function (name) {
                     this.itemSelected.emit(name);
@@ -37,6 +52,14 @@ System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(ex
                                 return x.project.name;
                         }).includes(name);
                     }
+                };
+                ManageList.prototype.hoveringOver = function (value) {
+                    this.overStar = value;
+                    this.percent = 100 * (value / this.max);
+                };
+                ;
+                ManageList.prototype.resetStar = function () {
+                    this.overStar = null;
                 };
                 __decorate([
                     core_1.Input(), 
@@ -54,7 +77,8 @@ System.register(['angular2/core', '../_pipes/selected-values.pipe'], function(ex
                     core_1.Component({
                         selector: 'manage-list',
                         templateUrl: 'app/manage/_components/manage-list.html',
-                        pipes: [selected_values_pipe_1.SelectedValues]
+                        pipes: [selected_values_pipe_1.SelectedValues],
+                        directives: [ng2_bootstrap_1.Rating, common_1.FORM_DIRECTIVES, common_1.CORE_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ManageList);

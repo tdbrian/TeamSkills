@@ -28,7 +28,6 @@ System.register(['angular2/core', 'angular2/common', "ng2-bootstrap/ng2-bootstra
                 function ViewList() {
                     this.itemSelected = new core_1.EventEmitter();
                     this.max = 5;
-                    this.rate = 7;
                     this.isReadonly = true;
                     this.ratingStates = [
                         { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },

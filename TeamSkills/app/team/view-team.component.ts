@@ -43,14 +43,23 @@ export class ViewTeam implements OnActivate {
         var teamBottom = this.usersService.users.filter(x => x.name != user.name);
         this.usersService.users = this.grayedOut([teamTop], teamBottom);
 
-        var skillsTop = this.skillsService.skills.filter(x => user.skillLevels.map(level => level.skill.name).includes(x.name));
+        if (user.skillLevels == null || user.skillLevels == undefined) {
+            this.grayedWithoutStars([], this.skillsService.skills);
+        } else {
+            var skillsTop = this.skillsService.skills.filter(x => user.skillLevels.map(level => level.skill.name).includes(x.name));
+            var skillsBottom = this.skillsService.skills.filter(x => !user.skillLevels.map(level => level.skill.name).includes(x.name));
+            this.skillsService.skills = this.skillsWithStars(user, skillsTop, skillsBottom);
+        }
+        
+        if (user.projectLevels == null || user.projectLevels == undefined) {
+            this.projectsService.projects = this.grayedWithoutStars([], this.projectsService.projects);
+        } else {
+            var projectsTop = this.projectsService.projects.filter(x => user.projectLevels.map(level => level.project.name).includes(x.name));
+            var projectsBottom = this.projectsService.projects.filter(x => !user.projectLevels.map(level => level.project.name).includes(x.name));
+            this.projectsService.projects = this.projectsWithStars(user, projectsTop, projectsBottom);
+        }
 
-        var skillsBottom = this.skillsService.skills.filter(x => !user.skillLevels.map(level => level.skill.name).includes(x.name));
-        this.skillsService.skills = this.skillsWithStars(user, skillsTop, skillsBottom);
-
-        var projectsTop = this.projectsService.projects.filter(x => user.projectLevels.map(level => level.project.name).includes(x.name));
-        var projectsBottom = this.projectsService.projects.filter(x => !user.projectLevels.map(level => level.project.name).includes(x.name));
-        this.projectsService.projects = this.projectsWithStars(user, projectsTop, projectsBottom);
+        
     }
 
     onUpdateSkill(skill: Skill) {

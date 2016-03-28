@@ -9,9 +9,10 @@
 export class ProjectLevel {
     public project: Project;
     public level: number; 
-
+    public name: string;
     constructor(project: Project, level: number) { 
         this.project = project;
         this.level = level;
+        this.name = project.name;
     } 
 }
